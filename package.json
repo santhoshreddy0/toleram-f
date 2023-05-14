@@ -1,0 +1,37 @@
+{
+  "name": "toleram-f",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "yarn run compile:css && vite",
+    "build": "yarn run compile:css && vite build",
+    "serve": "vite preview",
+    "watch:css": "TAILWIND_MODE=watch postcss src/styles/tailwind.css -o src/tailwind.css --verbose -w",
+    "compile:css": "postcss src/styles/tailwind.css -o src/tailwind.css"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tanstack/react-query": "^4.29.7",
+    "postcss-cli": "^10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.3.2"
+  }
+}
