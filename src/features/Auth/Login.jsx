@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Text from "../../Components/Text";
 import { useLoginMutation } from "../../app/Services/authApi";
+import { setErrors } from "../../Utils/ErrorSlice";
+import { setCredentials } from "../../Utils/AuthSlice";
+import { useDispatch } from "react-redux";
 
 export default function Login({ setUserToken }) {
+  const dispatch = useDispatch()
   const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -16,9 +21,14 @@ export default function Login({ setUserToken }) {
     formState: { errors },
   } = useForm();
 
-  const handleLogin = (e) => {
-    const res = login(data)
-    console.log(res);
+  const handleLogin = async (e) => {
+    try {
+      const res = await login(data).unwrap()
+      console.log(res);
+      dispatch(setCredentials(res));
+    } catch (error) {
+      
+    }
   };
 
 
