@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { unsetCredentials } from "../../Utils/AuthSlice";
 
 function Header() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.JWTtoken);
   return (
     <div>
       {" "}
@@ -33,15 +34,27 @@ function Header() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-          </div>
+          <div className="hidden lg:flex lg:gap-x-12"></div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link
-              to="/login"
-              className="text-2xl font-semibold leading-6 text-gray-900"
-            >
-              Log in
-            </Link>
+            {token ? (
+              <button
+                className="text-2xl font-semibold leading-6 text-gray-900"
+                onClick={() => {
+                  dispatch(unsetCredentials());
+                  setMobileMenuOpen(false);
+                }}
+              >
+                Log out
+              </button>
+            ) : (
+              <Link
+                onClick={() => setMobileMenuOpen(false)}
+                to="/login"
+                className="text-2xl font-semibold leading-6 text-gray-900"
+              >
+                Log in
+              </Link>
+            )}
           </div>
         </nav>
         <Dialog
@@ -57,7 +70,7 @@ function Header() {
                 <span className="sr-only">Your Company</span>
                 <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  src="/toleram-icon.png"
                   alt=""
                 />
               </Link>
@@ -72,17 +85,27 @@ function Header() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-
-                </div>
+                <div className="space-y-2 py-6"></div>
                 <div className="py-6">
-                  <Link
-                    onClick={() => setMobileMenuOpen(false)}
-                    to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-2xl font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </Link>
+                  {token ? (
+                    <button
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-2xl font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      onClick={() => {
+                        dispatch(unsetCredentials());
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      Log out
+                    </button>
+                  ) : (
+                    <Link
+                      onClick={() => setMobileMenuOpen(false)}
+                      to="/login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-2xl font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Log in
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

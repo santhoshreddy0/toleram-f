@@ -1,6 +1,6 @@
 import { configureStore, isFulfilled, isRejectedWithValue } from '@reduxjs/toolkit';
 import { baseApi } from './Services/baseApi';
-// import authReducer from '../features/Auth/authSlice';
+import authReducer from '../Utils/AuthSlice';
 import errorSlice, { setErrors } from '../Utils/ErrorSlice';
 import notificationsPopupSlice from '../Utils/NotificationPopupSlice';
 import { useDispatch } from 'react-redux';
@@ -31,7 +31,7 @@ export const rtkQueryErrorLogger = (api) => (next) => (action) => {
 
 export const store = configureStore({
     reducer: {
-        // auth: authReducer,
+        auth: authReducer,
         errors: errorSlice,
         notificationsPopup: notificationsPopupSlice,
         router: connectRouter(history),
