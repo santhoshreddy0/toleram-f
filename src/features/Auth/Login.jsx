@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Text from "../../Components/Text";
-import { loginHandler } from "../../app/api/allapis";
-import { useMutation } from "@tanstack/react-query";
+import { useLoginMutation } from "../../app/Services/authApi";
 
 export default function Login({ setUserToken }) {
+  const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -17,15 +17,10 @@ export default function Login({ setUserToken }) {
   } = useForm();
 
   const handleLogin = (e) => {
-    console.log("inside ");
-    mutation.mutate()
+    const res = login(data)
+    console.log(res);
   };
 
-  const mutation = useMutation({
-    mutationFn: () => {
-      return loginHandler(data)
-    },
-  })
 
   const onChange = (e) => {
     clearErrors(e.target.name);
@@ -34,7 +29,7 @@ export default function Login({ setUserToken }) {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="mx-auto lg:w-1/2 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto">
           {/* <img
             className="mx-auto h-10 w-auto"
@@ -42,7 +37,7 @@ export default function Login({ setUserToken }) {
             alt="Your Company"
           /> */}
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in
+            Log in
           </h2>
         </div>
 
@@ -85,7 +80,7 @@ export default function Login({ setUserToken }) {
                   </a>
                 </div> */}
               </div>
-              <div className="mt-2">
+              <div className="mt-2 ">
                 <Text
                   register={register}
                   name="password"

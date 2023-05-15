@@ -3,14 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./tailwind.css";
 import { BrowserRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient()
+import { Provider } from "react-redux";
+import { history, store } from "./app/store.js";
+import { ConnectedRouter } from "connected-react-router";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <BrowserRouter history={history}>
         <App />
-      </QueryClientProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
