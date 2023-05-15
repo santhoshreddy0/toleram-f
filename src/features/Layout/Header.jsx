@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { unsetCredentials } from "../../Utils/AuthSlice";
 
 function Header() {
+  const navigation = [
+    { name: "Matches", href: "/matches" },
+    { name: "Bets", href: "/bets" },
+  ];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.JWTtoken);
@@ -33,6 +37,17 @@ function Header() {
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-12">
+            { token && navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
           <div className="hidden lg:flex lg:gap-x-12"></div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -68,11 +83,7 @@ function Header() {
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8 w-auto"
-                  src="/toleram-icon.png"
-                  alt=""
-                />
+                <img className="h-8 w-auto" src="/toleram-icon.png" alt="" />
               </Link>
               <button
                 type="button"
@@ -88,15 +99,28 @@ function Header() {
                 <div className="space-y-2 py-6"></div>
                 <div className="py-6">
                   {token ? (
-                    <button
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-2xl font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      onClick={() => {
-                        dispatch(unsetCredentials());
-                        setMobileMenuOpen(false);
-                      }}
-                    >
-                      Log out
-                    </button>
+                    <>
+                      <div className="space-y-2 py-6">
+                        {navigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          >
+                            {item.name}
+                          </a>
+                        ))}
+                        <button
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-2xl font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          onClick={() => {
+                            dispatch(unsetCredentials());
+                            setMobileMenuOpen(false);
+                          }}
+                        >
+                          Log out
+                        </button>
+                      </div>
+                    </>
                   ) : (
                     <Link
                       onClick={() => setMobileMenuOpen(false)}
