@@ -4,7 +4,7 @@ const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         createBets: builder.mutation({
             query: (data) => ({
-                url: `/userbets/${data.matchId}`,
+                url: `/userbets/${data.match_id}`,
                 method: 'POST',
                 body: data,
             }),
