@@ -44,10 +44,16 @@ export default function BetForm({ matchData, allBets, resetState }) {
     register,
     handleSubmit,
     clearErrors,
+    setError,
     formState: { errors },
   } = useForm();
   //   console.log(matchData);
   const handleFormSubmit = async (e) => {
+    clearErrors("amount");
+    if(totalAmount < 0) {
+      setError("amount", {type:"custom", message:`Total amount should be less than ${import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}`})
+      return;
+    }
     if (matchData.isEdit) {
         try {
             const res = await updateBets({
@@ -98,13 +104,14 @@ export default function BetForm({ matchData, allBets, resetState }) {
   const cancelButtonRef = useRef(null);
 
   const onChange = (e) => {
+    clearErrors("amount");
     clearErrors(e.target.name);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-   let amount = formData['who_wins_bet']+formData['who_wins_toss_bet']+formData['most_runs_male_bet']+formData['best_female_player_bet']+formData['first_inn_score_bet']+formData["max_sixes_bet"];
-   setTotalAmount(parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)-amount)
+   let amount = parseInt(formData['who_wins_bet'])+parseInt(formData['who_wins_toss_bet'])+parseInt(formData['most_runs_male_bet'])+parseInt(formData['best_female_player_bet'])+parseInt(formData['first_inn_score_bet'])+parseInt(formData["max_sixes_bet"]);
+   setTotalAmount(parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)-amount )
   }, [formData])
   
 
@@ -115,6 +122,11 @@ export default function BetForm({ matchData, allBets, resetState }) {
           <h4 className="mt-10 text-center text-xl leading-9 tracking-tight text-gray-900">
             {` Remaining amount:  `}<span className="font-bold  text-green-400">{totalAmount}</span>
           </h4>
+          {errors["amount"] && (
+            <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
+              {errors["amount"].message}
+            </p>
+          )}
         </div>
         <div className="mt-10 sm:mx-auto ">
           <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
