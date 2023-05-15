@@ -30,6 +30,6 @@ const dynamicBaseQuery = async (args, api, extraOptions) => {
 // initialize an empty api service that we'll inject endpoints into later as needed
 export const baseApi = createApi({
     baseQuery: dynamicBaseQuery,
-    tagTypes: ['Episode', 'Podcast', 'User', 'Microsite', 'Payouts', 'RazorpayContact'],
+    tagTypes: ['Bets'],
     endpoints: () => ({}),
 });

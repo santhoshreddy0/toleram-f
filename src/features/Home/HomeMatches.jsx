@@ -1,74 +1,14 @@
-import React, { useEffect, useState } from "react";
-// import { matches } from '../Data/matches.js'
-import { useGetMatchesQuery } from "../app/Services/matchesApi.js";
-import Loader from "../Components/Loader.jsx";
-import { teams } from "../Data/teams.js";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import { useGetBetsQuery } from "../app/Services/betsApi.js";
-import Betpopup from "./BetsPopup.jsx";
-function Matches() {
-  const { data: matches, isLoading, isError } = useGetMatchesQuery();
-  const { data: bets, isLoading: isBetsLoading } = useGetBetsQuery();
-  const [betsMap, setBetsMap] = useState(new Map());
+import React from "react";
+import { useGetMatchesQuery } from "../../app/Services/matchesApi";
+import moment from "moment"
+import { teams } from "../../Data/teams";
 
-  const [matchData, setMatchData] = useState({
-    show: false,
-    isEdit: false,
-    team_one: "",
-    match_id: "",
-    team_two: "",
-    match_title: "",
-  });
-  const resetState = () => {
-    setMatchData({
-      show: false,
-      isEdit: false,
-      team_one: "",
-      match_id: "",
-      team_two: "",
-      match_title: "",
-    });
-  };
-  useEffect(() => {
-    if (bets && bets.userBets) {
-      const map = new Map();
-      bets.userBets.map((b) => {
-        map.set(b["match_id"], b);
-      });
-      setBetsMap(map);
-    }
-  }, [isBetsLoading,bets]);
-
-  const popUpHandler = (match) => {
-    if(betsMap.has(match.id)) {
-      setMatchData({
-        show: true,
-        isEdit: true,
-        match_id: match.id,
-        team_one: match.team_one,
-        team_two: match.team_two,
-        title: match.match_title,
-      });
-    } else {
-      setMatchData({
-        show: true,
-        isEdit: false,
-        match_id: match.id,
-        team_one: match.team_one,
-        team_two: match.team_two,
-        title: match.match_title,
-      })
-    }
-  };
-  
-  const getDate = (date) => {
-    const d = moment(date).format("MMMM Do, h:mm a");
-    return d;
-  };
-
-  if (isLoading) return <Loader />;
-  else if (isError) return <div>Unable load matches</div>;
+function HomeMatches() {
+    const { data: matches, isLoading, isError } = useGetMatchesQuery();
+    const getDate = (date) => {
+        const d = moment(date).format("h:mm a , MMMM Do");
+        return d;
+      };
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center"></div>
@@ -116,13 +56,6 @@ function Matches() {
                           {teams[match.team_two]?.name}
                         </div>
                         <br />
-                        <button
-                          type="button"
-                          onClick={() => popUpHandler(match)}
-                          className=" w-32 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                          {betsMap.has(match.id) ? " Edit bet " : " Bet "}
-                        </button>
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 line-clamp-2">{teams[match.team_one]?.name +" Vs "+teams[match.team_two]?.name}</td> */}
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{teams[match.team_two]?.name}</td> */}
@@ -133,7 +66,7 @@ function Matches() {
               </tbody>
             </table>
             {/* large */}
-            <table className="hidden md:inline-block  divide-y divide-gray-300">
+            <table className="hidden md:inline-block max-w-none divide-y divide-gray-300">
               <thead>
                 <tr>
                   <th
@@ -185,15 +118,6 @@ function Matches() {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {getDate(match.match_start_time)}
                       </td>
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                        <button
-                          type="button"
-                          onClick={() => popUpHandler(match)}
-                          className={`w-32 rounded-md ${betsMap.has(match?.id) ? "bg-gray-700 " : "bg-indigo-600 " } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-                        >
-                         {betsMap.has(match.id) ? " Edit bet" : "      Bet "}
-                        </button>
-                      </td>
                     </tr>
                   ))}
               </tbody>
@@ -201,15 +125,8 @@ function Matches() {
           </div>
         </div>
       </div>
-      {matchData.show && (
-        <Betpopup
-          matchData={matchData}
-          resetState={resetState}
-          allBets={bets}
-        />
-      )}
     </div>
   );
 }
 
-export default Matches;
+export default HomeMatches;
