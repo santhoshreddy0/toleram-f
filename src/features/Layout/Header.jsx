@@ -8,7 +8,7 @@ import { unsetCredentials } from "../../Utils/AuthSlice";
 function Header() {
   const navigation = [
     { name: "Matches", href: "/matches" },
-    { name: "Bets", href: "/bets" },
+    // { name: "Bets", href: "/bets" },
   ];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();

@@ -38,66 +38,95 @@ export default function BetForm({ matchData, allBets, resetState }) {
     max_sixes_bet: 0,
   });
 
+  const [totalAmount , setTotalAmount] = useState(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)
+
   const {
     register,
     handleSubmit,
     clearErrors,
+    setError,
     formState: { errors },
   } = useForm();
-//   console.log(matchData);
-  const handleFormSubmit = (e) => {
+  //   console.log(matchData);
+  const handleFormSubmit = async (e) => {
+    clearErrors("amount");
+    if(totalAmount < 0) {
+      setError("amount", {type:"custom", message:`Total amount should be less than ${import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}`})
+      return;
+    }
     if (matchData.isEdit) {
-        
-        
-    } else {
         try {
-            const res = createBets({match_id:matchData.match_id,...formData}).unwrap()
-            resetState()
-        } catch (error) {
-            
-        }
+            const res = await updateBets({
+              match_id: matchData.match_id,
+              ...formData,
+            }).unwrap();
+            resetState();
+          } catch (error) {
+
+          }
+    } else {
+      try {
+        const res = await createBets({
+          match_id: matchData.match_id,
+          ...formData,
+        }).unwrap();
+        resetState();
+      } catch (error) {
+
+      }
     }
   };
 
   useEffect(() => {
-    if (allBets && allBets?.length > 0 && false) {
-        allBets.map(b => {
-            if(b["match_id"] == matchData.match_id) {
-                const data = {
-                    who_wins: b.who_wins,
-                    who_wins_bet: b.who_wins_bet,
-                    who_wins_toss: b.who_wins_toss,
-                    who_wins_toss_bet: b.who_wins_toss_bet,
-                    most_runs_male: b.most_runs_male,
-                    most_runs_male_bet: b.most_runs_male_bet,
-                    best_female_player: b.best_female_player,
-                    best_female_player_bet: b.best_female_player_bet,
-                    first_inn_score: b.first_inn_score,
-                    first_inn_score_bet: b.first_inn_score_bet,
-                    max_sixes: b.max_sixes,
-                    max_sixes_bet: b.max_sixes_bet,
-                }
-                setFormData(...formData, ...data);
-            }
-        });
+    if (allBets && allBets?.userBets && allBets?.userBets?.length > 0) {
+      allBets.userBets.map((b) => {
+        if (b["match_id"] == matchData["match_id"]) {
+          const data = {
+            who_wins: b["who_wins"],
+            who_wins_bet: b["who_wins_bet"],
+            who_wins_toss: b["who_wins_toss"],
+            who_wins_toss_bet: b["who_wins_toss_bet"],
+            most_runs_male: b["most_runs_male"],
+            most_runs_male_bet: b["most_runs_male_bet"],
+            best_female_player: b["best_female_player"],
+            best_female_player_bet: b["best_female_player_bet"],
+            first_inn_score: b["first_inn_score"],
+            first_inn_score_bet: b["first_inn_score_bet"],
+            max_sixes: b["max_sixes"],
+            max_sixes_bet: b["max_sixes_bet"],
+          };
+          setFormData(data);
+        }
+      });
     }
-    console.log(allBets.entries());            
   }, []);
 
   const cancelButtonRef = useRef(null);
 
   const onChange = (e) => {
+    clearErrors("amount");
     clearErrors(e.target.name);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+   let amount = parseInt(formData['who_wins_bet'])+parseInt(formData['who_wins_toss_bet'])+parseInt(formData['most_runs_male_bet'])+parseInt(formData['best_female_player_bet'])+parseInt(formData['first_inn_score_bet'])+parseInt(formData["max_sixes_bet"]);
+   setTotalAmount(parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)-amount )
+  }, [formData])
+  
+
   return (
     <>
-      <div className="mx-auto  min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8">
         <div className="sm:mx-auto">
-          {/* <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            {matchData?.title}
-          </h2> */}
+          <h4 className="mt-10 text-center text-xl leading-9 tracking-tight text-gray-900">
+            {` Remaining amount:  `}<span className="font-bold  text-green-400">{totalAmount}</span>
+          </h4>
+          {errors["amount"] && (
+            <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
+              {errors["amount"].message}
+            </p>
+          )}
         </div>
         <div className="mt-10 sm:mx-auto ">
           <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -118,9 +147,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.who_wins}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -138,9 +167,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.who_wins_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -161,9 +190,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.who_wins_toss}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -181,9 +210,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.who_wins_toss_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -204,9 +233,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.most_runs_male}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -224,9 +253,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.most_runs_male_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -246,9 +275,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.best_female_player}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -266,9 +295,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.best_female_player_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -289,9 +318,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.first_inn_score}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -309,9 +338,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.first_inn_score_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -332,9 +361,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.max_sixes}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
@@ -352,9 +381,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       value={formData?.max_sixes_bet}
                       onChange={onChange}
                       withCheck={true}
-                    //   options={{
-                    //     required: "Please enter this field",
-                    //   }}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
                       errors={errors}
                     />
                   </div>
