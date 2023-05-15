@@ -1,8 +1,9 @@
 import React from 'react'
+import BetForm from './betform'
 
 function Bets() {
   return (
-    <div>Bets</div>
+    <BetForm />
   )
 }
 
