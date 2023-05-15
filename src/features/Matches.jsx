@@ -1,19 +1,115 @@
-import React from 'react'
-import { matches } from '../Data/matches.js'
-// console.log(matches);
-const people = [
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  // More people...
-]
+import React, { useState } from "react";
+// import { matches } from '../Data/matches.js'
+import { useGetMatchesQuery } from "../app/Services/matchesApi.js";
+import Loader from "../Components/Loader.jsx";
+import { teams } from "../Data/teams.js";
+import moment from "moment";
+import { Link } from "react-router-dom";
+import { useGetBetsQuery } from "../app/Services/betsApi.js";
+import Betpopup from "./BetsPopup.jsx";
 function Matches() {
+  const { data: matches, isLoading, isError } = useGetMatchesQuery();
+  const { data: bets, isLoading: isBetsLoading } = useGetBetsQuery();
+  console.log(bets);
+  const [matchData, setMatchData] = useState({
+    show: false,
+    isEdit: false,
+    team_one: "",
+    match_id: "",
+    team_two: "",
+    match_title: "",
+  });
+  const resetState = () => {
+    setMatchData({
+      show: false,
+      isEdit: false,
+      team_one: "",
+      match_id: "",
+      team_two: "",
+      match_title: "",
+    })
+  }
+  const getDate = (date) => {
+    const d = moment(date).format("MMMM Do, h:mm a");
+    // return d.getDate()+"/"+d.getMonth()+" "+d.getHours()+":"+d.getMinutes();
+    return d;
+  };
+  if (isLoading) return <Loader />;
+  else if (isError) return <div>Unable load matches</div>;
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <div className="sm:flex sm:items-center">
-      </div>
+      <div className="sm:flex sm:items-center"></div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle">
-            <table className="min-w-full divide-y divide-gray-300">
+            {/* mobile */}
+            <table className="md:hidden min-w-full divide-y divide-gray-300">
+              <thead className="">
+                <tr>
+                  <th
+                    scope="col"
+                    className="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"
+                  >
+                    Match
+                  </th>
+                  {/* <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                    Match between
+                  </th> */}
+                  {/* <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                    team2
+                  </th> */}
+                  {/* <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                    Time
+                  </th> */}
+                  {/* <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
+                    <span className="sr-only">Bet</span>
+                  </th> */}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {matches &&
+                  matches.matches &&
+                  matches?.matches?.map((match) => (
+                    <tr key={match.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6 lg:pl-8">
+                        <div className="font-medium">{match.match_title}</div>
+                        <div>{getDate(match.match_start_time)}</div>
+                        <br />
+                        <div className="font-medium">
+                          {teams[match.team_one]?.name}
+                        </div>
+                        Vs
+                        <div className="font-medium">
+                          {teams[match.team_two]?.name}
+                        </div>
+                        <br />
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMatchData({
+                              show: true,
+                              isEdit: false,
+                              match_id: match.id,
+                              team_one: match.team_one,
+                              team_two: match.team_two,
+                              title: match.match_title,
+                            })
+                          }
+                          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                          Bet
+                        </button>
+                      </td>
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 line-clamp-2">{teams[match.team_one]?.name +" Vs "+teams[match.team_two]?.name}</td> */}
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{teams[match.team_two]?.name}</td> */}
+                      {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{getDate(match.match_start_time)}</td> */}
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8"></td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            {/* large */}
+            <table className="hidden md:inline-block min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
                   <th
@@ -22,43 +118,77 @@ function Matches() {
                   >
                     Name
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                  >
                     team1
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                  >
                     team2
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                  >
                     Time
                   </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
+                  <th
+                    scope="col"
+                    className="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8"
+                  >
                     <span className="sr-only">Bet</span>
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {matches.map((match) => (
-                  <tr key={match.id}>
-                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-                      {match.title}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{match.team1}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{match.team2}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{match.start_time}</td>
-                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                      <a href="/bets" className="text-indigo-600 hover:text-indigo-900">
-                        Bet<span className="sr-only">, {match.name}</span>
-                      </a>
-                    </td>
-                  </tr>
-                ))}
+                {matches &&
+                  matches.matches &&
+                  matches?.matches?.map((match) => (
+                    <tr key={match.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                        {match.match_title}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {teams[match.team_one]?.name}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {teams[match.team_two]?.name}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {getDate(match.match_start_time)}
+                      </td>
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMatchData({
+                              show: true,
+                              isEdit: false,
+                              match_id: match.id,
+                              team_one: match.team_one,
+                              team_two: match.team_two,
+                              title: match.match_title,
+                            })
+                          }
+                          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                          Bet
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      {matchData.show && <Betpopup matchData={matchData} resetState={resetState} allBets={bets?.userBets}/>}
     </div>
-  )
+  );
 }
 
 export default Matches;

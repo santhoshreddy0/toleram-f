@@ -1,10 +1,10 @@
 export var matches = [
     {   
         "id" : 1,
-        "title": "match1",
-        "team1" : "team-A",
-        "team2" : "team-B",
-        "start_time" : "2023-05-15 15:00:00"
+        "title": "Match 1",
+        "team1" : "Addmie & Indomie Warriors",
+        "team2" : "GPL & Corporate Falcons",
+        "start_time" : "2023-05-15 8:00-10:30 AM"
     },
     {
         "id" : 2,

@@ -18,16 +18,21 @@ export default function Login({ setUserToken }) {
     register,
     handleSubmit,
     clearErrors,
+    setError,
     formState: { errors },
   } = useForm();
 
   const handleLogin = async (e) => {
     try {
       const res = await login(data).unwrap()
-      console.log(res);
       dispatch(setCredentials(res));
     } catch (error) {
-      
+      if(error.status == 401 || error.status == 422)  {
+        setError('password',{ type: 'custom', message: error?.data?.message });
+      }
+      if(error.status == 404) {
+        setError('email',{ type: 'custom', message: error?.data?.message });
+      }
     }
   };
 
