@@ -37,7 +37,7 @@ export default function BetForm(props) {
 
     return (
         <>
-            <div className="mx-auto lg:w-1/2 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="mx-auto lg:w-3/5 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto">
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         {props?.title}
@@ -50,7 +50,7 @@ export default function BetForm(props) {
                     >
                         <div>
                             <div className="">
-                                <div className="flex justify-between border">
+                                <div className="sm:flex justify-around">
                                     <div>
                                         <label
                                             htmlFor="email"
@@ -82,9 +82,9 @@ export default function BetForm(props) {
                                         <Text
                                             register={register}
                                             name="who_wins_bet"
-                                            type="text"
+                                            type="number"
                                             value={
-                                                formData?.who_wins_who_wins_bet
+                                                formData?.who_wins_bet
                                             }
                                             onChange={onChange}
                                             withCheck={true}
@@ -97,13 +97,13 @@ export default function BetForm(props) {
                                     </div>
                                 </div>
 
-                                <div className="flex justify-between border">
+                                <div className="sm:flex justify-around">
                                     <div>
                                         <label
                                             htmlFor="email"
                                             className="block text-sm font-medium leading-6 text-gray-900 text-left"
                                         >
-                                            Who win win
+                                            Who win toss
                                         </label>
                                         <Text
                                             register={register}
@@ -144,31 +144,15 @@ export default function BetForm(props) {
                                     </div>
                                 </div>
 
-                                <Text
-                                    register={register}
-                                    name="who_wins_toss"
-                                    type="password"
-                                    value={formData?.who_wins_toss}
-                                    onChange={onChange}
-                                    withCheck={true}
-                                    options={{
-                                        required: "Please enter this field",
-                                    }}
-                                    errors={errors}
-                                />
-                                <Text
-                                    register={register}
-                                    name="who_wins_toss_bet"
-                                    type="password"
-                                    value={formData?.who_wins_toss_bet}
-                                    onChange={onChange}
-                                    withCheck={true}
-                                    options={{
-                                        required: "Please enter this field",
-                                    }}
-                                    errors={errors}
-                                />
-                                <Text
+                                <div className="sm:flex justify-around">
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            most runs male
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="most_runs_male"
                                     type="text"
@@ -180,7 +164,15 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            Bet
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="most_runs_male_bet"
                                     type="number"
@@ -192,10 +184,20 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                </div>
+                                <div className="sm:flex justify-around">
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            best female player
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="best_female_player"
-                                    type="password"
+                                    type="text"
                                     value={formData?.best_female_player}
                                     onChange={onChange}
                                     withCheck={true}
@@ -204,10 +206,18 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            Bet
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="best_female_player_bet"
-                                    type="password"
+                                    type="number"
                                     value={formData?.best_female_player_bet}
                                     onChange={onChange}
                                     withCheck={true}
@@ -216,10 +226,21 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                </div>
+
+                                <div className="sm:flex justify-around">
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            first inn score
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="first_inn_score"
-                                    type="password"
+                                    type="text"
                                     value={formData?.first_inn_score}
                                     onChange={onChange}
                                     withCheck={true}
@@ -228,10 +249,18 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            Bet
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="first_inn_score_bet"
-                                    type="password"
+                                    type="number"
                                     value={formData?.first_inn_score_bet}
                                     onChange={onChange}
                                     withCheck={true}
@@ -240,10 +269,21 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                </div>
+
+                                <div className="sm:flex justify-around">
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            max sixes
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="max_sixes"
-                                    type="password"
+                                    type="text"
                                     value={formData?.max_sixes}
                                     onChange={onChange}
                                     withCheck={true}
@@ -252,10 +292,18 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
-                                <Text
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                                        >
+                                            Bet
+                                        </label>
+                                        <Text
                                     register={register}
                                     name="max_sixes_bet"
-                                    type="password"
+                                    type="number"
                                     value={formData?.max_sixes_bet}
                                     onChange={onChange}
                                     withCheck={true}
@@ -264,12 +312,14 @@ export default function BetForm(props) {
                                     }}
                                     errors={errors}
                                 />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full lg:w-4/5  mx-auto justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 bet now
                             </button>
