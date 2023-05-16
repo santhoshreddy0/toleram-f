@@ -11,10 +11,14 @@ function Index() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Tolaram cricket tournament
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+            <p className="mt-6 text-sm md:text-lg leading-8 text-gray-600">
+              Get ready to witness the clash of cricketing talents as our
+              employees showcase their skills, passion, and competitive spirit
+              on the grandest stage.
+              <br />
+              Stay tuned for updates, fixtures, and match highlights as we
+              embark on this thrilling journey of the Tolaram Premier League.
+              Let the games begin!
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               {/* <Link to='/register'
@@ -53,7 +57,7 @@ function Index() {
         />
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-      <div className="font-bold text-2xl my-3">Match Schedule</div>
+        <div className="font-bold text-2xl my-3">Match Schedule</div>
         <div className="relative">
           <HomeMatches />
         </div>
@@ -62,11 +66,11 @@ function Index() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="font-bold text-2xl my-3">TPL teams</div>
 
-        <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5 mb-5">
+        <div className="mx-auto grid max-w-lg grid-cols-2 md:grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5 mb-5">
           {teams.slice(1).map((t) => (
             <div className="flex-col">
               <img
-                className=" inline-block h-60 w-60 rounded-full"
+                className=" inline-block h-36 md:h-60 w-60 rounded-full"
                 src={`${t.image}`}
                 alt="team"
                 width={158}
@@ -77,7 +81,6 @@ function Index() {
           ))}
         </div>
       </div>
-      
     </>
   );
 }
