@@ -9,6 +9,8 @@ import Index from "./features/Home/Index";
 import Layout from "./features/Layout/Layout";
 import { useSelector } from "react-redux";
 import Protected from "./features/Auth/Protected";
+import Winners from "./features/Winners/index";
+import Players from "./features/TopPlayers/index"
 
 function App() {
   const store_token = useSelector((state) => state.auth.JWTtoken);
@@ -19,7 +21,8 @@ function App() {
         <Protected>
           <Routes>
             <Route path="/matches" Component={Matches} />
-            {/* <Route path="/bets" Component={Bets} /> */}
+            <Route path="/winners" Component={Winners} />
+            <Route path="/players" Component={Players} />
             <Route path="*" Component={Matches} />
           </Routes>
         </Protected>
