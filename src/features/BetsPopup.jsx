@@ -39,18 +39,18 @@ export default function Betpopup(props) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:p-6">
                 <div>
                   <div className="mx-auto flex items-center justify-center ">
                     <div>
-                      <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                      <div className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         {matchData?.title}
-                      </h2>
-                      <div className="font-medium mx-auto text-center">
+                      </div>
+                      <div className="font-medium mx-auto text-center text-indigo-600">
                         {teams[matchData.team_one]?.name}
                       </div>
                       <div className="mx-auto text-center">Vs</div>
-                      <div className="font-medium mx-auto">
+                      <div className="font-medium mx-auto text-indigo-600">
                         {teams[matchData.team_two]?.name}
                       </div>
                     </div>

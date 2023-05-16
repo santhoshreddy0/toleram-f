@@ -5,6 +5,8 @@ import {
   useCreateBetsMutation,
   useUpdateBetsMutation,
 } from "../app/Services/betsApi";
+import { teams } from "../Data/teams";
+import Datalist from "../Components/Datalist";
 
 export default function BetForm({ matchData, allBets, resetState }) {
   const [
@@ -24,21 +26,28 @@ export default function BetForm({ matchData, allBets, resetState }) {
     },
   ] = useUpdateBetsMutation();
   const [formData, setFormData] = useState({
-    who_wins: "",
-    who_wins_bet: 0,
-    who_wins_toss: "",
-    who_wins_toss_bet: 0,
-    most_runs_male: "",
-    most_runs_male_bet: 0,
-    best_female_player: "",
-    best_female_player_bet: 0,
-    first_inn_score: "",
-    first_inn_score_bet: 0,
-    max_sixes: "",
-    max_sixes_bet: 0,
+    wins: "",
+    wins_bet: 0,
+    toss: "",
+    toss_bet: 0,
+    sixes: "",
+    sixes_bet: 0,
+    female_player: "",
+    female_player_bet: 0,
+    most_runs: "",
+    most_runs_bet: 0,
+    most_wickets: "",
+    most_wickets_bet: 0,
+    team_one_fs: "",
+    team_one_fs_bet: 0,
+    team_two_fs: "",
+    team_two_fs_bet: 0,
   });
+  // const [allPlayers, setAllPlayers] = useState([]);
 
-  const [totalAmount , setTotalAmount] = useState(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)
+  const [totalAmount, setTotalAmount] = useState(
+    import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT
+  );
 
   const {
     register,
@@ -47,23 +56,28 @@ export default function BetForm({ matchData, allBets, resetState }) {
     setError,
     formState: { errors },
   } = useForm();
-  //   console.log(matchData);
+
   const handleFormSubmit = async (e) => {
     clearErrors("amount");
-    if(totalAmount < 0) {
-      setError("amount", {type:"custom", message:`Total amount should be less than ${import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}`})
+    if (totalAmount < 0) {
+      setError("amount", {
+        type: "custom",
+        message: `Total amount should be less than ${
+          import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT
+        }`,
+      });
       return;
     }
     if (matchData.isEdit) {
-        try {
-            const res = await updateBets({
-              match_id: matchData.match_id,
-              ...formData,
-            }).unwrap();
-            resetState();
-          } catch (error) {
-
-          }
+      // console.log(formData);
+      // return
+      try {
+        const res = await updateBets({
+          match_id: matchData.match_id,
+          ...formData,
+        }).unwrap();
+        resetState();
+      } catch (error) {}
     } else {
       try {
         const res = await createBets({
@@ -71,9 +85,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
           ...formData,
         }).unwrap();
         resetState();
-      } catch (error) {
-
-      }
+      } catch (error) {}
     }
   };
 
@@ -82,18 +94,22 @@ export default function BetForm({ matchData, allBets, resetState }) {
       allBets.userBets.map((b) => {
         if (b["match_id"] == matchData["match_id"]) {
           const data = {
-            who_wins: b["who_wins"],
-            who_wins_bet: b["who_wins_bet"],
-            who_wins_toss: b["who_wins_toss"],
-            who_wins_toss_bet: b["who_wins_toss_bet"],
-            most_runs_male: b["most_runs_male"],
-            most_runs_male_bet: b["most_runs_male_bet"],
-            best_female_player: b["best_female_player"],
-            best_female_player_bet: b["best_female_player_bet"],
-            first_inn_score: b["first_inn_score"],
-            first_inn_score_bet: b["first_inn_score_bet"],
-            max_sixes: b["max_sixes"],
-            max_sixes_bet: b["max_sixes_bet"],
+            wins: b["wins"],
+            wins_bet: b["wins_bet"],
+            toss: b["toss"],
+            toss_bet: b["toss_bet"],
+            sixes: b["sixes"],
+            sixes_bet: b["sixes_bet"],
+            female_player: b["female_player"],
+            female_player_bet: b["female_player_bet"],
+            most_runs: b["most_runs"],
+            most_runs_bet: b["most_runs_bet"],
+            most_wickets: b["most_wickets"],
+            most_wickets_bet: b["most_wickets_bet"],
+            team_one_fs: b["team_one_fs"],
+            team_one_fs_bet: b["team_one_fs_bet"],
+            team_two_fs: b["team_two_fs"],
+            team_two_fs_bet: b["team_two_fs_bet"],
           };
           setFormData(data);
         }
@@ -110,47 +126,86 @@ export default function BetForm({ matchData, allBets, resetState }) {
   };
 
   useEffect(() => {
-   let amount = parseInt(formData['who_wins_bet'])+parseInt(formData['who_wins_toss_bet'])+parseInt(formData['most_runs_male_bet'])+parseInt(formData['best_female_player_bet'])+parseInt(formData['first_inn_score_bet'])+parseInt(formData["max_sixes_bet"]);
-   setTotalAmount(parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT)-amount )
-  }, [formData])
-  
+    let amount =
+      parseInt(formData["wins_bet"]) +
+      parseInt(formData["toss_bet"]) +
+      parseInt(formData["sixes_bet"]) +
+      parseInt(formData["female_player_bet"]) +
+      parseInt(formData["most_runs_bet"]) +
+      parseInt(formData["most_wickets_bet"]) +
+      parseInt(formData["team_one_fs_bet"]) +
+      parseInt(formData["team_two_fs_bet"]);
+    setTotalAmount(
+      parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT) - amount
+    );
+  }, [formData]);
+
+  const allPlayers = (() => {
+    const team_one_players = teams[matchData.team_one].players;
+    const team_two_players = teams[matchData.team_two].players;
+    return team_one_players.concat(team_two_players);
+  })();
+
+  const f_players = (() => {
+    const team_one_players = [];
+    const team_two_players = [];
+    teams[matchData.team_one].players.map((p) => {
+      if (p.gender == "female") {
+        return team_one_players.push(p);
+      }
+    });
+    teams[matchData.team_two].players.map((p) => {
+      if (p.gender == "female") {
+        return team_two_players.push(p);
+      }
+    });
+    return team_one_players.concat(team_two_players);
+  })();
 
   return (
     <>
       <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8">
         <div className="sm:mx-auto">
-          <h4 className="mt-10 text-center text-xl leading-9 tracking-tight text-gray-900">
-            {` Remaining amount:  `}<span className="font-bold  text-green-400">{totalAmount}</span>
-          </h4>
+          <div className=" text-center text-xl leading-9 tracking-tight text-gray-900">
+            {` Remaining amount:  `}
+            <span className="font-bold  text-green-400">{totalAmount}</span>
+          </div>
           {errors["amount"] && (
             <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
               {errors["amount"].message}
             </p>
           )}
         </div>
-        <div className="mt-10 sm:mx-auto ">
+        <div className="mt-5 sm:mx-auto ">
           <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
             <div>
               <div className="">
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  Who will win the toss?
+                  <br />
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                      className="block text-xs font-medium leading-6 text-red-500 text-left"
                     >
-                      Who win win
+                      {/* Who will win the toss?<br/> */}
+                      <span>{matchData.questions["toss"]}</span>
                     </label>
-                    <Text
-                      register={register}
-                      name="who_wins"
-                      type="text"
-                      value={formData?.who_wins}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.toss}
+                      placeholder = {formData?.toss}
+                      onChange={(i) => {
+                        setFormData({ ...formData, toss: i.name });
+                      }}
+                      items={[
+                        { name: teams[matchData.team_one].name },
+                        { name: teams[matchData.team_two].name },
+                      ]}
                     />
                   </div>
                   <div className="">
@@ -162,9 +217,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="who_wins_bet"
+                      name="toss_bet"
                       type="number"
-                      value={formData?.who_wins_bet}
+                      value={formData?.toss_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -174,20 +229,76 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     />
                   </div>
                 </div>
-
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  Who will win the match?
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Who win toss
+                      <span className="text-xs text-red-500">
+                        {matchData.questions["win"]}
+                      </span>
+                    </label>
+                    <Datalist
+                      selected={formData?.wins}
+                      placeholder = {formData?.wins}
+                      onChange={(i) => {
+                        setFormData({ ...formData, wins: i.name });
+                      }}
+                      items={[
+                        { name: teams[matchData.team_one].name },
+                        { name: teams[matchData.team_two].name },
+                      ]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                    >
+                      Bet
                     </label>
                     <Text
                       register={register}
-                      name="who_wins_toss"
+                      name="wins_bet"
+                      type="number"
+                      value={formData?.wins_bet}
+                      onChange={onChange}
+                      withCheck={true}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
+                      errors={errors}
+                    />
+                  </div>
+                </div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  How many 6s will be hit in the match?
+                </label>
+                <div className="sm:flex justify-between">
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                    >
+                      <span className="text-xs text-red-500">
+                        {matchData.questions["sixes"]}
+                      </span>
+                    </label>
+                    <Text
+                      register={register}
+                      name="sixes"
                       type="text"
-                      value={formData?.who_wins_toss}
+                      value={formData?.sixes}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -205,9 +316,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="who_wins_toss_bet"
-                      type="text"
-                      value={formData?.who_wins_toss_bet}
+                      name="sixes_bet"
+                      type="number"
+                      value={formData?.sixes_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -217,26 +328,29 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     />
                   </div>
                 </div>
-
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  Who will be the best female player?
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      most runs male
+                      <span className="text-xs text-red-500">
+                        {matchData.questions["female_player"]}
+                      </span>
                     </label>
-                    <Text
-                      register={register}
-                      name="most_runs_male"
-                      type="text"
-                      value={formData?.most_runs_male}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.female_player}
+                      placeholder = {formData?.female_player}
+                      onChange={(i) => {
+                        setFormData({ ...formData, female_player: i.name });
+                      }}
+                      items={f_players}
                     />
                   </div>
                   <div>
@@ -248,9 +362,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="most_runs_male_bet"
+                      name="female_player_bet"
                       type="number"
-                      value={formData?.most_runs_male_bet}
+                      value={formData?.female_player_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -260,25 +374,29 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     />
                   </div>
                 </div>
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  Who will score the most runs?
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      best female player
+                      <span className="text-xs text-red-500">
+                        {matchData.questions["most_runs"]}
+                      </span>
                     </label>
-                    <Text
-                      register={register}
-                      name="best_female_player"
-                      type="text"
-                      value={formData?.best_female_player}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.most_runs}
+                      placeholder = {formData?.most_runs}
+                      onChange={(i) => {
+                        setFormData({ ...formData, most_runs: i.name });
+                      }}
+                      items={allPlayers}
                     />
                   </div>
                   <div>
@@ -290,9 +408,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="best_female_player_bet"
+                      name="most_runs_bet"
                       type="number"
-                      value={formData?.best_female_player_bet}
+                      value={formData?.most_runs_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -302,26 +420,29 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     />
                   </div>
                 </div>
-
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                >
+                  Who will take the most wickets?
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      first inn score
+                      <span className="text-xs text-red-500">
+                        {matchData.questions["most_wickets"]}
+                      </span>
                     </label>
-                    <Text
-                      register={register}
-                      name="first_inn_score"
-                      type="text"
-                      value={formData?.first_inn_score}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.most_wickets}
+                      placeholder = {formData?.most_wickets}
+                      onChange={(i) => {
+                        setFormData({ ...formData, most_wickets: i.name });
+                      }}
+                      items={allPlayers}
                     />
                   </div>
                   <div>
@@ -333,9 +454,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="first_inn_score_bet"
+                      name="most_wickets_bet"
                       type="number"
-                      value={formData?.first_inn_score_bet}
+                      value={formData?.most_wickets_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
@@ -345,26 +466,37 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     />
                   </div>
                 </div>
-
-                <div className="sm:flex justify-around">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
+                >
+                  {`Will ${teams[matchData.team_one]?.name} score ${
+                    matchData?.questions["team_one_fs"]
+                  } or more runs in the first innings?`}
+                  <br />
+                  {`(Note: The bet becomes void if ${
+                    teams[matchData.team_one]?.name
+                  } don’t bat first)`}
+                </label>
+                <div className="sm:flex justify-between">
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                      className=" block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
                     >
-                      max sixes
+                      <span className="text-xs text-red-500">
+                        {`(Note: The bet becomes void if ${
+                          teams[matchData.team_one]?.name
+                        } don’t bat first)`}
+                      </span>
                     </label>
-                    <Text
-                      register={register}
-                      name="max_sixes"
-                      type="text"
-                      value={formData?.max_sixes}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.team_one_fs}
+                      placeholder = {formData?.team_one_fs}
+                      onChange={(i) => {
+                        setFormData({ ...formData, team_one_fs: i.name });
+                      }}
+                      items={[{ name: "Yes" }, { name: "No" }]}
                     />
                   </div>
                   <div>
@@ -376,9 +508,63 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="max_sixes_bet"
+                      name="team_one_fs_bet"
                       type="number"
-                      value={formData?.max_sixes_bet}
+                      value={formData?.team_one_fs_bet}
+                      onChange={onChange}
+                      withCheck={true}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
+                      errors={errors}
+                    />
+                  </div>
+                </div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
+                >
+                  {`Will ${teams[matchData.team_two]?.name} score ${
+                    matchData?.questions["team_two_fs"]
+                  } or more runs in the first innings?`}
+                  <br />
+                  {`(Note: The bet becomes void if ${
+                    teams[matchData.team_two]?.name
+                  } don’t bat first)`}
+                </label>
+                <div className="sm:flex justify-between">
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
+                    >
+                      <span className="text-xs text-red-500">
+                        {`(Note: The bet becomes void if ${
+                          teams[matchData.team_two]?.name
+                        } don’t bat first)`}
+                      </span>
+                    </label>
+                    <Datalist
+                      selected={formData?.team_two_fs}
+                      placeholder = {formData?.team_two_fs}
+                      onChange={(i) => {
+                        setFormData({ ...formData, team_two_fs: i.name });
+                      }}
+                      items={[{ name: "Yes" }, { name: "No" }]}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                    >
+                      Bet
+                    </label>
+                    <Text
+                      register={register}
+                      name="team_two_fs_bet"
+                      type="number"
+                      value={formData?.team_two_fs_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{
