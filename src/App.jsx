@@ -12,6 +12,7 @@ import Protected from "./features/Auth/Protected";
 import Winners from "./features/Winners/index";
 import Players from "./features/TopPlayers/index"
 import IndexList from "./features/IndexList";
+import Rules from "./features/Rules";
 // import moment from 'moment-timezone';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/matches" Component={Matches} />
             <Route path="/winners" Component={Winners} />
             <Route path="/players" Component={Players} />
+            <Route path="/rules" Component={Rules} />
             <Route path="*" Component={IndexList} />
           </Routes>
         </Protected>
