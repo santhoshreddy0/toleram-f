@@ -1,17 +1,17 @@
 import React from "react";
 import { teams } from "../../Data/teams";
-import HomeMatches from "./HomeMatches";
+import { Link } from "react-router-dom";
 
 function Index() {
   return (
     <>
-      <div className="py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="pt-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Tolaram cricket tournament
             </h1>
-            <p className="mt-6 text-sm md:text-lg leading-8 text-gray-600">
+            {/* <p className="mt-6 text-sm md:text-lg leading-8 text-gray-600">
               Get ready to witness the clash of cricketing talents as our
               employees showcase their skills, passion, and competitive spirit
               on the grandest stage.
@@ -19,29 +19,23 @@ function Index() {
               Stay tuned for updates, fixtures, and match highlights as we
               embark on this thrilling journey of the Tolaram Premier League.
               Let the games begin!
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              {/* <Link to='/register'
-                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Register
-                  </Link> */}
-              {/* <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                    Learn more <span aria-hidden="true">→</span>
-                  </a> */}
+            </p> */}
+            {/* <Link
+              to={'/login'}
+              type="button"
+              className="mt-16 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Log in
+            </Link> */}
+            <div className="mt-14 flex items-center justify-center gap-x-3">
+              <Link
+                to="/login"
+                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Log in
+              </Link>
             </div>
           </div>
-          {/* <div className="mt-16 flow-root sm:mt-24">
-                <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                  <img
-                    src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
-                    alt="App screenshot"
-                    width={2432}
-                    height={1442}
-                    className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
-                  />
-                </div>
-              </div> */}
         </div>
       </div>
       <div
@@ -56,14 +50,14 @@ function Index() {
           }}
         />
       </div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="font-bold text-2xl my-3">Match Schedule</div>
         <div className="relative">
           <HomeMatches />
         </div>
-      </div>
+      </div> */}
       {/* Logo cloud */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-5">
         <div className="font-bold text-2xl my-3">TPL teams</div>
 
         <div className="mx-auto grid max-w-lg grid-cols-2 md:grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5 mb-5">
