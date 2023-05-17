@@ -91,7 +91,13 @@ export default function BetForm({ matchData, allBets, resetState }) {
           message: `${res.message}`,
         });
         // history.push('/')
-      } catch (error) {}
+      } catch (error) {
+        setError("error", {
+          type: "custom",
+          message: `${error?.data?.message}`,
+        });
+        
+      }
     }
   };
 
