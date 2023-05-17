@@ -77,7 +77,13 @@ export default function BetForm({ matchData, allBets, resetState }) {
           ...formData,
         }).unwrap();
         resetState();
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+        setError("error", {
+          type: "custom",
+          message: `${error?.data?.message}`,
+        });
+      }
     } else {
       try {
         const res = await createBets({
@@ -85,7 +91,13 @@ export default function BetForm({ matchData, allBets, resetState }) {
           ...formData,
         }).unwrap();
         resetState();
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+        setError("amount", {
+          type: "custom",
+          message: `${error?.data?.message}`,
+        });
+      }
     }
   };
 

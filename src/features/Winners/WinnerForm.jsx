@@ -58,7 +58,10 @@ function WinnerForm({ roundData, existingData}) {
               message: `${res.message}`,
             });
         } catch (error) {
-
+          setError("error", {
+            type: "custom",
+            message: `${error?.data?.message}`,
+          });
         }
     } else {
         try {
@@ -68,7 +71,10 @@ function WinnerForm({ roundData, existingData}) {
               message: `${res.message}`,
             });
         } catch (error) {
-            
+          setError("error", {
+            type: "custom",
+            message: `${error?.data?.message}`,
+          });
         }
     }
   };
