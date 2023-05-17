@@ -43,7 +43,7 @@ function index() {
         existingData={existingData ? existingData : false}
       />
     );
-  } else {
+  } else if(roundsData[0].status == "1"){
     const existingData = winnersData.winners.find((w) => w?.round);
     return (
       <WinnerForm
@@ -52,7 +52,7 @@ function index() {
       />
     );
   }
-  return <></>;
+  return <> No rounds Open now . Please come back after some time</>;
 }
 
 export default index;

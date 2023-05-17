@@ -63,7 +63,7 @@ export default function Login({ setUserToken }) {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900 text-left"
               >
-                Email address
+                User name
               </label>
               <div className="mt-2">
                 <Text
@@ -74,7 +74,7 @@ export default function Login({ setUserToken }) {
                   onChange={onChange}
                   withCheck={true}
                   options={{
-                    required: "Please enter email",
+                    required: "Please enter username",
                   }}
                   errors={errors}
                 />
