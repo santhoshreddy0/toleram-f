@@ -79,7 +79,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
         resetState();
       } catch (error) {
         console.log(error);
-        setError("error", {
+        setError("amount", {
           type: "custom",
           message: `${error?.data?.message}`,
         });
