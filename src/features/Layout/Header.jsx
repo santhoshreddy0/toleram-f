@@ -26,7 +26,7 @@ function Header() {
           <div className="flex lg:flex-1">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img className="h-8 w-auto" src="/toleram-icon.png" alt="" />
+              <img className="h-32 w-auto" src="/tpl_logo.png" alt="" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -84,7 +84,7 @@ function Header() {
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img className="h-8 w-auto" src="/toleram-icon.png" alt="" />
+                <img className="h-10 w-auto" src="/tpl_logo.png" alt="" />
               </Link>
               <button
                 type="button"
