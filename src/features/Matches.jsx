@@ -7,6 +7,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { useGetBetsQuery } from "../app/Services/betsApi.js";
 import Betpopup from "./BetsPopup.jsx";
+import BetForm from "./betform.jsx";
 function Matches() {
   const { data: matches, isLoading, isError } = useGetMatchesQuery();
   const { data: bets, isLoading: isBetsLoading } = useGetBetsQuery();
@@ -71,6 +72,17 @@ function Matches() {
 
   if (isLoading) return <Loader />;
   else if (isError) return <div>Unable load matches</div>;
+  else if (matchData.show) {
+    return (
+      <>
+        <BetForm
+          matchData={matchData}
+          resetState={resetState}
+          allBets={bets}
+        />
+      </>
+    )
+  }
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center"></div>
@@ -203,13 +215,13 @@ function Matches() {
           </div>
         </div>
       </div>
-      {matchData.show && (
+      {/* {matchData.show && (
         <Betpopup
           matchData={matchData}
           resetState={resetState}
           allBets={bets}
         />
-      )}
+      )} */}
     </div>
   );
 }
