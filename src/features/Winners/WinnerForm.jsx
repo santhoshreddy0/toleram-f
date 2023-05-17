@@ -80,7 +80,7 @@ function WinnerForm({ roundData, existingData}) {
   },[])
 
   return (
-    <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8 max-w-4xl mx-auto">
+    <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8 max-w-4xl mx-auto mt-16">
       <div className="sm:mx-auto">
         <div className=" text-center text-xl leading-9 tracking-tight text-gray-900">
           {` Total Bet amount:  `}

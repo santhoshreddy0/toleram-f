@@ -52,7 +52,7 @@ function index() {
       />
     );
   }
-  return <> No rounds Open now . Please come back after some time</>;
+  return <div className="mt-16"> No rounds Open now . Please come back after some time</div>;
 }
 
 export default index;
