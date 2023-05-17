@@ -4,6 +4,7 @@ import Text from "../../Components/Text";
 import { useCreatePlayersBetsMutation, useGetPlayersBetsQuery, useUpdatePlayersBetsMutation } from "../../app/Services/playersApi";
 import { teams } from "../../Data/teams";
 import Datalist from "../../Components/Datalist";
+import { redirect } from "react-router-dom";
 
 export default function BetForm({ matchData, allBets, resetState }) {
   const [
@@ -67,14 +68,21 @@ export default function BetForm({ matchData, allBets, resetState }) {
         const res = await updatePlayersBets({
           ...formData,
         }).unwrap();
-        resetState();
+        setError("success", {
+          type: "custom",
+          message: `${res.message}`,
+        });
       } catch (error) {}
     } else {
       try {
         const res = await createPlayersBets({
           ...formData,
         }).unwrap();
-        resetState();
+        setError("success", {
+          type: "custom",
+          message: `${res.message}`,
+        });
+        // history.push('/')
       } catch (error) {}
     }
   };
@@ -147,9 +155,14 @@ export default function BetForm({ matchData, allBets, resetState }) {
             {` Remaining amount:  `}
             <span className="font-bold  text-green-400">{totalAmount}</span>
           </div>
-          {errors["amount"] && (
+          {errors["error"] && (
             <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
-              {errors["amount"].message}
+              {errors["error"].message}
+            </p>
+          )}
+          {errors["success"] && (
+            <p className="text-xs text-[#36df44] text-left pt-[8px] mx-auto text-center">
+              {errors["success"].message}
             </p>
           )}
         </div>
@@ -163,6 +176,10 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will be the best female player?
+                  <span className="text-xs text-red-500">
+                        {/* {matchData.questions["sixes"]} */}
+                        <br/>"Yamini (1.8), Ritambhara (2.0), Sherlin (2.4), Nidhi (3.0), Other (8)"
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -170,9 +187,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {/* {matchData.questions["sixes"]} */}
-                      </span>
+                     Select
                     </label>
                     <Datalist
                       selected={formData?.female_player}
@@ -209,6 +224,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will score the most runs?
+                  <span className="text-xs text-red-500">
+                        <br/>"Parmeet (2.3), Naeem (3.5), Manpreet (3.0), Mushrif (2.6), Kalyan (4.0), Surinder (3.8), Gaurav Shrivastava (4.2), Shekhar Laddha (2.5), Gaurav Kumar (3.6), Other (8)"
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -216,9 +234,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {/* {matchData.questions["female_player"]} */}
-                      </span>
+                      Select
                     </label>
                     <Datalist
                       selected={formData?.most_runs}
@@ -255,6 +271,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will take the most wickets?
+                  <span className="text-xs text-red-500">
+                        <br/>"Akshay Kalra (2.9), Prashant Sharma (3.5), Ronald (3.0), Samuel Sonawane (3.6), Shivkant Modi (2.4), Sukesh (2.5), Mohit Sharda (3.2), Rakesh Agarwal (4.2), Tushar Dutta (3.5), Other (8)"
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -262,9 +281,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {/* {matchData.questions["most_runs"]} */}
-                      </span>
+                      Select
                     </label>
                     <Datalist
                       selected={formData?.most_wickets}
@@ -300,7 +317,10 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
-                  Who will take the most wickets?
+                  Who will hit the maximum sixes?
+                  <span className="text-xs text-red-500">
+                        <br/>"Parmeet (5.0), Naeem (4.2), Manpreet (3.5), Sarthak Goel (4.6), Kalyan (4.0), Shashank Thapa (3.8), Laxmipat Sethia (4.2), Vapush Bansal (5.7), Aditya Kumar (5.0), Other (8)"
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -308,15 +328,13 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {/* {matchData.questions["most_wickets"]} */}
-                      </span>
+                      Select
                     </label>
                     <Datalist
-                      selected={formData?.most_wickets}
-                      placeholder={formData?.most_wickets}
+                      selected={formData?.sixes}
+                      placeholder={formData?.sixes}
                       onChange={(i) => {
-                        setFormData({ ...formData, most_wickets: i.name });
+                        setFormData({ ...formData, sixes: i.name });
                       }}
                       items={allPlayers}
                     />
@@ -330,9 +348,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                     </label>
                     <Text
                       register={register}
-                      name="most_wickets_bet"
+                      name="sixes_bet"
                       type="number"
-                      value={formData?.most_wickets_bet}
+                      value={formData?.sixes_bet}
                       onChange={onChange}
                       withCheck={true}
                       //   options={{

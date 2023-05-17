@@ -53,12 +53,20 @@ function WinnerForm({ roundData, existingData}) {
     if(!existingData) {
         try {
             const res = await createWinnersBets(formData).unwrap();
+            setError("success", {
+              type: "custom",
+              message: `${res.message}`,
+            });
         } catch (error) {
 
         }
     } else {
         try {
             const res = await updateWinnersBets(formData).unwrap();
+            setError("success", {
+              type: "custom",
+              message: `${res.message}`,
+            });
         } catch (error) {
             
         }
@@ -78,11 +86,16 @@ function WinnerForm({ roundData, existingData}) {
           {` Total Bet amount:  `}
           <span className="font-bold  text-green-400">{totalAmount}</span>
         </div>
-        {errors["amount"] && (
-          <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
-            {errors["amount"].message}
-          </p>
-        )}
+        {errors["error"] && (
+            <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
+              {errors["error"].message}
+            </p>
+          )}
+          {errors["success"] && (
+            <p className="text-xs text-[#36df44] text-left pt-[8px] mx-auto text-center">
+              {errors["success"].message}
+            </p>
+          )}
       </div>
       <div className="mt-5 sm:mx-auto ">
         <form className="space-y-6" onSubmit={handleSubmit(handleFormSubmit)}>
