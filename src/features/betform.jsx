@@ -164,7 +164,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
 
   return (
     <>
-      <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8 max-w-4xl mx-auto">
+      <div className="mx-auto  min-h-full flex-col justify-center px-6 pb-12 lg:px-8 max-w-6xl mx-auto">
         <div className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {matchData?.title}
         </div>
@@ -343,6 +343,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will be the best female player?
+                  <span className="text-xs text-red-500">
+                        <br/>{matchData.questions["female_player"]}
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -350,9 +353,10 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
+                      {/* <span className="text-xs text-red-500">
                         {matchData.questions["female_player"]}
-                      </span>
+                      </span> */}
+                      Select
                     </label>
                     <Datalist
                       selected={formData?.female_player}
@@ -389,6 +393,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will score the most runs?
+                  <span className="text-xs text-red-500">
+                        <br/>{matchData.questions["most_runs"]}
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -396,9 +403,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {matchData.questions["most_runs"]}
-                      </span>
+                      Select
                     </label>
                     <Datalist
                       selected={formData?.most_runs}
@@ -435,6 +440,9 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   className="block text-sm font-medium leading-6 text-gray-900 text-left"
                 >
                   Who will take the most wickets?
+                  <span className="text-xs text-red-500">
+                        <br/>{matchData.questions["most_wickets"]}
+                      </span>
                 </label>
                 <div className="sm:flex justify-between">
                   <div>
@@ -442,9 +450,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      <span className="text-xs text-red-500">
-                        {matchData.questions["most_wickets"]}
-                      </span>
+                      Select
                     </label>
                     <Datalist
                       selected={formData?.most_wickets}
