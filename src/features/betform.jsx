@@ -363,7 +363,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
-                  Who will be the best female player?
+                  Which female player will score the most runs in this match?
                   <span className="text-xs text-red-500">
                         <br/>{matchData.questions["female_player"]}
                       </span>
