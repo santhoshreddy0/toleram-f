@@ -39,10 +39,10 @@ function Matches() {
       });
       setBetsMap(map);
     }
-  }, [isBetsLoading,bets]);
+  }, [isBetsLoading, bets]);
 
   const popUpHandler = (match) => {
-    if(betsMap.has(match.id)) {
+    if (betsMap.has(match.id)) {
       setMatchData({
         show: true,
         isEdit: true,
@@ -50,7 +50,7 @@ function Matches() {
         team_one: match.team_one,
         team_two: match.team_two,
         title: match.match_title,
-        questions: JSON.parse(match.questions)
+        questions: JSON.parse(match.questions),
       });
     } else {
       setMatchData({
@@ -60,11 +60,11 @@ function Matches() {
         team_one: match.team_one,
         team_two: match.team_two,
         title: match.match_title,
-        questions: JSON.parse(match.questions)
-      })
+        questions: JSON.parse(match.questions),
+      });
     }
   };
-  
+
   const getDate = (date) => {
     const d = moment(date).format("MMMM Do, h:mm a");
     return d;
@@ -75,13 +75,9 @@ function Matches() {
   else if (matchData.show) {
     return (
       <>
-        <BetForm
-          matchData={matchData}
-          resetState={resetState}
-          allBets={bets}
-        />
+        <BetForm matchData={matchData} resetState={resetState} allBets={bets} />
       </>
-    )
+    );
   }
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -119,21 +115,39 @@ function Matches() {
                   matches?.matches?.map((match) => (
                     <tr key={match.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6 lg:pl-8">
-                        <div className="font-medium">{match.match_title}</div>
+                        <div className="font-medium capitalize">{match.match_title}</div>
                         <div>{getDate(match.match_start_time)}</div>
-                        <br />
-                        <div className="font-medium">
-                          {teams[match.team_one]?.name}
+                        
+                        <div className="font-medium capitalize">
+                          <img
+                            className="inline-block h-32 w-24 rounded-full"
+                            src={teams[match.team_one]?.image}
+                            alt=""
+                          />
+                        X
+                        <img
+                            className="inline-block h-32 w-24 rounded-full"
+                            src={teams[match.team_two]?.image}
+                            alt=""
+                          />
+                          <br/>
+
+                          {teams[match.team_one]?.name} <br/>Vs<br /> {teams[match.team_two]?.name}
                         </div>
-                        Vs
+
                         <div className="font-medium">
-                          {teams[match.team_two]?.name}
+                          <br/>
+                          {/* {teams[match.team_two]?.name} */}
                         </div>
                         <br />
                         <button
                           type="button"
                           onClick={() => popUpHandler(match)}
-                          className={`w-32 rounded-md ${betsMap.has(match?.id) ? "bg-gray-700 " : "bg-indigo-600 " } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                          className={`w-32 rounded-md ${
+                            betsMap.has(match?.id)
+                              ? "bg-gray-700 "
+                              : "bg-indigo-600 "
+                          } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                         >
                           {betsMap.has(match.id) ? " Edit bet " : " Bet "}
                         </button>
@@ -203,9 +217,13 @@ function Matches() {
                         <button
                           type="button"
                           onClick={() => popUpHandler(match)}
-                          className={`w-32 rounded-md ${betsMap.has(match?.id) ? "bg-gray-700 " : "bg-indigo-600 " } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                          className={`w-32 rounded-md ${
+                            betsMap.has(match?.id)
+                              ? "bg-gray-700 "
+                              : "bg-indigo-600 "
+                          } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                         >
-                         {betsMap.has(match.id) ? " Edit bet" : "      Bet "}
+                          {betsMap.has(match.id) ? " Edit bet" : "      Bet "}
                         </button>
                       </td>
                     </tr>

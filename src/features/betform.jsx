@@ -141,8 +141,18 @@ export default function BetForm({ matchData, allBets, resetState }) {
   }, [formData]);
 
   const allPlayers = (() => {
-    const team_one_players = teams[matchData.team_one].players;
-    const team_two_players = teams[matchData.team_two].players;
+    const team_one_players = [];
+    const team_two_players = [];
+    teams[matchData.team_one].players.map((p) => {
+      if (p.gender == "male") {
+        return team_one_players.push(p);
+      }
+    });
+    teams[matchData.team_two].players.map((p) => {
+      if (p.gender == "male") {
+        return team_two_players.push(p);
+      }
+    });
     return team_one_players.concat(team_two_players);
   })();
 
@@ -178,7 +188,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
         <div className="sm:mx-auto">
           <div className=" text-center text-xl leading-9 tracking-tight text-gray-900">
             {` Remaining amount:  `}
-            <span className="font-bold  text-green-400">{totalAmount}</span>
+            <span className="font-bold  text-green-400">₦{totalAmount}</span>
           </div>
           {errors["amount"] && (
             <p className="text-xs text-[#E45555] text-left pt-[8px] mx-auto text-center">
@@ -192,7 +202,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
               <div className="">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   Who will win the toss?
                   <br />
@@ -223,7 +233,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -241,7 +251,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   Who will win the match?
                 </label>
@@ -272,7 +282,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -290,7 +300,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   How many 6s will be hit in the match?
                 </label>
@@ -304,17 +314,16 @@ export default function BetForm({ matchData, allBets, resetState }) {
                         {matchData.questions["sixes"]}
                       </span>
                     </label>
-                    <Text
-                      register={register}
-                      name="sixes"
-                      type="text"
-                      value={formData?.sixes}
-                      onChange={onChange}
-                      withCheck={true}
-                      //   options={{
-                      //     required: "Please enter this field",
-                      //   }}
-                      errors={errors}
+                    <Datalist
+                      selected={formData?.sixes}
+                      placeholder={formData?.sixes}
+                      onChange={(i) => {
+                        setFormData({ ...formData, sixes: i.name });
+                      }}
+                      items={[
+                        { name: 'Option A' },
+                        { name: 'Option B' },
+                      ]}
                     />
                   </div>
                   <div>
@@ -322,7 +331,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -340,7 +349,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   Who will be the best female player?
                   <span className="text-xs text-red-500">
@@ -372,7 +381,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -390,7 +399,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   Who will score the most runs?
                   <span className="text-xs text-red-500">
@@ -419,7 +428,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -437,7 +446,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
                 >
                   Who will take the most wickets?
                   <span className="text-xs text-red-500">
@@ -466,7 +475,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -484,7 +493,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1 mt-10"
                 >
                   {`Will ${teams[matchData.team_one]?.name} score ${
                     matchData?.questions["team_one_fs"]
@@ -520,7 +529,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}
@@ -538,7 +547,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                 </div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
+                  className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1 mt-10"
                 >
                   {`Will ${teams[matchData.team_two]?.name} score ${
                     matchData?.questions["team_two_fs"]
@@ -574,7 +583,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       htmlFor="email"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left"
                     >
-                      Bet
+                      Enter Bet Amount
                     </label>
                     <Text
                       register={register}

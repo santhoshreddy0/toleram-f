@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import Protected from "./features/Auth/Protected";
 import Winners from "./features/Winners/index";
 import Players from "./features/TopPlayers/index"
+import IndexList from "./features/IndexList";
 
 function App() {
   const store_token = useSelector((state) => state.auth.JWTtoken);
@@ -23,7 +24,7 @@ function App() {
             <Route path="/matches" Component={Matches} />
             <Route path="/winners" Component={Winners} />
             <Route path="/players" Component={Players} />
-            <Route path="*" Component={Matches} />
+            <Route path="*" Component={IndexList} />
           </Routes>
         </Protected>
       </Layout>

@@ -36,7 +36,7 @@ function WinnerForm({ roundData, existingData}) {
   // const [allPlayers, setAllPlayers] = useState([]);
 
   const [totalAmount, setTotalAmount] = useState(
-    import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT
+    import.meta.env.VITE_REACT_APP_WINNERS_AMOUNT
   );
 
   const {
@@ -125,7 +125,7 @@ function WinnerForm({ roundData, existingData}) {
               />
             </div>
           </div>
-          <div className="mt-12 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+          <div className="mt-16 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
             <button
               type="submit"
               className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
