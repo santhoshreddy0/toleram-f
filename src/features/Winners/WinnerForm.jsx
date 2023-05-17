@@ -11,6 +11,7 @@ import Datalist from "../../Components/Datalist";
 import { teams } from "../../Data/teams";
 import { Link, redirect } from "react-router-dom";
 import { history } from "../../app/store";
+import Text from "../../Components/Text";
 
 function WinnerForm({ roundData, existingData}) {
   const [
@@ -31,6 +32,7 @@ function WinnerForm({ roundData, existingData}) {
   ] = useUpdateWinnersBetsMutation();
   const [formData, setFormData] = useState({
     team: existingData ? existingData?.team : "",
+    bet : existingData ? existingData?.bet : 0,
     round_id: roundData?.id,
   });
   // const [allPlayers, setAllPlayers] = useState([]);
@@ -46,10 +48,23 @@ function WinnerForm({ roundData, existingData}) {
     setError,
     formState: { errors },
   } = useForm();
-
+  useEffect(() => {
+    let amount = parseInt(formData["bet"]);
+    setTotalAmount(
+      parseInt(import.meta.env.VITE_REACT_APP_WINNERS_AMOUNT) - amount
+    );
+  }, [formData]);
   const handleFormSubmit = async (e) => {
     clearErrors("amount");
-
+    if(totalAmount<0) {
+      setError("error", {
+        type: "custom",
+        message: `Total amount should be less than ${
+          import.meta.env.VITE_REACT_APP_WINNERS_AMOUNT
+        }`,
+      });
+      return;
+    }
     if(!existingData) {
         try {
             const res = await createWinnersBets(formData).unwrap();
@@ -77,6 +92,12 @@ function WinnerForm({ roundData, existingData}) {
           });
         }
     }
+  };
+
+  const onChange = (e) => {
+    clearErrors("amount");
+    clearErrors(e.target.name);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   useEffect( () => {
@@ -111,7 +132,7 @@ function WinnerForm({ roundData, existingData}) {
           >
             Who will win the Tournament?
           </label>
-          <div className="sm:flex justify-between">
+          <div className="flex-col justify-between">
             <div>
               <label
                 htmlFor="email"
@@ -130,8 +151,28 @@ function WinnerForm({ roundData, existingData}) {
                 items={teams}
               />
             </div>
+            <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium leading-6 text-gray-900 text-left mt-10"
+                    >
+                      Enter Bet Amount
+                    </label>
+                    <Text
+                      register={register}
+                      name="bet"
+                      type="number"
+                      value={formData?.bet}
+                      onChange={onChange}
+                      withCheck={true}
+                      //   options={{
+                      //     required: "Please enter this field",
+                      //   }}
+                      errors={errors}
+                    />
+                  </div>
           </div>
-          <div className="mt-16 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+          <div className=" sm:mt-6 mt-16 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
             <button
               type="submit"
               className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"

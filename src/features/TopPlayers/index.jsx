@@ -47,7 +47,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
   // const [allPlayers, setAllPlayers] = useState([]);
 
   const [totalAmount, setTotalAmount] = useState(
-    import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT
+    import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT
   );
 
   const {
@@ -64,7 +64,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
       setError("amount", {
         type: "custom",
         message: `Total amount should be less than ${
-          import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT
+          import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT
         }`,
       });
       return;
@@ -134,7 +134,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
       parseInt(formData["most_runs_bet"]) +
       parseInt(formData["most_wickets_bet"]);
     setTotalAmount(
-      parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT) - amount
+      parseInt(import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT) - amount
     );
   }, [formData]);
 
