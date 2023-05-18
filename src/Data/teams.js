@@ -172,6 +172,22 @@ export var teams = [
                 "gender": "male"
               },
               {
+                "name": "Ankit Sharma ",
+                "gender": "male"
+              },
+              {
+                "name": "Aditya kumar",
+                "gender": "male"
+              },
+              {
+                "name": "Mukta Gokhale ",
+                "gender": "female"
+              },
+              {
+                "name": "Ritambhara",
+                "gender": "female"
+              },
+              {
                 "name": "Sushant Thakur",
                 "gender": "male"
               },
@@ -231,7 +247,23 @@ export var teams = [
                 "gender": "male"
               },
               {
-                "name": "Gaurav kumar",
+                "name": "Ashish Joshi",
+                "gender": "male"
+              },
+              {
+                "name": "Chetan Bhala",
+                "gender": "male"
+              },
+              {
+                "name": "Shalini Singh",
+                "gender": "female"
+              },
+              {
+                "name": "Ritambhara",
+                "gender": "female"
+              },
+              {
+                "name": "Yamini",
                 "gender": "male"
               },
               {
@@ -306,6 +338,18 @@ export var teams = [
                 "gender": "male"
               },
               {
+                "name": "Laxmipat Sethia",
+                "gender": "male"
+              },
+              {
+                "name": "Thirumoorthi",
+                "gender": "male"
+              },
+              {
+                "name": "Surbhi Mishra",
+                "gender": "female"
+              },
+              {
                 "name": "Amose Akwin",
                 "gender": "male"
               },
@@ -378,6 +422,18 @@ export var teams = [
               },
               {
                 "name": "Pankaj Jajoo",
+                "gender": "male"
+              },
+              {
+                "name": "Balram Singh",
+                "gender": "male"
+              },
+              {
+                "name": "Gaurav Shrivastava",
+                "gender": "male"
+              },
+              {
+                "name": "Sabyasachi Sur",
                 "gender": "male"
               },
               {
