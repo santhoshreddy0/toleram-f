@@ -115,28 +115,31 @@ function Matches() {
                   matches?.matches?.map((match) => (
                     <tr key={match.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6 lg:pl-8">
-                        <div className="font-medium capitalize">{match.match_title}</div>
+                        <div className="font-medium capitalize">
+                          {match.match_title}
+                        </div>
                         <div>{getDate(match.match_start_time)}</div>
-                        
+
                         <div className="font-medium capitalize">
                           <img
                             className="inline-block h-32 w-24 rounded-full"
                             src={teams[match.team_one]?.image}
                             alt=""
                           />
-                        X
-                        <img
+                          X
+                          <img
                             className="inline-block h-32 w-24 rounded-full"
                             src={teams[match.team_two]?.image}
                             alt=""
                           />
-                          <br/>
-
-                          {teams[match.team_one]?.name} <br/>Vs<br /> {teams[match.team_two]?.name}
+                          <br />
+                          {teams[match.team_one]?.name} <br />
+                          Vs
+                          <br /> {teams[match.team_two]?.name}
                         </div>
 
                         <div className="font-medium">
-                          <br/>
+                          <br />
                           {/* {teams[match.team_two]?.name} */}
                         </div>
                         <br />
@@ -214,17 +217,19 @@ function Matches() {
                         {getDate(match.match_start_time)}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                        <button
-                          type="button"
-                          onClick={() => popUpHandler(match)}
-                          className={`w-32 rounded-md ${
-                            betsMap.has(match?.id)
-                              ? "bg-gray-700 "
-                              : "bg-indigo-600 "
-                          } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-                        >
-                          {betsMap.has(match.id) ? " Edit bet" : "      Bet "}
-                        </button>
+                        {match?.status == "1" && (
+                          <button
+                            type="button"
+                            onClick={() => popUpHandler(match)}
+                            className={`w-32 rounded-md ${
+                              betsMap.has(match?.id)
+                                ? "bg-gray-700 "
+                                : "bg-indigo-600 "
+                            } px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                          >
+                            {betsMap.has(match.id) ? " Edit bet" : "      Bet "}
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
