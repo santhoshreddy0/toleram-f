@@ -522,9 +522,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       className=" block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
                     >
                       <span className="text-xs text-red-500">
-                        {`(Note: The bet becomes void if ${
-                          teams[matchData.team_one]?.name
-                        } don’t bat first)`}
+                      {`${matchData.questions['team_two_fs_odds']}`}
                       </span>
                     </label>
                     <Datalist
@@ -576,9 +574,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       className="block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
                     >
                       <span className="text-xs text-red-500">
-                        {`(Note: The bet becomes void if ${
-                          teams[matchData.team_two]?.name
-                        } don’t bat first)`}
+                        {`${matchData.questions['team_two_fs_odds']}`}
                       </span>
                     </label>
                     <Datalist
