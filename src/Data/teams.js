@@ -14,6 +14,10 @@ export var teams = [
                 "gender": "male"
               },
               {
+                "name": "Bhushan Agarwal",
+                "gender": "male"
+              },
+              {
                 "name": "Deksha Gupta",
                 "gender": "female"
               },
@@ -82,6 +86,10 @@ export var teams = [
         "players" : [
             {
                 "name": "NAEEM SAJ",
+                "gender": "male"
+              },
+              {
+                "name": "Nandha kumar",
                 "gender": "male"
               },
               {
@@ -264,7 +272,7 @@ export var teams = [
               },
               {
                 "name": "Yamini",
-                "gender": "male"
+                "gender": "female"
               },
               {
                 "name": "Adi",
@@ -484,7 +492,23 @@ export var teams = [
                 "gender": "female"
               },
               {
+                "name": "Avishi ",
+                "gender": "female"
+              },
+              {
                 "name": "Avinash Aswani",
+                "gender": "male"
+              },
+              {
+                "name": "Bidyoot Gogoi ",
+                "gender": "male"
+              },
+              {
+                "name": "Girdhar Chandak ",
+                "gender": "male"
+              },
+              {
+                "name": "Vaibhav Raizada ",
                 "gender": "male"
               },
               {
@@ -576,6 +600,14 @@ export var teams = [
               },
               {
                 "name": "Uma santhi nair",
+                "gender": "female"
+              },
+              {
+                "name": "Chetanbir",
+                "gender": "female"
+              },
+              {
+                "name": "Keerthika Ramar ",
                 "gender": "female"
               },
               {
@@ -689,6 +721,22 @@ export var teams = [
                 "gender": "male"
               },
               {
+                "name": "Bonny",
+                "gender": "male"
+              },
+              {
+                "name": "Parth",
+                "gender": "male"
+              },
+              {
+                "name": "Shailendra Singh ",
+                "gender": "male"
+              },
+              {
+                "name": "Siddhartha Khandelwal",
+                "gender": "male"
+              },
+              {
                 "name": "ACHOOS PUSHPADHARAN NAIR",
                 "gender": "male"
               },
@@ -739,6 +787,14 @@ export var teams = [
               {
                 "name": "Subham Gayen",
                 "gender": "male"
+              },
+              {
+                "name": "Catherine",
+                "gender": "female"
+              },
+              {
+                "name": "Namrata",
+                "gender": "female"
               }
         ]
     }
