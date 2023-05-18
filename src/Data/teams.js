@@ -14,6 +14,10 @@ export var teams = [
                 "gender": "male"
               },
               {
+                "name": "Bhushan Agarwal",
+                "gender": "male"
+              },
+              {
                 "name": "Deksha Gupta",
                 "gender": "female"
               },
@@ -82,6 +86,10 @@ export var teams = [
         "players" : [
             {
                 "name": "NAEEM SAJ",
+                "gender": "male"
+              },
+              {
+                "name": "Nandha kumar",
                 "gender": "male"
               },
               {
@@ -264,7 +272,7 @@ export var teams = [
               },
               {
                 "name": "Yamini",
-                "gender": "male"
+                "gender": "female"
               },
               {
                 "name": "Adi",
