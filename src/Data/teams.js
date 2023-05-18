@@ -491,7 +491,7 @@ export var teams = [
     },
     {
         "id" : 8,
-        "name" : "ROA & KT Conquerars",
+        "name" : "ROA & KT Conquerors",
         "image" : "ROA_&_kelloggs.png",
         "players" : [
             {
