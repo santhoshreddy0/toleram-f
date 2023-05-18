@@ -61,7 +61,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
   const handleFormSubmit = async (e) => {
     clearErrors("amount");
     if (totalAmount < 0) {
-      setError("amount", {
+      setError("error", {
         type: "custom",
         message: `Total amount should be less than ${
           import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT
@@ -80,7 +80,12 @@ export default function BetForm({ matchData, allBets, resetState }) {
           type: "custom",
           message: `${res.message}`,
         });
-      } catch (error) {}
+      } catch (error) {
+        setError("error", {
+          type: "custom",
+          message: `${error?.data?.message}`,
+        });
+      }
     } else {
       try {
         const res = await createPlayersBets({
