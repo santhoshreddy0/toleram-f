@@ -267,10 +267,6 @@ export var teams = [
                 "gender": "female"
               },
               {
-                "name": "Ritambhara",
-                "gender": "female"
-              },
-              {
                 "name": "Yamini",
                 "gender": "female"
               },
@@ -566,6 +562,10 @@ export var teams = [
               {
                 "name": "Sai Bharath P",
                 "gender": "male"
+              },
+              {
+                "name": "Rahul Maheswari",
+                "gender": "male"
               }
         ]
     },
@@ -754,10 +754,6 @@ export var teams = [
               },
               {
                 "name": "Prabhav",
-                "gender": "male"
-              },
-              {
-                "name": "Rahul",
                 "gender": "male"
               },
               {
