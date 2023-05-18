@@ -42,6 +42,8 @@ function Matches() {
   }, [isBetsLoading, bets]);
 
   const popUpHandler = (match) => {
+    if(moment() >= moment(match.match_start_time)) 
+      return
     if (betsMap.has(match.id)) {
       setMatchData({
         show: true,
@@ -217,7 +219,7 @@ function Matches() {
                         {getDate(match.match_start_time)}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                        {match?.status == "1" && (
+                        {(moment() < moment(match.match_start_time)) && (
                           <button
                             type="button"
                             onClick={() => popUpHandler(match)}
