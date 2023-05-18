@@ -145,6 +145,7 @@ function Matches() {
                           {/* {teams[match.team_two]?.name} */}
                         </div>
                         <br />
+                        {(moment() < moment(match.match_start_time)) && (
                         <button
                           type="button"
                           onClick={() => popUpHandler(match)}
@@ -156,6 +157,7 @@ function Matches() {
                         >
                           {betsMap.has(match.id) ? " Edit bet " : " Bet "}
                         </button>
+                        )}
                       </td>
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 line-clamp-2">{teams[match.team_one]?.name +" Vs "+teams[match.team_two]?.name}</td> */}
                       {/* <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{teams[match.team_two]?.name}</td> */}
