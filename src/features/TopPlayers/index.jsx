@@ -195,7 +195,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                   <span className="text-xs text-red-500">
                     {/* {matchData.questions["sixes"]} */}
                     <br />
-                    Yamini (1.8), Ritambhara (2.0), Sherlin (2.4), Nidhi (3.0),
+                    Yamini (1.8), Ritambhara (2.0), Sherlin (2.4), Nidhi (3.0),Srinithi (2.3)
                     Other (8)
                   </span>
                 </label>
