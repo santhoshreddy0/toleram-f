@@ -9,7 +9,7 @@ function Header() {
   const navigation = [
     { name: "Matches", href: "/matches" },
     { name: "Winners", href: "/winners" },
-    { name: "Top Players", href: "/players" },
+    // { name: "Top Players", href: "/players" },
     { name: "Rules", href: "/rules" },
   ];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
