@@ -521,7 +521,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
                       className=" block text-sm font-medium leading-6 text-gray-900 text-left line-clamp-1"
                     >
                       <span className="text-xs text-red-500">
-                      {`${matchData.questions['team_two_fs_odds']}`}
+                      {`${matchData.questions['team_one_fs_odds']}`}
                       </span>
                     </label>
                     <Datalist
