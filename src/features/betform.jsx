@@ -145,8 +145,7 @@ export default function BetForm({ matchData, allBets, resetState }) {
       parseInt(formData["female_player_bet"]) +
       parseInt(formData["most_runs_bet"]) +
       parseInt(formData["most_wickets_bet"]) +
-      parseInt(formData["team_one_fs_bet"]) +
-      parseInt(formData["team_two_fs_bet"]);
+      Math.max(parseInt(formData["team_one_fs_bet"]),parseInt(formData["team_two_fs_bet"]));
     setTotalAmount(
       parseInt(import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT) - amount
     );
