@@ -9,11 +9,11 @@ const people = [
     email: "michael.foster@example.com",
     link: "/winners",
   },
-  {
-    name: "Top Players",
-    email: "dries.vincent@example.com",
-    link: "/players",
-  },
+  // {
+  //   name: "Top Players",
+  //   email: "dries.vincent@example.com",
+  //   link: "/players",
+  // },
 ];
 
 import React from "react";
