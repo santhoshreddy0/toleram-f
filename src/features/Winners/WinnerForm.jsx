@@ -148,7 +148,12 @@ function WinnerForm({ roundData, existingData}) {
                 onChange={(i) => {
                   setFormData({ ...formData, "team": i?.name });
                 }}
-                items={teams}
+                items={[
+                  { name: "Addmie & Indomie" },
+                  { name: "GPL & Corporate " },
+                  { name: "Colgate White Warriors" },
+                  { name: "ARPN & Power Broncos" },
+                ]}
               />
             </div>
             <div>

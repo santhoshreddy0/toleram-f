@@ -20,7 +20,7 @@ function index() {
   const roundsData = rounds.rounds;
 
   if (roundsData[3].status == "1") {
-    const existingData = winnersData.winners.find((w) => w?.round);
+    const existingData = winnersData.winners.find((w) => w?.round == '3');
     return (
       <WinnerForm
         roundData={roundsData[3]}
@@ -28,7 +28,7 @@ function index() {
       />
     );
   } else if (roundsData[2].status == "1") {
-    const existingData = winnersData.winners.find((w) => w?.round);
+    const existingData = winnersData.winners.find((w) => w?.round == '2');
     return (
       <WinnerForm
         roundData={roundsData[2]}
@@ -36,7 +36,7 @@ function index() {
       />
     );
   } else if (roundsData[1].status == "1") {
-    const existingData = winnersData.winners.find((w) => w?.round);
+    const existingData = winnersData.winners.find((w) => w?.round == '1');
     return (
       <WinnerForm
         roundData={roundsData[1]}
@@ -44,7 +44,7 @@ function index() {
       />
     );
   } else if(roundsData[0].status == "1"){
-    const existingData = winnersData.winners.find((w) => w?.round);
+    const existingData = winnersData.winners.find((w) => w?.round == '0');
     return (
       <WinnerForm
         roundData={roundsData[0]}
