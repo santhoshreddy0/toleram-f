@@ -2,31 +2,25 @@ import { baseApi } from './baseApi';
 
 const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        createPlayersBets: builder.mutation({
-            query: (data) => ({
-                url: `/players`,
-                method: 'POST',
-                body: data,
-            }),
-            invalidatesTags: (result, error, arg) => {
-                return ["Players"];
-            },
-        }),
-        updatePlayersBets: builder.mutation({
-            query: (data) => ({
-                url: `players`,
-                method: 'PUT',
-                body: data,
-            }),
-            invalidatesTags: (result, error, arg) => {
+        getPlayersBets: builder.query({
+            query: () => `bestplayers/questions`,
+            providesTags: (result, error, arg) => {
                 return ["Players"];
             },
         }),
         getPlayersBets: builder.query({
-            query: () => `players`,
+            query: () => `bestplayers/bets`,
             providesTags: (result, error, arg) => {
-                return ["Players"];
+                return ["PlayersBets"];
             },
+        }),
+        updatePlayerBets: builder.mutation({
+            query: (data) => ({
+                url: `bestplayers/bets`,
+                method: "PUT",
+                body: data,
+            }),
+            invalidatesTags: ["PlayersBets"],
         }),
     }),
     overrideExisting: false,

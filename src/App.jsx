@@ -19,6 +19,7 @@ function App() {
   moment.tz.setDefault('Africa/Lagos');
   const store_token = useSelector((state) => state.auth.JWTtoken);
   const storage_token = localStorage.getItem("token");
+  
   if (!!store_token || !!storage_token) {
     return (
       <Layout>

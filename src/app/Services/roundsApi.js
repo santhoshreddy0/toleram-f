@@ -5,6 +5,27 @@ const betsApi = baseApi.injectEndpoints({
         getRounds: builder.query({
             query: () => `/rounds`
         }),
+        getRoundById: builder.query({
+            query: (roundId) => `/rounds/${roundId}`
+        }),
+        getRoundQuestions: builder.query({
+            query: (roundId) => `/rounds/${roundId}/questions`
+        }),
+        getRoundBets: builder.query({
+            query: (roundId) => `/rounds/${roundId}/bets`,
+            providesTags: (result, error, arg) => {
+                return ["RoundBets"];
+            }
+        }),
+        updateRoundBets: builder.mutation({
+            query: (roundId, data) => ({
+                url: `/rounds/${roundId}/bets`,
+                method: "PUT",
+                body: data,
+            }),
+            invalidatesTags: ["RoundBets"],
+        }),
+        
     }),
     overrideExisting: false,
 });
