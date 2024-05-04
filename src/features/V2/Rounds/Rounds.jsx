@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetRoundsQuery } from "../../../app/Services/roundsApi";
 import Loader from "../../../Components/Loader";
+import MenuTabs from "../../Layout/MenuTabs";
 
 function Rounds() {
     const { data: rounds, isLoading, isError } = useGetRoundsQuery();
@@ -9,7 +10,11 @@ function Rounds() {
     if (isLoading) {
         return <Loader />;
     }
-    return <div>Rounds</div>;
+    return (
+        <>
+            <MenuTabs>Rounds</MenuTabs>
+        </>
+    );
 }
 
 export default Rounds;

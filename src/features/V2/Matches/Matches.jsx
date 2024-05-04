@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetMatchesQuery } from "../../../app/Services/matchesApi";
 import Loader from "../../../Components/Loader";
+import MenuTabs from "../../Layout/MenuTabs";
 
 function Matches() {
     const { data: matches, isLoading, isError } = useGetMatchesQuery();
@@ -9,7 +10,13 @@ function Matches() {
     if (isLoading) {
         return <Loader />;
     }
-    return <div>Matches</div>;
+    return (
+        <>
+            <MenuTabs>
+                Matches
+            </MenuTabs>
+        </>
+    )
 }
 
 export default Matches;

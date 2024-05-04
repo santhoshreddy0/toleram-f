@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetPlayerQuestionsQuery } from "../../../app/Services/playersApi";
 import Loader from "../../../Components/Loader";
+import MenuTabs from "../../Layout/MenuTabs";
 
 function Players() {
     const {
@@ -8,11 +9,16 @@ function Players() {
         isLoading,
         isError,
     } = useGetPlayerQuestionsQuery();
+    console.log(playerQuestions);
 
     if (isLoading) {
         return <Loader />;
     }
-    return <div>Players</div>;
+    return (
+        <>
+            <MenuTabs>Players</MenuTabs>
+        </>
+    );
 }
 
 export default Players;
