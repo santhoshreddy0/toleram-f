@@ -7,7 +7,7 @@ import Index from "./features/Home/Index";
 import Layout from "./features/Layout/Layout";
 import { useSelector } from "react-redux";
 import Protected from "./features/Auth/Protected";
-import Rules from "./features/Rules";
+import Rules from "./Rules";
 import moment from "moment-timezone";
 import Matches from "./features/V2/Matches";
 import Rounds from "./features/V2/Rounds";
@@ -27,7 +27,7 @@ function App() {
                         <Route path="/rounds" Component={Rounds} />
                         <Route path="/players" Component={Players} />
                         <Route path="/rules" Component={Rules} />
-                        <Route path="*" Component={Rules} />
+                        <Route path="*" Component={Matches} />
                     </Routes>
                 </Protected>
             </Layout>
