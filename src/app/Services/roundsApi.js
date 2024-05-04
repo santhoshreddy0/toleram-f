@@ -33,5 +33,6 @@ export const {
     useGetRoundsQuery,
     useGetRoundByIdQuery,
     useGetRoundQuestionsQuery,
+    useGetRoundBetsQuery,
     useUpdateRoundBetsMutation,
 } = betsApi;

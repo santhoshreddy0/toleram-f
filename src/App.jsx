@@ -12,6 +12,8 @@ import moment from "moment-timezone";
 import Matches from "./features/V2/Matches";
 import Rounds from "./features/V2/Rounds";
 import Players from "./features/V2/Players";
+import RoundQuestions from "./features/V2/Rounds/Questions";
+import MatchQuestions from "./features/V2/Matches/Questions";
 
 function App() {
     moment.tz.setDefault("Africa/Lagos");
@@ -24,7 +26,9 @@ function App() {
                 <Protected>
                     <Routes>
                         <Route path="/matches" Component={Matches} />
+                        <Route path="/matches/:matchId" Component={MatchQuestions} />
                         <Route path="/rounds" Component={Rounds} />
+                        <Route path="/rounds/:roundId" Component={RoundQuestions} />
                         <Route path="/players" Component={Players} />
                         <Route path="/rules" Component={Rules} />
                         <Route path="*" Component={Matches} />
