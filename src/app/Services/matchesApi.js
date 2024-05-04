@@ -1,4 +1,4 @@
-import { baseApi } from './baseApi';
+import { baseApi } from "./baseApi";
 
 const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -33,5 +33,8 @@ const betsApi = baseApi.injectEndpoints({
 });
 
 export const {
-    useGetMatchesQuery
+    useGetMatchesQuery,
+    useGetMatchQuestionsQuery,
+    useGetMatchBetsQuery,
+    useUpdateMatchBetsMutation,
 } = betsApi;

@@ -1,8 +1,8 @@
-import { baseApi } from './baseApi';
+import { baseApi } from "./baseApi";
 
 const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getPlayersBets: builder.query({
+        getPlayerQuestions: builder.query({
             query: () => `bestplayers/questions`,
             providesTags: (result, error, arg) => {
                 return ["Players"];
@@ -27,7 +27,7 @@ const betsApi = baseApi.injectEndpoints({
 });
 
 export const {
-    useCreatePlayersBetsMutation,
-    useUpdatePlayersBetsMutation,
-    useGetPlayersBetsQuery
+    useGetPlayerQuestionsQuery,
+    useGetPlayersBetsQuery,
+    useUpdatePlayerBetsMutation,
 } = betsApi;

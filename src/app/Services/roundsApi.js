@@ -1,21 +1,21 @@
-import { baseApi } from './baseApi';
+import { baseApi } from "./baseApi";
 
 const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getRounds: builder.query({
-            query: () => `/rounds`
+            query: () => `/rounds`,
         }),
         getRoundById: builder.query({
-            query: (roundId) => `/rounds/${roundId}`
+            query: (roundId) => `/rounds/${roundId}`,
         }),
         getRoundQuestions: builder.query({
-            query: (roundId) => `/rounds/${roundId}/questions`
+            query: (roundId) => `/rounds/${roundId}/questions`,
         }),
         getRoundBets: builder.query({
             query: (roundId) => `/rounds/${roundId}/bets`,
             providesTags: (result, error, arg) => {
                 return ["RoundBets"];
-            }
+            },
         }),
         updateRoundBets: builder.mutation({
             query: (roundId, data) => ({
@@ -25,11 +25,13 @@ const betsApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["RoundBets"],
         }),
-        
     }),
     overrideExisting: false,
 });
 
 export const {
-    useGetRoundsQuery
+    useGetRoundsQuery,
+    useGetRoundByIdQuery,
+    useGetRoundQuestionsQuery,
+    useUpdateRoundBetsMutation,
 } = betsApi;

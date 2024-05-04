@@ -5,12 +5,11 @@ import Loader from "../Components/Loader.jsx";
 import { teams } from "../Data/teams.js";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { useGetBetsQuery } from "../app/Services/betsApi.js";
 import Betpopup from "./BetsPopup.jsx";
-import BetForm from "./betform.jsx";
+// import BetForm from "./betform.jsx";
 function Matches() {
   const { data: matches, isLoading, isError } = useGetMatchesQuery();
-  const { data: bets, isLoading: isBetsLoading } = useGetBetsQuery();
+  // const { data: bets, isLoading: isBetsLoading } = useGetBetsQuery();
   const [betsMap, setBetsMap] = useState(new Map());
 
   const [matchData, setMatchData] = useState({
@@ -77,7 +76,7 @@ function Matches() {
   else if (matchData.show) {
     return (
       <>
-        <BetForm matchData={matchData} resetState={resetState} allBets={bets} />
+        {/* <BetForm matchData={matchData} resetState={resetState} allBets={bets} /> */}
       </>
     );
   }
