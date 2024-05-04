@@ -18,7 +18,7 @@ function Header() {
     return (
         <div>
             {" "}
-            <header className=" inset-x top-0 z-50 bg-red-600">
+            <header className=" inset-x top-0 z-50 bg-red-600 text-white">
                 <nav
                     className="flex items-center justify-between p-6 lg:px-8"
                     aria-label="Global"
