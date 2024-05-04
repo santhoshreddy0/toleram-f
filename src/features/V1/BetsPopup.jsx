@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import BetForm from "./betform";
-import { teams } from "../Data/teams";
+import { teams } from "../../Data/teams";
 
 export default function Betpopup(props) {
   const cancelButtonRef = useRef(null);

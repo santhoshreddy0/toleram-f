@@ -1,6 +1,6 @@
 import React from "react";
-import { useGetRoundsQuery } from "../../app/Services/roundsApi";
-import Loader from "../../Components/Loader";
+import { useGetRoundsQuery } from "../../../app/Services/roundsApi";
+import Loader from "../../../Components/Loader";
 import WinnerForm from "./WinnerForm";
 import { useGetWinnersBetsQuery } from "../../app/Services/winnersApi";
 

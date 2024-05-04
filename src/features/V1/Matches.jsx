@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import { matches } from '../Data/matches.js'
-import { useGetMatchesQuery } from "../app/Services/matchesApi.js";
-import Loader from "../Components/Loader.jsx";
-import { teams } from "../Data/teams.js";
+import { useGetMatchesQuery } from "../../app/Services/matchesApi.js";
+import Loader from "../../Components/Loader.jsx";
+import { teams } from "../../Data/teams.js";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Betpopup from "./BetsPopup.jsx";

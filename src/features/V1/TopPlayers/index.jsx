@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import Text from "../../Components/Text";
+import Text from "../../../Components/Text";
 import {
   useCreatePlayersBetsMutation,
   useGetPlayersBetsQuery,
   useUpdatePlayersBetsMutation,
-} from "../../app/Services/playersApi";
-import { teams } from "../../Data/teams";
-import Datalist from "../../Components/Datalist";
+} from "../../../app/Services/playersApi";
+import { teams } from "../../../Data/teams";
+import Datalist from "../../../Components/Datalist";
 import { Link, redirect } from "react-router-dom";
 
 export default function BetForm({ matchData, allBets, resetState }) {

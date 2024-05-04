@@ -4,14 +4,14 @@ import {
   useGetWinnersBetsQuery,
   useUpdateWinnersBetsMutation,
 } from "../../app/Services/winnersApi";
-import Loader from "../../Components/Loader";
-import { useGetRoundsQuery } from "../../app/Services/roundsApi";
+import Loader from "../../../Components/Loader";
+import { useGetRoundsQuery } from "../../../app/Services/roundsApi";
 import { useForm } from "react-hook-form";
-import Datalist from "../../Components/Datalist";
-import { teams } from "../../Data/teams";
+import Datalist from "../../../Components/Datalist";
+import { teams } from "../../../Data/teams";
 import { Link, redirect } from "react-router-dom";
-import { history } from "../../app/store";
-import Text from "../../Components/Text";
+import { history } from "../../../app/store";
+import Text from "../../../Components/Text";
 
 function WinnerForm({ roundData, existingData}) {
   const [

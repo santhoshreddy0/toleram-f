@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import Text from "../Components/Text";
+import Text from "../../Components/Text";
 import {
   useCreateBetsMutation,
   useUpdateBetsMutation,
 } from "../app/Services/betsApi";
-import { teams } from "../Data/teams";
-import Datalist from "../Components/Datalist";
+import { teams } from "../../Data/teams";
+import Datalist from "../../Components/Datalist";
 
 export default function BetForm({ matchData, allBets, resetState }) {
   const [
