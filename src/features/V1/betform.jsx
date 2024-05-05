@@ -69,8 +69,8 @@ export default function BetForm({ matchData, allBets, resetState }) {
       return;
     }
     if (matchData.isEdit) {
-      // console.log(formData);
-      // return
+      
+      
       try {
         const res = await updateBets({
           match_id: matchData.match_id,

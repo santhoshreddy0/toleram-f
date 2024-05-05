@@ -15,14 +15,14 @@ const betsApi = baseApi.injectEndpoints({
             },
         }),
         getMatchBets: builder.query({
-            query: (matchId) => `/matches/${matchId}/bets`,
+            query: (matchId) => `/matches/${matchId}/bet`,
             providesTags: (result, error, arg) => {
                 return ["MatchBets"];
             },
         }),
         updateMatchBets: builder.mutation({
-            query: (matchId, data) => ({
-                url: `/matches/${matchId}/bets`,
+            query: ({ matchId, data }) => ({
+                url: `/matches/${matchId}/bet`,
                 method: "PUT",
                 body: data,
             }),

@@ -15,7 +15,7 @@ const betsApi = baseApi.injectEndpoints({
             },
         }),
         updatePlayerBets: builder.mutation({
-            query: (data) => ({
+            query: ({ data }) => ({
                 url: `bestplayers/bets`,
                 method: "PUT",
                 body: data,

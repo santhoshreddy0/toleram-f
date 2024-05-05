@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import {
@@ -54,7 +54,18 @@ function MatchQuestions() {
 
     useEffect(() => {
         if (bets) {
-            setFormData(bets?.bets);
+            const newBets = {};
+            const existingBets = bets?.bets;
+            Object.keys(existingBets)?.map((key) => {
+                if (
+                    existingBets?.[key]?.option != null &&
+                    existingBets?.[key]?.amount != 0
+                ) {
+                    newBets[key] = existingBets[key];
+                }
+            });
+
+            setFormData(newBets);
         }
     }, [bets]);
 

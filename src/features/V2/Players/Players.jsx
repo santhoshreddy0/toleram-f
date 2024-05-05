@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useGetPlayerQuestionsQuery,
     useGetPlayersBetsQuery,
@@ -10,13 +10,13 @@ import AllQuestions from "../../../Components/AllQuestions";
 
 function Players() {
     const {
-        data: playerQuestions,
+        data: questions,
         isLoading,
         isError,
     } = useGetPlayerQuestionsQuery();
 
     const {
-        data: playerBets,
+        data: bets,
         isLoading: betsLoading,
         isError: betsError,
     } = useGetPlayersBetsQuery();
@@ -40,7 +40,6 @@ function Players() {
         }
         try {
             const res = await updatePlayerBets({
-                matchId,
                 data: {
                     bets: formData,
                 },
@@ -53,7 +52,18 @@ function Players() {
 
     useEffect(() => {
         if (bets) {
-            setFormData(bets?.bets);
+            const newBets = {};
+            const existingBets = bets?.bets;
+            Object.keys(existingBets)?.map((key) => {
+                if (
+                    existingBets?.[key]?.option != null &&
+                    existingBets?.[key]?.amount != 0
+                ) {
+                    newBets[key] = existingBets[key];
+                }
+            });
+
+            setFormData(newBets);
         }
     }, [bets]);
 

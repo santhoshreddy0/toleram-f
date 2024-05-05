@@ -23,9 +23,13 @@ function BetSlip({
     const onAmountChange = (e, questionId) => {
         setFormData({
             ...formData,
-            [questionId]: { ...formData[questionId], amount: e.target.value },
+            [questionId]: {
+                ...formData[questionId],
+                amount: parseInt(e.target.value),
+            },
         });
     };
+
     const deleteAnswer = (key) => {
         // remmove the question from the form data
         const newFormData = { ...formData };
@@ -53,11 +57,6 @@ function BetSlip({
                 ?.options.find((i) => i.id == formData[key].option)?.odds;
 
             odds = parseFloat(odds);
-            console.log(
-                odds,
-                formData[key].amount,
-                parseInt(formData[key].amount) * odds
-            );
             potentialAmount += parseInt(formData[key].amount) * odds;
         });
         setAmounts({ totalAmount: amount, potentialAmount: potentialAmount });
@@ -73,7 +72,7 @@ function BetSlip({
             <div>
                 <ul role="list" className="divide-y divide-gray-100">
                     {Object.keys(formData).length > 0 ? (
-                        Object.keys(formData)?.map((key) => {
+                        Object.keys(formData)?.map((key, index) => {
                             const question = questions?.questions?.find(
                                 (i) => i.id == key
                             );
@@ -82,9 +81,10 @@ function BetSlip({
                                 .options.find(
                                     (i) => i.id == formData[key].option
                                 );
+
                             return (
                                 <li
-                                    key={key}
+                                    key={index}
                                     className="flex-col justify-between gap-x-6 py-5"
                                 >
                                     <div className="flex min-w-0 gap-x-4">
@@ -97,9 +97,9 @@ function BetSlip({
                                                 {question?.question}
                                             </p>
                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                                                {option.option +
+                                                {option?.option +
                                                     " - " +
-                                                    option.odds}
+                                                    option?.odds}
                                             </p>
                                         </div>
                                     </div>
@@ -114,13 +114,12 @@ function BetSlip({
                                                 </label>
                                                 <Text
                                                     register={register}
-                                                    name="toss_bet"
+                                                    name={key}
                                                     type="number"
                                                     value={
                                                         formData?.[key]?.amount
                                                     }
                                                     onChange={(i) => {
-                                                        clearErrors("toss_bet");
                                                         onAmountChange(i, key);
                                                     }}
                                                     withCheck={true}

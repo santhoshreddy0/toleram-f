@@ -30,8 +30,6 @@ function RoundQuestions() {
 
     const [formData, setFormData] = useState(bets ? bets?.bets : {});
 
-    console.log("formData", formData, bets);
-
     const onSubmit = async () => {
         const highestCanBet = import.meta.env.VITE_REACT_APP_ROUNDS_AMOUNT;
         let totalAmount = 0;
@@ -57,7 +55,18 @@ function RoundQuestions() {
 
     useEffect(() => {
         if (bets) {
-            setFormData(bets?.bets);
+            const newBets = {};
+            const existingBets = bets?.bets;
+            Object.keys(existingBets)?.map((key) => {
+                if (
+                    existingBets?.[key]?.option != null &&
+                    existingBets?.[key]?.amount != 0
+                ) {
+                    newBets[key] = existingBets[key];
+                }
+            });
+
+            setFormData(newBets);
         }
     }, [bets]);
 

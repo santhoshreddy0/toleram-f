@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 function Rounds() {
     const { data: rounds, isLoading, isError } = useGetRoundsQuery();
 
-    console.log(rounds?.rounds);
     if (isLoading) {
         return <Loader />;
     }
@@ -16,11 +15,11 @@ function Rounds() {
         <MenuTabs>
             <ul role="list" className="divide-y divide-gray-100 mx-5">
                 {rounds?.rounds?.map((round) => (
-                    <li
-                        key={round.id}
-                        className=""
-                    >
-                        <Link to={`/rounds/${round.id}`} className="flex justify-start gap-x-6 py-5">
+                    <li key={round.id} className="">
+                        <Link
+                            to={`/rounds/${round.id}`}
+                            className="flex justify-start gap-x-6 py-5"
+                        >
                             <div className="flex min-w-0 gap-x-4">
                                 {round.can_bet == "0" ? (
                                     <ShieldExclamationIcon className="h-10 w-10 text-red-500" />

@@ -11,7 +11,6 @@ function AllQuestions({ questions, formData, setFormData, onSubmit }) {
         });
     };
 
-    console.log(show);
     return (
         <div className="mt-10 max-w-2xl ">
             {questions?.questions?.map((question) => {
