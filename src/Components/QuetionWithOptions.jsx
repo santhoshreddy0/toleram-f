@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Disclosure, RadioGroup } from "@headlessui/react";
-import { CheckIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/16/solid";
 
 const QuestionWithOptions = ({ id, question, options, onChange, formData }) => {
@@ -35,9 +35,10 @@ const QuestionWithOptions = ({ id, question, options, onChange, formData }) => {
 };
 
 const Options = ({ options, onChange, questionId, formData }) => {
-    const [selected, setSelected] = useState(
-        options.find((o) => o.id == formData?.[questionId]?.option)
+    const selected = options.find(
+        (o) => o.id == formData?.[questionId]?.option
     );
+
     return (
         <div className="w-full px-4">
             <div className="mx-auto w-full max-w-md">
@@ -61,7 +62,11 @@ const Options = ({ options, onChange, questionId, formData }) => {
                                             ? "ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300"
                                             : ""
                                     }
-                  ${checked ? "bg-green-600/75 text-white" : "bg-white"}
+                  ${
+                      selected?.id == option?.id
+                          ? "bg-green-600/75 text-white"
+                          : "bg-white"
+                  }
                     relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
                                 }
                             >
@@ -73,7 +78,8 @@ const Options = ({ options, onChange, questionId, formData }) => {
                                                     <RadioGroup.Label
                                                         as="p"
                                                         className={`font-medium  ${
-                                                            checked
+                                                            selected?.id ==
+                                                            option?.id
                                                                 ? "text-white"
                                                                 : "text-gray-900"
                                                         }`}
@@ -83,7 +89,8 @@ const Options = ({ options, onChange, questionId, formData }) => {
                                                     <RadioGroup.Description
                                                         as="span"
                                                         className={`inline ${
-                                                            checked
+                                                            selected?.id ==
+                                                            option?.id
                                                                 ? "text-sky-100 font-medium"
                                                                 : "text-gray-500 "
                                                         }`}
@@ -94,7 +101,7 @@ const Options = ({ options, onChange, questionId, formData }) => {
                                                     </RadioGroup.Description>
                                                 </div>
                                             </div>
-                                            {checked && (
+                                            {selected?.id == option?.id && (
                                                 <div className="shrink-0 text-white">
                                                     <CheckCircleIcon className="h-6 w-6 " />
                                                 </div>
@@ -110,6 +117,5 @@ const Options = ({ options, onChange, questionId, formData }) => {
         </div>
     );
 };
-
 
 export default QuestionWithOptions;
