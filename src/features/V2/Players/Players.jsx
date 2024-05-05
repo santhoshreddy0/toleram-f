@@ -1,35 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useGetPlayerQuestionsQuery,
     useGetPlayersBetsQuery,
+    useUpdatePlayerBetsMutation,
 } from "../../../app/Services/playersApi";
 import Loader from "../../../Components/Loader";
 import MenuTabs from "../../Layout/MenuTabs";
-import QuestionWithOptions from "../../../Components/QuetionWithOptions";
+import AllQuestions from "../../../Components/AllQuestions";
 
 function Players() {
     const {
-        data: playerQuestions,
+        data: questions,
         isLoading,
         isError,
     } = useGetPlayerQuestionsQuery();
 
     const {
-        data: playerBets,
+        data: bets,
         isLoading: betsLoading,
         isError: betsError,
     } = useGetPlayersBetsQuery();
-    const [formData, setFormData] = useState(
-        playerBets ? playerBets?.bets : {}
-    );
-    const onChange = (i) => {
-        setFormData({
-            ...formData,
-            [i.questionId]: { option: i.id, amount: 0 },
+
+    const [
+        updatePlayerBets,
+        { isLoading: updatePlayerBetsLoading, isError: updatePlayerBetsError },
+    ] = useUpdatePlayerBetsMutation();
+
+    const [formData, setFormData] = useState(bets ? bets?.bets : {});
+
+    const onSubmit = async () => {
+        const highestCanBet = import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT;
+        let totalAmount = 0;
+        Object.keys(formData)?.map((key) => {
+            totalAmount += parseInt(formData[key].amount);
         });
+        if (totalAmount > highestCanBet) {
+            alert("You can't bet more than " + highestCanBet);
+            return;
+        }
+        try {
+            const res = await updatePlayerBets({
+                data: {
+                    bets: formData,
+                },
+            }).unwrap();
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    console.log(formData);
+    useEffect(() => {
+        if (bets) {
+            const newBets = {};
+            const existingBets = bets?.bets;
+            Object.keys(existingBets)?.map((key) => {
+                if (
+                    existingBets?.[key]?.option != null &&
+                    existingBets?.[key]?.amount != 0
+                ) {
+                    newBets[key] = existingBets[key];
+                }
+            });
+
+            setFormData(newBets);
+        }
+    }, [bets]);
+
     if (isLoading || betsLoading) {
         return <Loader />;
     }
@@ -40,20 +77,12 @@ function Players() {
                     <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                         Best Players:
                     </h1>
-                    <div className="mt-10 max-w-2xl ">
-                        {playerQuestions?.questions?.map((question) => {
-                            return (
-                                <QuestionWithOptions
-                                    key={question.id}
-                                    id={question.id}
-                                    question={question.question}
-                                    options={question.options}
-                                    onChange={onChange}
-                                    formData={formData}
-                                />
-                            );
-                        })}
-                    </div>
+                    <AllQuestions
+                        questions={questions}
+                        formData={formData}
+                        setFormData={setFormData}
+                        onSubmit={onSubmit}
+                    />
                 </div>
             </MenuTabs>
         </>
