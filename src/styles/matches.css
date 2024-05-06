@@ -1,9 +1,9 @@
-.matches-container {
+/* .matches-container {
     display: flex;
     flex-direction: column;
-  }
+  } */
   
-  .match {
+  /* .match {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,55 +11,53 @@
     margin-bottom: 20px;
     border: none;
     padding: 10px;
-  }
+  } */
   
-  .match-details {
+  /* .match-details {
     flex: 1;
     margin-right: 10px;
-  }
+  } */
   
-  .shadow-xl {
+  /* .shadow-xl {
     display: flex;
     align-items: center;
     justify-content: center;
     grid-area: header;
-  }
+  } */
   
-  .team {
+  /* .team {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 10px;
-  }
+  } */
   
-  .team-image {
-    width: 180px; /* Adjust the size as needed */
-    height: auto; /* Adjust the size as needed */
-  }
+  /* .team-image {
+    width: 180px;
+    height: auto;
+  } */
   
-  .team-name {
-    margin-top: 5px; /* Adjust spacing as needed */
-    text-align: center; /* Align text in the center */
-    font-family: 'Arial', sans-serif; /* Use a custom font family */
-    color: #333; /* Define a custom text color */
-  }
+  /* .team-name {
+    margin-top: 5px; 
+    text-align: center; 
+    font-family: 'Arial', sans-serif; 
+    color: #333; 
+  } */
   
-  .match-date-time {
+  /* .match-date-time {
     margin: 0;
     text-align: center;
-    font-family: 'Arial', sans-serif; /* Use a custom font family */
-    color: #666; /* Define a custom text color */
-  }
+    font-family: 'Arial', sans-serif;
+    color: #666; 
+  } */
   
-  .vs-image {
-    width: 60px; /* Adjust the size as needed */
-    height: auto; /* Adjust the size as needed */
-
-    
-  }
-  .vs {
+  /* .vs-image {
+    width: 60px; 
+    height: auto;
+  } */
+  /* .vs {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+   */

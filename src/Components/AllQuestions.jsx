@@ -12,7 +12,7 @@ function AllQuestions({ questions, formData, setFormData, onSubmit }) {
     };
 
     return (
-        <div className="mt-10 max-w-2xl ">
+        <div className="mt-10 max-w-2xl mx-auto">
             {questions?.questions?.map((question) => {
                 return (
                     <QuestionWithOptions
@@ -27,10 +27,12 @@ function AllQuestions({ questions, formData, setFormData, onSubmit }) {
             })}
             <button
                 onClick={() => setShow(true)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                disabled={Object.keys(formData).length == 0}
+                className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 fixed right-0 bottom-10 text-black"
+                // disabled={Object.keys(formData).length == 0}
             >
-                Submit ( {Object.keys(formData).length} )
+                <span className="px-2 py-1 rounded-full text-white bg-red-600"> {Object.keys(formData).length} </span>
+                <br />
+                BET SLIP
             </button>
             {show && (
                 <BetSlip
