@@ -1,5 +1,5 @@
 import React from "react";
-const Text = ({
+const FullText = ({
   id,
   name,
   register,
@@ -12,22 +12,21 @@ const Text = ({
   isReadOnly,
   success,
   length,
-  className,
 }) => {
   const classes = errors[name]
-    ? "appearance-none rounded-lg text-sm  px-3 pr-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none ring-1 ring-[#E45555] focus:ring-[#E45555] ring-offset-2 focus-visible:ring-[#E45555] hover:ring-[#E45555]"
-    : `appearance-none rounded-lg text-sm  px-3 pr-4 py-2 placeholder-gray-500 text-gray-900  ring-1 ring-[#e5e5e5] ring-offset-2 ${
+    ? "appearance-none rounded-lg text-sm w-full px-3 pr-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none ring-1 ring-[#E45555] focus:ring-[#E45555] ring-offset-2 focus-visible:ring-[#E45555] hover:ring-[#E45555]"
+    : `appearance-none rounded-lg text-sm w-full px-3 pr-4 py-2 placeholder-gray-500 text-gray-900  ring-1 ring-[#e5e5e5] ring-offset-2 ${
         isReadOnly
           ? "cursor-not-allowed"
           : "focus:outline-none  focus:ring-[#899ada] focus-visible:ring-[#899ada] hover:ring-[#899ada]"
-      } ${className ? className : " w-1/2 "}`;
+      }`;
   const isValid =
     (!errors[name] && String(value)?.length > (length ? length : 2)) || success
       ? "hub-st-check-circle text-checkIcon check-success"
       : "hub-st-check-circle text-checkIcon";
 
   return (
-    <div className="my-1 relative flex justify-end">
+    <div className="my-1 relative ">
       <input
         id={id}
         {...register(name, options)}
@@ -54,4 +53,4 @@ const Text = ({
   );
 };
 
-export default Text;
+export default FullText;

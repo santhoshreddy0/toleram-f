@@ -5,6 +5,7 @@ import { useLoginMutation } from "../../app/Services/authApi";
 import { setErrors } from "../../Utils/ErrorSlice";
 import { setCredentials } from "../../Utils/AuthSlice";
 import { useDispatch } from "react-redux";
+import FullText from "../../Components/FullText";
 
 export default function Login({ setUserToken }) {
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ export default function Login({ setUserToken }) {
 
   return (
     <>
-      <div className="mx-auto lg:w-1/2 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="m-5 md:mx-auto lg:w-1/2 min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white rounded-xl">
         <div className="sm:mx-auto">
           {/* <img
             className="mx-auto h-10 w-auto"
@@ -66,7 +67,7 @@ export default function Login({ setUserToken }) {
                 User name
               </label>
               <div className="mt-2">
-                <Text
+                <FullText
                   register={register}
                   name="email"
                   type="text"
@@ -96,7 +97,7 @@ export default function Login({ setUserToken }) {
                 </div> */}
               </div>
               <div className="mt-2 ">
-                <Text
+                <FullText
                   register={register}
                   name="password"
                   type="password"
@@ -114,7 +115,7 @@ export default function Login({ setUserToken }) {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
