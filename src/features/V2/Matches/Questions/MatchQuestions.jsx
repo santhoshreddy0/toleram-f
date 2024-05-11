@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import {
   useGetMatchBetsQuery,
@@ -10,6 +10,7 @@ import AllQuestions from "../../../../Components/AllQuestions";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 
 function MatchQuestions() {
+  const navigate = useNavigate();
   const { matchId } = useParams();
   const {
     data: questions,
@@ -36,13 +37,13 @@ function MatchQuestions() {
     Object.keys(formData)?.map((key) => {
       totalAmount += parseInt(formData[key].amount);
     });
-    if (totalAmount > highestCanBet ) {
+    if (totalAmount > highestCanBet) {
       alert("You can't bet more than " + highestCanBet);
       return;
     }
     if (totalAmount == 0) {
-        alert("You can't bet 0");
-        return;
+      alert("You can't bet 0");
+      return;
     }
     try {
       const res = await updateMatchBets({
@@ -80,12 +81,14 @@ function MatchQuestions() {
 
   return (
     <>
-      <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto" >
+      <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto">
         <div className="flex justify-start">
-          <span className="inline-flex items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-2xl font-medium border m-3">
-            <ArrowUturnLeftIcon className="h-6 w-6" />
-            Go back
-          </span>
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-flex text-xs items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-2xl font-medium border m-3 "
+          >
+            Back
+          </button>
         </div>
         {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Match Questions:

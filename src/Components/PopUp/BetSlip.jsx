@@ -70,8 +70,16 @@ function BetSlip({
         setShow(false);
       }}
     >
-      <div className="bg-gray-900">
-        <ul role="list" className="divide-y divide-gray-100">
+      <div className="bg-gray-900 p-2 sm:p-4 md:p-6 relative">
+        <button
+          onClick={() => setShow(false)}
+          className="absolute text-white p-1 rounded-full bg-red-600"
+        >
+          <div className="flex items-center space-x-1 ">
+            <span className="text-xs">Close Bet</span>
+          </div>
+        </button>
+        <ul role="list" className="divide-y divide-gray-100 m-2 sm:m-4 md:m-6">
           {Object.keys(formData).length > 0 ? (
             Object.keys(formData)?.map((key, index) => {
               const question = questions?.questions?.find((i) => i.id == key);
@@ -91,7 +99,7 @@ function BetSlip({
                     />
                     <div className="min-w-0 flex-auto text-xl">
                       <p className=" font-medium leading-6 ">
-                        <CogIcon className="h-6 w-6 inline-block" /> {" "}
+                        <CogIcon className="h-6 w-6 inline-block" />{" "}
                         {question?.question}
                       </p>
                       <p className="mt-1 truncate  leading-5 text-green-500 text-base">
@@ -121,7 +129,9 @@ function BetSlip({
                           //     required: "Please enter this field",
                           //   }}
                           errors={errors}
-                          className={" w-1/2 bg-gray-800 text-white"}
+                          className={
+                            "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-gray-800 text-white"
+                          }
                         />
                       </div>
                     </div>
@@ -139,22 +149,21 @@ function BetSlip({
           <div className="px-4 py-5 sm:p-6">
             <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
               <div>Total Amount</div>
-              <div className="text-sm ">
-                {amounts?.totalAmount}
-              </div>
+              <div className="text-sm ">{amounts?.totalAmount}</div>
             </div>
             <div className="text-lg font-semibold leading-6 flex justify-between bg-green-800 px-4 py-2 rounded">
               <div>Potential Win </div>
-              <div className="text-sm ">
-                {amounts.potentialAmount}
-              </div>
+              <div className="text-sm ">{amounts.potentialAmount}</div>
             </div>
           </div>
           <div className="mt-5">
             <button
               type="button"
-              onClick={handleSubmit(onSubmit)}
-              className="inline-flex items-center bg-green-600 px-3 py-2 text-2xl  text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 w-full text-center "
+              onClick={() => {
+                handleSubmit(onSubmit)();
+                setShow(false);
+              }}
+              className="bg-green-500 font-semibold text-lg text-white w-full py-2 rounded-b-xl"
             >
               Place Bet
             </button>

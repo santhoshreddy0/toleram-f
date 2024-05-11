@@ -17,7 +17,8 @@ export default function MenuTabs(props) {
       name: "Matches",
       href: "/matches",
       icon: UserIcon,
-      current: location.pathname.includes("matches") || location.pathname == "/",
+      current:
+        location.pathname.includes("matches") || location.pathname == "/",
     },
     {
       name: "Rounds",
@@ -47,16 +48,16 @@ export default function MenuTabs(props) {
                 to={tab.href}
                 className={classNames(
                   tab.current
-                    ? "  bg-wh bg-gray-400 px-5  font-bold"
+                    ? "bg-wh bg-gray-400 font-bold"
                     : "border-transparent text-White hover:border-gray-300 hover:text-gray-700",
-                  "group inline-flex items-center border-b-0 py-4 px-1 font-medium flex-col"
+                  "group inline-flex items-center border-b-0 py-4 px-1 font-medium flex-col",
                 )}
                 aria-current={tab.current ? "page" : undefined}
               >
                 <tab.icon
                   className={classNames(
                     tab.current ? "" : "text-white group-hover:text-gray-500",
-                    "-ml-0.5 mr-2 h-5 w-5"
+                    "-ml-0.5 mr-2 h-5 w-5",
                   )}
                   aria-hidden="true"
                 />
