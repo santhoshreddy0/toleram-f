@@ -15,21 +15,24 @@ function Matches() {
   }
   const formatDateTime = (dateTimeStr) => {
     const dateTime = new Date(dateTimeStr);
-    const formattedDate = dateTime.toLocaleDateString("en-GB", {
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "numeric",
       year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
+    }).format(dateTime);
+    const dateParts = formattedDate.split(" ");
+    dateParts[0] = dateParts[0].substring(0, 3); // Truncate the month to the first 3 characters
+    const truncatedDate = dateParts.join(" ");
     const formattedTime = dateTime.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
     });
 
-    return `${formattedDate} ${formattedTime}`;
+    return `${truncatedDate} ${formattedTime}`;
   };
   const filteredMatches = matches.matches.filter(
-    (match) => match.can_show === "1"
+    (match) => match.can_show === "1",
   );
 
   return (
@@ -57,14 +60,14 @@ function Matches() {
                   )}
 
                   <div className="py-4">{match.match_title}</div>
-                  <div className="shadow-xl flex align-middle justify-center">
-                    <div className="team flex flex-col align-middle">
+                  <div className="shadow-xl flex align-middle justify-center px-1">
+                    <div className="team flex flex-col align-middle my-3">
                       <img
                         className="inline-block h-32 w-24 rounded-full"
                         src={match.team_one_logo}
                         alt=""
                       />
-                      <p className="team-name mt-1 text-center text-gray-200">
+                      <p className="team-name mt-1 text-center text-gray-200 overflow-auto break-words">
                         {match.team_one_name}
                       </p>
                     </div>
@@ -84,7 +87,7 @@ function Matches() {
                         src={match.team_two_logo}
                         alt=""
                       />
-                      <p className="team-name mt-1 text-center text-gray-200">
+                      <p className="team-name mt-1 text-center text-gray-200 overflow-auto break-words">
                         {match.team_two_name}
                       </p>
                     </div>
@@ -124,14 +127,14 @@ function Matches() {
                   )}
 
                   <div className="py-4">{match.match_title}</div>
-                  <div className="shadow-xl flex align-middle justify-center">
+                  <div className="shadow-xl flex align-middle justify-center px-1">
                     <div className="team flex flex-col align-middle">
                       <img
                         className="inline-block h-32 w-24 rounded-full"
                         src={match.team_one_logo}
                         alt=""
                       />
-                      <p className="team-name mt-1 text-center text-gray-200">
+                      <p className="team-name mt-1 text-center text-gray-200 overflow-auto break-words">
                         {match.team_one_name}
                       </p>
                     </div>
@@ -151,7 +154,7 @@ function Matches() {
                         src={match.team_two_logo}
                         alt=""
                       />
-                      <p className="team-name mt-1 text-center text-gray-200">
+                      <p className="team-name mt-1 text-center text-gray-200 overflow-auto break-words">
                         {match.team_two_name}
                       </p>
                     </div>
