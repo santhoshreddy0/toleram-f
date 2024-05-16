@@ -69,8 +69,8 @@ function Players() {
   return (
     <>
       <MenuTabs>
-        <div className="mx-5 text-base lg:mx-50 xl:mx-50 leading-7 text-gray-700 bg-white rounded">
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <div className="mx-5 text-base lg:mx-50 xl:mx-50 leading-7 rounded">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
             Best Players:
           </h1>
           <AllQuestions

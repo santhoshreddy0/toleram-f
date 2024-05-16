@@ -39,3 +39,10 @@
 .read-the-docs {
   color: #888;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Freeman&display=swap');
+.freeman-regular {
+  font-family: "Freeman", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}

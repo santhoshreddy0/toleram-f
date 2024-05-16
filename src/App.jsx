@@ -16,7 +16,7 @@ import RoundQuestions from "./features/V2/Rounds/Questions";
 import MatchQuestions from "./features/V2/Matches/Questions";
 
 function App() {
-    moment.tz.setDefault("Africa/Lagos");
+    moment.tz.setDefault();
     const store_token = useSelector((state) => state.auth.JWTtoken);
     const storage_token = localStorage.getItem("token");
 
