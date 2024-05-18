@@ -32,6 +32,12 @@ export default function MenuTabs(props) {
       icon: UsersIcon,
       current: location.pathname.includes("players"),
     },
+    {
+      name: "Bet History",
+      href: "/history",
+      icon: UsersIcon,
+      current: location.pathname.includes("history"),
+    },
   ];
 
   return (
