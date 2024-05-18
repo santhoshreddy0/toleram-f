@@ -9,7 +9,7 @@ import moment from "moment";
 
 function Matches() {
   const { data: matches, isLoading, isError } = useGetMatchesQuery();
-  console.log(matches);
+  
 
   if (isLoading) {
     return <Loader />;
