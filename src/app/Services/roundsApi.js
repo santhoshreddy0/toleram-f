@@ -23,7 +23,7 @@ const betsApi = baseApi.injectEndpoints({
                 method: "PUT",
                 body: data,
             }),
-            invalidatesTags: ["RoundBets"],
+            invalidatesTags: ["RoundBets", "History"],
         }),
     }),
     overrideExisting: false,

@@ -26,7 +26,7 @@ const betsApi = baseApi.injectEndpoints({
                 method: "PUT",
                 body: data,
             }),
-            invalidatesTags: ["MatchBets"],
+            invalidatesTags: ["MatchBets", "History"],
         }),
     }),
     overrideExisting: false,

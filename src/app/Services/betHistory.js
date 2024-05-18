@@ -5,25 +5,25 @@ const betHistoryApi = baseApi.injectEndpoints({
     getBetHistory: builder.query({
       query: () => `/history`,
       providesTags: (result, error, arg) => {
-        return ["history"];
+        return ["History"];
       },
     }),
     getBetHistoryByMatchId: builder.query({
       query: (matchId) => `/history/matches/${matchId}`,
       providesTags: (result, error, arg) => {
-        return ["history"];
+        return ["History"];
       },
     }),
     getBetHistoryByRoundId: builder.query({
       query: (roundId) => `/history/rounds/${roundId}`,
       providesTags: (result, error, arg) => {
-        return ["history"];
+        return ["History"];
       },
     }),
     getBetHistoryOfBestPlayers: builder.query({
       query: () => `/history/bestplayers`,
       providesTags: (result, error, arg) => {
-        return ["history"];
+        return ["History"];
       },
     }),
   }),
