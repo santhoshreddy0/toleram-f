@@ -11,22 +11,6 @@ function Index() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl capitalize">
               Tolaram Premier League
             </h1>
-            {/* <p className="mt-6 text-sm md:text-lg leading-8 text-gray-600">
-              Get ready to witness the clash of cricketing talents as our
-              employees showcase their skills, passion, and competitive spirit
-              on the grandest stage.
-              <br />
-              Stay tuned for updates, fixtures, and match highlights as we
-              embark on this thrilling journey of the Tolaram Premier League.
-              Let the games begin!
-            </p> */}
-            {/* <Link
-              to={'/login'}
-              type="button"
-              className="mt-16 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Log in
-            </Link> */}
             <div className="mt-14 flex items-center justify-center gap-x-3">
               <Link
                 to="/login"
@@ -50,13 +34,6 @@ function Index() {
           }}
         />
       </div>
-      {/* <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="font-bold text-2xl my-3">Match Schedule</div>
-        <div className="relative">
-          <HomeMatches />
-        </div>
-      </div> */}
-      {/* Logo cloud */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-5">
         <div className="font-bold text-2xl my-3">TPL teams</div>
 

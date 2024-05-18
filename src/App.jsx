@@ -14,6 +14,10 @@ import Rounds from "./features/V2/Rounds";
 import Players from "./features/V2/Players";
 import RoundQuestions from "./features/V2/Rounds/Questions";
 import MatchQuestions from "./features/V2/Matches/Questions";
+import BetHistory from "./features/V2/History/index";
+import MatchHistory from "./features/V2/History/Match";
+import RoundHistory from "./features/V2/History/Round";
+import BestPlayersHistory from "./features/V2/History/BestPlayers";
 
 function App() {
     moment.tz.setDefault();
@@ -31,6 +35,11 @@ function App() {
                         <Route path="/rounds/:roundId" Component={RoundQuestions} />
                         <Route path="/players" Component={Players} />
                         <Route path="/rules" Component={Rules} />
+                        <Route path="/history" Component={BetHistory} />
+                        <Route path="/history" Component={BetHistory} />
+                        <Route path="/history/matches/:matchId" Component={MatchHistory} />
+                        <Route path="/history/rounds/:roundId" Component={RoundHistory} />
+                        <Route path="/history/bestPlayers" Component={BestPlayersHistory} />
                         <Route path="*" Component={Matches} />
                     </Routes>
                 </Protected>
