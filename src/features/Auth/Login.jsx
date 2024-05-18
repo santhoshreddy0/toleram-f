@@ -20,6 +20,7 @@ export default function Login({ setUserToken }) {
     handleSubmit,
     clearErrors,
     setError,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -40,6 +41,7 @@ export default function Login({ setUserToken }) {
 
   const onChange = (e) => {
     clearErrors(e.target.name);
+    setValue(e.target.name, e.target.value);
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
