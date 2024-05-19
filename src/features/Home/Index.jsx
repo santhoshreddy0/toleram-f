@@ -41,13 +41,13 @@ function Index() {
           {teams.slice(1).map((t) => (
             <div className="flex-col">
               <img
-                className=" inline-block h-36 md:h-60 w-60 rounded-full"
-                src={`${t.image}`}
+                className=" inline-block h-24  w-20 rounded-lg"
+                src={`${t.team_logo}`}
                 alt="team"
                 width={158}
                 height={48}
               />
-              <div className="text-sm text-gray-400">{t?.name}</div>
+              <div className="text-sm text-gray-400">{t?.team_name}</div>
             </div>
           ))}
         </div>

@@ -26,6 +26,12 @@ const betHistoryApi = baseApi.injectEndpoints({
         return ["History"];
       },
     }),
+    getRewards: builder.query({
+      query: () => `/history/rewards`,
+      providesTags: (result, error, arg) => {
+        return ["History"];
+      },
+    }),
   }),
   overrideExisting: false,
 });
@@ -35,4 +41,5 @@ export const {
   useGetBetHistoryByMatchIdQuery,
   useGetBetHistoryByRoundIdQuery,
   useGetBetHistoryOfBestPlayersQuery,
+  useGetRewardsQuery,
 } = betHistoryApi;
