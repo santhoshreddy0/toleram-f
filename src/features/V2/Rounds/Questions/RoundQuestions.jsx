@@ -8,6 +8,7 @@ import {
 import Loader from "../../../../Components/Loader";
 
 import AllQuestions from "../../../../Components/AllQuestions";
+import BackButton from "../../../../Components/BackButton";
 
 function RoundQuestions() {
   const navigate = useNavigate();
@@ -77,15 +78,8 @@ function RoundQuestions() {
 
   return (
     <>
+      <BackButton />
       <div className="mx-5 max-w-3xl text-base leading-7 text-gray-700 mt-5">
-        <div className="flex justify-start">
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex text-xs items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-2xl font-medium border m-3 text-white"
-          >
-            Back
-          </button>
-        </div>
         <AllQuestions
           questions={questions}
           formData={formData}
