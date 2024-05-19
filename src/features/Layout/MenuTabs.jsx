@@ -27,12 +27,6 @@ export default function MenuTabs(props) {
       current: location.pathname.includes("rounds"),
     },
     {
-      name: "Best Players",
-      href: "/players",
-      icon: UsersIcon,
-      current: location.pathname.includes("players"),
-    },
-    {
       name: "Bet History",
       href: "/history",
       icon: UsersIcon,
