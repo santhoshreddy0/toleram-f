@@ -36,7 +36,6 @@ function App() {
                         <Route path="/players" Component={Players} />
                         <Route path="/rules" Component={Rules} />
                         <Route path="/history" Component={BetHistory} />
-                        <Route path="/history" Component={BetHistory} />
                         <Route path="/history/matches/:matchId" Component={MatchHistory} />
                         <Route path="/history/rounds/:roundId" Component={RoundHistory} />
                         <Route path="/history/bestPlayers" Component={BestPlayersHistory} />
