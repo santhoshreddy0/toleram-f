@@ -10,7 +10,15 @@ function AllQuestions({ questions, formData, setFormData, onSubmit }) {
       [i.questionId]: { option: i.id, amount: 0 },
     });
   };
-
+  if (!questions?.questions) {
+    return (
+      <>
+        <div className="flex justify-center items-center">
+          <div className="text-2xl text-white">No Questions available</div>
+        </div>
+      </>
+    );
+  }
   return (
     <div className="mt-2 max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-7xl overscroll-auto mx-auto bg-gray-900 text-white p-4 sm:p-8 rounded">
       {questions?.questions?.map((question) => {
