@@ -11,60 +11,67 @@ function BetHistory() {
   const { matchBets, roundBets, betPlayerBets } = betHistory.bets;
 
   return (
-    <div className="p-4 bg-gray-800 text-white">
-      <h2 className="text-2xl mb-4">Match Bets</h2>
-      <ul className="space-y-4">
-        {matchBets.map((bet) => (
-          <li key={bet.match_id} className="p-4 bg-gray-700 rounded">
-            <Link to={`/history/matches/${bet.match_id}`}>
-              <h3 className="text-xl">{bet.match_title}</h3>
-              <p className="text-gray-300">{`Points: ${bet.points}`}</p>
-              <div
-                to={`/history/matches/${bet.match_id}`}
-                className="text-blue-500 hover:underline"
-              >
-                View Details
+    <div className="max-w-7xl mx-auto py-2 sm:px-2 lg:px-8">
+      <div className="px-4 py-2 sm:px-0">
+        <h2 className="text-2xl font-semibold bg-green-500 rounded-lg shadow text-gray-900">
+          Match Bets
+        </h2>
+        <div className="mt-2 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {matchBets.map((bet) => (
+            <Link to={`/history/matches/${bet.match_id}`} key={bet.match_id}>
+              <div className="p-4 shadow mt-2 cursor-pointer rounded-xl border border-gray-200 bg-gray-600">
+                <h3 className="text-lg leading-6 font-medium text-white">
+                  {bet.match_title}
+                </h3>
+                <p className="mt-4 text-white">Points: {bet.points}</p>
+                <p className="text-white mt-4">View Details</p>
               </div>
             </Link>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      </div>
 
-      <h2 className="text-2xl mt-8 mb-4">Round Bets</h2>
-      <ul className="space-y-4">
-        {roundBets.map((bet) => (
-          <li key={bet.round_id} className="p-4 bg-gray-700 rounded">
-            <Link to={`/history/rounds/${bet.round_id}`}>
-              <h3 className="text-xl">{bet.round_name}</h3>
-              <p className="text-gray-300">{`Points: ${bet.points}`}</p>
-              <div
-                to={`/history/rounds/${bet.round_id}`}
-                className="text-blue-500 hover:underline"
-              >
-                View Details
+      <div className="px-4 py-2 sm:px-0">
+        <h2 className="text-2xl font-semibold bg-green-500 rounded-lg shadow text-gray-900">
+          Round Bets
+        </h2>
+        <div className="mt-2 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {roundBets.map((bet) => (
+            <Link to={`/history/rounds/${bet.round_id}`} key={bet.round_id}>
+              <div className="p-4 shadow mt-2 cursor-pointer rounded-xl border border-gray-200 bg-gray-600">
+                <h3 className="text-lg leading-6 font-medium text-white">
+                  {bet.round_name}
+                </h3>
+                <p className="mt-4 text-white">Points: {bet.points}</p>
+                <p className="text-white hover:text-indigo-500 mt-4">
+                  View Details
+                </p>
               </div>
             </Link>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      </div>
 
-      <h2 className="text-2xl mt-8 mb-4">Player Bets</h2>
-      <ul className="space-y-4">
-        {betPlayerBets.map((bet, index) => (
-          <li key={index} className="p-4 bg-gray-700 rounded">
-            <Link to={`/history/bestPlayers`}>
-              <h3 className="text-xl">{`Player Bet #${index + 1}`}</h3>
-              <p className="text-gray-300">{`Points: ${bet.points}`}</p>
-              <div
-                to={`/history/bestPlayers`}
-                className="text-blue-500 hover:underline"
-              >
-                View Details
+      <div className="px-4 py-2 sm:px-0">
+        <h2 className="text-2xl font-semibold bg-green-500 rounded-lg shadow text-gray-900">
+          Player Bets
+        </h2>
+        <div className="mt-2 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {betPlayerBets.map((bet, index) => (
+            <Link to={`/history/bestPlayers`} key={index}>
+              <div className="p-4 shadow mt-2 cursor-pointer rounded-xl border border-gray-200 bg-gray-600">
+                <h3 className="text-lg leading-6 font-medium text-white">{`Player Bet #${
+                  index + 1
+                }`}</h3>
+                <p className="mt-4 text-white">Points: {bet.points}</p>
+                <p className="text-white hover:text-indigo-500 mt-4">
+                  View Details
+                </p>
               </div>
             </Link>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
