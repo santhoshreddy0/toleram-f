@@ -8,7 +8,7 @@ function BackButton() {
     <div className="flex justify-start">
       <button
         onClick={() => navigate(-1)}
-        className="inline-flex  items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-xl font-medium border m-3 px-4"
+        className="inline-flex  items-start gap-x-1.5 rounded-md   py-3 text-lg font-medium border m-3 px-3"
       >
         <ArrowLeftIcon className="h-6 w-6" />
         Back
