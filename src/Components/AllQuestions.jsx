@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import QuestionWithOptions from "./QuetionWithOptions";
 import BetSlip from "./PopUp/BetSlip";
 
-function AllQuestions({ questions, formData, setFormData, onSubmit }) {
-  const [show, setShow] = useState(false);
+function AllQuestions({ questions, formData, setFormData, onSubmit, show, setShow,totalBetAllowed }) {
+  // const [show, setShow] = useState(false);
   const onChange = (i) => {
     setFormData({
       ...formData,
@@ -53,6 +53,7 @@ function AllQuestions({ questions, formData, setFormData, onSubmit }) {
           formData={formData}
           setFormData={setFormData}
           onSubmit={onSubmit}
+          totalBetAllowed={totalBetAllowed}
         />
       )}
     </div>

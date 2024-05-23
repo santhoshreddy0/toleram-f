@@ -24,7 +24,7 @@ function Matches() {
     );
     return date;
   };
-  const filteredMatches = matches.matches.filter(
+  const filteredMatches = matches?.matches.filter(
     (match) => match.can_show == "1"
   );
 

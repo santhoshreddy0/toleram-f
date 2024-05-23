@@ -20,27 +20,25 @@ const Text = ({
         isReadOnly
           ? "cursor-not-allowed"
           : "focus:outline-none  focus:ring-[#899ada] focus-visible:ring-[#899ada] hover:ring-[#899ada]"
-      } ${className ? className : " w-1/2 "}`;
+      } ${className ? className : "w-full"}`;
   const isValid =
     (!errors[name] && String(value)?.length > (length ? length : 2)) || success
       ? "hub-st-check-circle text-checkIcon check-success"
       : "hub-st-check-circle text-checkIcon";
 
   return (
-    <div className="my-1 relative flex justify-end">
+    <div className="my-1 relative justify-end w-full">
       <input
         id={id}
         {...register(name, options)}
-        className={classes}
+        className={classes+" w-full"}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         type={type}
         readOnly={isReadOnly}
       />
-      {isReadOnly ? (
-        <></>
-      ) : (
+
         <>
           <span className={isValid} />
           {errors[name] && (
@@ -49,7 +47,6 @@ const Text = ({
             </p>
           )}
         </>
-      )}
     </div>
   );
 };

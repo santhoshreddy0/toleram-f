@@ -4,6 +4,7 @@ import Text from "../Text";
 import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Cog8ToothIcon, CogIcon } from "@heroicons/react/20/solid";
+import { format, formatFixed } from "indian-number-format";
 
 function BetSlip({
   show,
@@ -12,6 +13,7 @@ function BetSlip({
   formData,
   setFormData,
   onSubmit,
+  totalBetAllowed
 }) {
   const cancelButtonRef = useRef();
   const {
@@ -21,14 +23,20 @@ function BetSlip({
     setError,
     formState: { errors },
   } = useForm();
+  
   const onAmountChange = (e, questionId) => {
+    let val = e.target.value
+    if(isNaN(e.target.value) ){
+      val = 0
+    }
     setFormData({
       ...formData,
       [questionId]: {
         ...formData[questionId],
-        amount: parseInt(e.target.value),
+        amount: parseInt(val),
       },
     });
+    clearErrors()
   };
 
   const deleteAnswer = (key) => {
@@ -48,7 +56,8 @@ function BetSlip({
     // calculate the total amount
     let amount = 0;
     Object.keys(formData)?.map((key) => {
-      amount += parseInt(formData[key].amount);
+      const val = isNaN(formData[key].amount) ? 0 : formData[key].amount
+      amount += parseInt(val);
     });
 
     let potentialAmount = 0;
@@ -58,7 +67,8 @@ function BetSlip({
         ?.options.find((i) => i.id == formData[key].option)?.odds;
 
       odds = parseFloat(odds);
-      potentialAmount += parseInt(formData[key].amount) * odds;
+      const val = isNaN(formData[key].amount) ? 0 : parseInt(formData[key].amount)
+      potentialAmount += val * odds - val;
     });
     setAmounts({ totalAmount: amount, potentialAmount: potentialAmount });
   }, [formData]);
@@ -80,6 +90,7 @@ function BetSlip({
           </div>
         </button>
         <ul role="list" className="divide-y divide-gray-100 m-2 sm:m-4 md:m-6">
+          <form className="" onSubmit={handleSubmit(onSubmit)} id="bets">
           {Object.keys(formData).length > 0 ? (
             Object.keys(formData)?.map((key, index) => {
               const question = questions?.questions?.find((i) => i.id == key);
@@ -118,16 +129,19 @@ function BetSlip({
                         </label>
                         <Text
                           register={register}
-                          name={key}
+                          name={"number"+key}
                           type="number"
                           value={formData?.[key]?.amount}
                           onChange={(i) => {
                             onAmountChange(i, key);
                           }}
-                          withCheck={true}
-                          //   options={{
-                          //     required: "Please enter this field",
-                          //   }}
+                          // withCheck={true}
+                          options={{
+                            min: {
+                              value: 1000,
+                              message: "Minimum amount is 1000",
+                            },
+                          }}
                           errors={errors}
                           className={
                             "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-gray-800 text-white"
@@ -144,25 +158,27 @@ function BetSlip({
               <p className="text-sm ">No Bets Selected</p>
             </div>
           )}
+          </form>
         </ul>
         <div className=" border-t-2">
           <div className="px-4 py-5 sm:p-6">
+          <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
+              <div>Total bet allowed: </div>
+              <div className="text-sm ">{format(totalBetAllowed)}</div>
+            </div>
             <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
               <div>Total Amount</div>
-              <div className="text-sm ">{amounts?.totalAmount}</div>
+              <div className="text-sm ">{format(amounts?.totalAmount)}</div>
             </div>
             <div className="text-lg font-semibold leading-6 flex justify-between bg-green-800 px-4 py-2 rounded">
               <div>Potential Win </div>
-              <div className="text-sm ">{amounts.potentialAmount}</div>
+              <div className="text-sm ">{format(amounts.potentialAmount)}</div>
             </div>
           </div>
           <div className="mt-5">
             <button
-              type="button"
-              onClick={() => {
-                handleSubmit(onSubmit)();
-                setShow(false);
-              }}
+              type="submit"
+              form="bets"
               className="bg-green-500 font-semibold text-lg text-white w-full py-2 rounded-b-xl"
             >
               Place Bet

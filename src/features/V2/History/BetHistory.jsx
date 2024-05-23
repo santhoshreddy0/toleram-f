@@ -9,7 +9,7 @@ function BetHistory() {
   if (isError) return <div>Error loading bet history</div>;
 
   const { matchBets, roundBets, betPlayerBets } = betHistory.bets;
-  console.log(matchBets, roundBets, betPlayerBets);
+  
 
   return (
     <div className="max-w-7xl mx-auto py-2 sm:px-2 lg:px-8">

@@ -23,6 +23,7 @@ function Players() {
   ] = useUpdatePlayerBetsMutation();
 
   const [formData, setFormData] = useState(bets ? bets?.bets : {});
+  const [show, setShow] = useState(false);
 
   const onSubmit = async () => {
     const highestCanBet = import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT;
@@ -40,10 +41,13 @@ function Players() {
           bets: formData,
         },
       }).unwrap();
+      toast.success(res?.message)
       console.log(res);
     } catch (error) {
+      toast.error(error?.data?.message)
       console.log(error);
     }
+    setShow(false);
   };
 
   useEffect(() => {
@@ -78,6 +82,9 @@ function Players() {
             formData={formData}
             setFormData={setFormData}
             onSubmit={onSubmit}
+            show={show}
+            setShow={setShow}
+            totalBetAllowed={import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT}
           />
         </div>
       </MenuTabs>

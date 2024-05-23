@@ -18,6 +18,8 @@ import BetHistory from "./features/V2/History/index";
 import MatchHistory from "./features/V2/History/Match";
 import RoundHistory from "./features/V2/History/Round";
 import BestPlayersHistory from "./features/V2/History/BestPlayers";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     moment.tz.setDefault();
@@ -28,6 +30,19 @@ function App() {
         return (
             <Layout>
                 <Protected>
+                    <ToastContainer 
+                        position="top-right"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                        transition: Bounce
+                    />
                     <Routes>
                         <Route path="/matches" Component={Matches} />
                         <Route path="/matches/:matchId" Component={MatchQuestions} />

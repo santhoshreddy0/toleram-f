@@ -8,6 +8,8 @@ import {
 } from "../../../../app/Services/matchesApi";
 import AllQuestions from "../../../../Components/AllQuestions";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function MatchQuestions() {
   const navigate = useNavigate();
@@ -26,11 +28,16 @@ function MatchQuestions() {
 
   const [
     updateMatchBets,
-    { isLoading: updateMatchBetsLoading, isError: updateMatchBetsError },
+    {
+      isLoading: updateMatchBetsLoading,
+      isError: updateMatchBetsError,
+      isSuccess: isUpdateSuccess,
+    },
   ] = useUpdateMatchBetsMutation();
 
   const [formData, setFormData] = useState(bets ? bets?.bets : {});
-
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
   const onSubmit = async () => {
     const highestCanBet = import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT;
     let totalAmount = 0;
@@ -52,10 +59,13 @@ function MatchQuestions() {
           bets: formData,
         },
       }).unwrap();
+      toast.success(res?.message)
       console.log(res);
     } catch (error) {
+      toast.error(error?.data?.message)
       console.log(error);
     }
+    setShow(false);
   };
 
   useEffect(() => {
@@ -98,6 +108,9 @@ function MatchQuestions() {
           formData={formData}
           setFormData={setFormData}
           onSubmit={onSubmit}
+          show={show}
+          setShow={setShow}
+          totalBetAllowed={import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}
         />
       </div>
     </>
