@@ -160,7 +160,7 @@ function Matches() {
                     } text-white w-full py-2 rounded-b-xl`}
                   >
                     {" "}
-                    {match.can_bet == "1" ? "Bet Now" : "Bet closed"}{" "}
+                    {match.can_bet == "1" ? "Bet Now" : "Bet closed Please check bet history"}{" "}
                   </button>
                 </div>
               </div>
