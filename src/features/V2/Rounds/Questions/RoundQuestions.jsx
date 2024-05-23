@@ -6,9 +6,9 @@ import {
   useUpdateRoundBetsMutation,
 } from "../../../../app/Services/roundsApi";
 import Loader from "../../../../Components/Loader";
-
 import AllQuestions from "../../../../Components/AllQuestions";
 import BackButton from "../../../../Components/BackButton";
+import { toast } from "react-toastify";
 
 function RoundQuestions() {
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ function RoundQuestions() {
   ] = useUpdateRoundBetsMutation();
 
   const [formData, setFormData] = useState(bets ? bets?.bets : {});
+  const [show, setShow] = useState(false);
 
   const onSubmit = async () => {
     const highestCanBet = import.meta.env.VITE_REACT_APP_ROUNDS_AMOUNT;
@@ -49,10 +50,13 @@ function RoundQuestions() {
           bets: formData,
         },
       }).unwrap();
+      toast.success(res?.message);
       console.log(res);
     } catch (error) {
+      toast.error(error?.data?.message);
       console.log(error);
     }
+    setShow(false);
   };
 
   useEffect(() => {
@@ -85,6 +89,9 @@ function RoundQuestions() {
           formData={formData}
           setFormData={setFormData}
           onSubmit={onSubmit}
+          show={show}
+          setShow={setShow}
+          totalBetAllowed={import.meta.env.VITE_REACT_APP_ROUNDS_AMOUNT}
         />
       </div>
     </>

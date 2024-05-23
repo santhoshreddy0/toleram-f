@@ -24,7 +24,7 @@ function Matches() {
     );
     return date;
   };
-  const filteredMatches = matches.matches.filter(
+  const filteredMatches = matches?.matches.filter(
     (match) => match.can_show == "1"
   );
 
@@ -108,7 +108,7 @@ function Matches() {
                 key={match.id}
                 className="match flex align-middle justify-center flex-col p-4 md:max-w-xl "
               >
-                <Link
+                <div
                   to={`/matches/${match.id}`}
                   className="bg-gray-800 rounded-xl relative"
                 >
@@ -160,9 +160,9 @@ function Matches() {
                     } text-white w-full py-2 rounded-b-xl`}
                   >
                     {" "}
-                    {match.can_bet == "1" ? "Bet Now" : "View Bets"}{" "}
+                    {match.can_bet == "1" ? "Bet Now" : "Bet closed"}{" "}
                   </button>
-                </Link>
+                </div>
               </div>
             );
           })}

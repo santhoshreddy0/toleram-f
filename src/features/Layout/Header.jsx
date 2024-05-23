@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { unsetCredentials } from "../../Utils/AuthSlice";
 import { useGetRewardsQuery } from "../../app/Services/betHistory";
 import { CircleStackIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { format, formatFixed } from "indian-number-format";
 
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
@@ -130,7 +131,7 @@ const Wallet = () => {
     <span className="inline-flex items-center gap-x-1.5 rounded-lg px-2 py-1 text-sm font-medium  border bg-white">
       {/* <span className="">Wallet: </span> */}
       <CircleStackIcon className="h-5 w-5 text-yellow-500 " />
-      <span className="text-bold text-green-500">{rewards?.totalPoints }</span>
+      <span className="text-bold text-green-500">{formatFixed(rewards?.totalPoints , 2)}</span>
 
     </span>
   );

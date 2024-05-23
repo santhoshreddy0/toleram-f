@@ -20,7 +20,7 @@ function Rounds() {
           className="border md:max-w-lg m-5 rounded-lg border-white px-5 bg-gray-800"
         >
           <Link
-            to={`/players`}
+            to={roundOne.can_bet == '1' ? `/players` : "/rounds"}
             className="flex justify-start gap-x-6 py-5"
           >
             <div className="flex min-w-0 gap-x-4 md:text-center md:mx-auto">
@@ -57,7 +57,7 @@ function Rounds() {
             className="border md:max-w-lg m-5 rounded-lg border-white px-5 bg-gray-800"
           >
             <Link
-              to={`/rounds/${round.id}`}
+              to={round.can_bet == "1" ? `/rounds/${round.id}`: "/rounds"}
               className="flex justify-start gap-x-6 py-5"
             >
               <div className="flex min-w-0 gap-x-4 md:text-center md:mx-auto">

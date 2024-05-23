@@ -9,6 +9,7 @@ function BetHistory() {
   if (isError) return <div>Error loading bet history</div>;
 
   const { matchBets, roundBets, betPlayerBets } = betHistory.bets;
+  
 
   return (
     <div className="max-w-7xl mx-auto py-2 sm:px-2 lg:px-8">
@@ -23,8 +24,11 @@ function BetHistory() {
                 <h3 className="text-lg leading-6 font-medium text-white">
                   {bet.match_title}
                 </h3>
-                <p className="mt-4 text-white">Points: {bet.points}</p>
-                <p className="text-white mt-4">View Details</p>
+                <p className=" text-white">
+                  Points:{" "}
+                  {bet?.can_show_points == "1" ? bet.points : "- -"}
+                </p>
+                <p className=" underline text-blue-300">View Details</p>
               </div>
             </Link>
           ))}
@@ -42,8 +46,11 @@ function BetHistory() {
                 <h3 className="text-lg leading-6 font-medium text-white">
                   {bet.round_name}
                 </h3>
-                <p className="mt-4 text-white">Points: {bet.points}</p>
-                <p className="text-white hover:text-indigo-500 mt-4">
+                <p className=" text-white">
+                  Points:{" "}
+                  {bet?.can_show_points == "1" ? bet.points : "- -"}
+                </p>
+                <p className=" hover:text-indigo-500  underline text-blue-300">
                   View Details
                 </p>
               </div>
@@ -60,11 +67,12 @@ function BetHistory() {
           {betPlayerBets.map((bet, index) => (
             <Link to={`/history/bestPlayers`} key={index}>
               <div className="p-4 shadow mt-2 cursor-pointer rounded-xl border border-gray-200 bg-gray-600">
-                <h3 className="text-lg leading-6 font-medium text-white">{`Player Bet #${
-                  index + 1
-                }`}</h3>
-                <p className="mt-4 text-white">Points: {bet.points}</p>
-                <p className="text-white hover:text-indigo-500 mt-4">
+                <h3 className="text-lg leading-6 font-medium text-white">{`Player Bets`}</h3>
+                <p className=" text-white">
+                  Points:{" "}
+                  {bet?.can_show_points == "1" ? bet.points : "- -"}
+                </p>
+                <p className=" hover:text-indigo-500 mt-4 underline text-blue-300">
                   View Details
                 </p>
               </div>
