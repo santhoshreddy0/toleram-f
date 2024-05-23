@@ -7,6 +7,8 @@ import {
 import Loader from "../../../Components/Loader";
 import MenuTabs from "../../Layout/MenuTabs";
 import AllQuestions from "../../../Components/AllQuestions";
+import { toast } from "react-toastify";
+import BackButton from "../../../Components/BackButton";
 
 function Players() {
   const { data: questions, isLoading, isError } = useGetPlayerQuestionsQuery();
@@ -41,10 +43,10 @@ function Players() {
           bets: formData,
         },
       }).unwrap();
-      toast.success(res?.message)
+      toast.success(res?.message);
       console.log(res);
     } catch (error) {
-      toast.error(error?.data?.message)
+      toast.error(error?.data?.message);
       console.log(error);
     }
     setShow(false);
@@ -72,11 +74,13 @@ function Players() {
   }
   return (
     <>
-      <MenuTabs>
+      <>
         <div className="mx-5 text-base lg:mx-50 xl:mx-50 leading-7 rounded">
+          <BackButton />
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
             Best Players:
           </h1>
+
           <AllQuestions
             questions={questions}
             formData={formData}
@@ -87,7 +91,7 @@ function Players() {
             totalBetAllowed={import.meta.env.VITE_REACT_APP_PLAYERS_AMOUNT}
           />
         </div>
-      </MenuTabs>
+      </>
     </>
   );
 }

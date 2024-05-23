@@ -6,9 +6,9 @@ import {
   useUpdateRoundBetsMutation,
 } from "../../../../app/Services/roundsApi";
 import Loader from "../../../../Components/Loader";
-
 import AllQuestions from "../../../../Components/AllQuestions";
 import BackButton from "../../../../Components/BackButton";
+import { toast } from "react-toastify";
 
 function RoundQuestions() {
   const navigate = useNavigate();
@@ -50,10 +50,10 @@ function RoundQuestions() {
           bets: formData,
         },
       }).unwrap();
-      toast.success(res?.message)
+      toast.success(res?.message);
       console.log(res);
     } catch (error) {
-      toast.error(error?.data?.message)
+      toast.error(error?.data?.message);
       console.log(error);
     }
     setShow(false);

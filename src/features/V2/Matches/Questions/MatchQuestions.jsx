@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import {
   useGetMatchBetsQuery,
@@ -10,6 +10,7 @@ import AllQuestions from "../../../../Components/AllQuestions";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import BackButton from "../../../../Components/BackButton";
 
 function MatchQuestions() {
   const navigate = useNavigate();
@@ -59,10 +60,10 @@ function MatchQuestions() {
           bets: formData,
         },
       }).unwrap();
-      toast.success(res?.message)
+      toast.success(res?.message);
       console.log(res);
     } catch (error) {
-      toast.error(error?.data?.message)
+      toast.error(error?.data?.message);
       console.log(error);
     }
     setShow(false);
@@ -92,14 +93,7 @@ function MatchQuestions() {
   return (
     <>
       <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto">
-        <div className="flex justify-start">
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex text-xs items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-2xl font-medium border m-3 "
-          >
-            Back
-          </button>
-        </div>
+        <BackButton />
         {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Match Questions:
         </h1> */}
