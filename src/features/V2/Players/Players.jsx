@@ -9,6 +9,7 @@ import MenuTabs from "../../Layout/MenuTabs";
 import AllQuestions from "../../../Components/AllQuestions";
 import { toast } from "react-toastify";
 import BackButton from "../../../Components/BackButton";
+import BackButtonWithRules from "../../../Components/BackButtonWithRules";
 
 function Players() {
   const { data: questions, isLoading, isError } = useGetPlayerQuestionsQuery();
@@ -76,7 +77,7 @@ function Players() {
     <>
       <>
         <div className="mx-5 text-base lg:mx-50 xl:mx-50 leading-7 rounded">
-          <BackButton />
+          <BackButtonWithRules />
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
             Best Players:
           </h1>

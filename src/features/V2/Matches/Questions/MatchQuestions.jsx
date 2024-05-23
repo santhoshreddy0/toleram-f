@@ -11,6 +11,7 @@ import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import BackButton from "../../../../Components/BackButton";
+import BackButtonWithRules from "../../../../Components/BackButtonWithRules";
 
 function MatchQuestions() {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ function MatchQuestions() {
   return (
     <>
       <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto">
-        <BackButton />
+        <BackButtonWithRules />
         {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Match Questions:
         </h1> */}

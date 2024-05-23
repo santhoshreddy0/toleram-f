@@ -9,6 +9,7 @@ import Loader from "../../../../Components/Loader";
 import AllQuestions from "../../../../Components/AllQuestions";
 import BackButton from "../../../../Components/BackButton";
 import { toast } from "react-toastify";
+import BackButtonWithRules from "../../../../Components/BackButtonWithRules";
 
 function RoundQuestions() {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ function RoundQuestions() {
 
   return (
     <>
-      <BackButton />
+      <BackButtonWithRules />
       <div className="mx-5 max-w-3xl text-base leading-7 text-gray-700 mt-5">
         <AllQuestions
           questions={questions}
