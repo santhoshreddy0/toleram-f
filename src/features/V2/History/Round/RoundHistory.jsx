@@ -4,6 +4,7 @@ import { useGetPlayerQuestionsQuery } from "../../../../app/Services/playersApi"
 import { Link, useParams } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import BetsList from "../../../../Components/BetsList";
+import { useGetRoundQuestionsQuery } from "../../../../app/Services/roundsApi";
 
 function RoundHistory() {
   const { roundId } = useParams();
@@ -16,7 +17,7 @@ function RoundHistory() {
     data: questions,
     isLoading: isQuestionsLoading,
     isError: isQuestionsError,
-  } = useGetPlayerQuestionsQuery();
+  } = useGetRoundQuestionsQuery(roundId);
 
   if (isHistoryLoading || isQuestionsLoading) {
     return <Loader />;
