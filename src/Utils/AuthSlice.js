@@ -26,6 +26,7 @@ const slice = createSlice({
                 localStorage.removeItem('token');
                 localStorage.removeItem('encodedToken');
                 localStorage.removeItem('name');
+                localStorage.removeItem("addPopup");
 
                 state.user = null;
                 state.JWTtoken = null;
