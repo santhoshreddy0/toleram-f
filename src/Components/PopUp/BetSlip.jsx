@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Cog8ToothIcon, CogIcon } from "@heroicons/react/20/solid";
 import { format, formatFixed } from "indian-number-format";
+import numeral from "numeral";
 
 function BetSlip({
   show,
@@ -164,15 +165,15 @@ function BetSlip({
           <div className="px-4 py-5 sm:p-6">
           <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
               <div>Total bet allowed: </div>
-              <div className="text-sm ">{format(totalBetAllowed)}</div>
+              <div className="text-sm ">{numeral(parseFloat(totalBetAllowed)).format('0,0.00')}</div>
             </div>
             <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
               <div>Total Amount</div>
-              <div className="text-sm ">{format(amounts?.totalAmount)}</div>
+              <div className="text-sm ">{numeral(parseFloat(amounts?.totalAmount)).format('0,0.00')}</div>
             </div>
             <div className="text-lg font-semibold leading-6 flex justify-between bg-green-800 px-4 py-2 rounded">
               <div>Potential Win </div>
-              <div className="text-sm ">{format(amounts.potentialAmount)}</div>
+              <div className="text-sm ">{numeral(parseFloat(amounts.potentialAmount)).format('0,0.00')}</div>
             </div>
           </div>
           <div className="mt-5">
