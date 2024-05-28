@@ -31,7 +31,7 @@ function RoundHistory() {
     <BetsList
       data={history?.roundBet}
       questions={questions}
-      editLink={`/round/${roundId}`}
+      editLink={`/rounds/${roundId}`}
     />
   );
 }
