@@ -12,6 +12,7 @@ import { unsetCredentials } from "../../Utils/AuthSlice";
 import { useGetRewardsQuery } from "../../app/Services/betHistory";
 import { CircleStackIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { format, formatFixed } from "indian-number-format";
+import numeral from "numeral";
 
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
@@ -28,7 +29,7 @@ function Header() {
               <span className="sr-only">Your Company</span>
               <img
                 className="h-14 w-auto bg-white rounded "
-                src="/tpl_logo.png"
+                src="/new_tpl_logo.png"
                 alt=""
               />
               <div className="text-white font-bold text-xl ml-3 text-center align-baseline text-left">
@@ -127,11 +128,13 @@ const CustomMenu = () => {
 
 const Wallet = () => {
     const {data: rewards, isLoading, isError} = useGetRewardsQuery();
+    // formatFixed(rewards?.totalPoints , 2)
+    const totalPoints = rewards?.totalPoints ? numeral(parseFloat(rewards?.totalPoints)).format('0,0.00') : 0;
   return (
     <span className="inline-flex items-center gap-x-1.5 rounded-lg px-2 py-1 text-sm font-medium  border bg-white">
       {/* <span className="">Wallet: </span> */}
       <CircleStackIcon className="h-5 w-5 text-yellow-500 " />
-      <span className="text-bold text-green-500">{formatFixed(rewards?.totalPoints , 2)}</span>
+      <span className={`text-bold ${totalPoints < 0 ? 'text-red-500' : 'text-green-500'}`}>{totalPoints}</span>
 
     </span>
   );

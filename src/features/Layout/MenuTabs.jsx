@@ -21,7 +21,7 @@ export default function MenuTabs(props) {
         location.pathname.includes("matches") || location.pathname == "/",
     },
     {
-      name: "Rounds",
+      name: "Tournament",
       href: "/rounds",
       icon: BuildingOfficeIcon,
       current: location.pathname.includes("rounds"),
