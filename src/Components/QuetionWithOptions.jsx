@@ -48,7 +48,11 @@ const Options = ({ options, onChange, questionId, formData }) => {
         >
           <RadioGroup.Label className="sr-only">Options</RadioGroup.Label>
           <div className="space-y-2">
-            {options?.map((option) => (
+            {options?.map((option) => {
+              if(option?.option == 'void') {
+                return <></>
+              }
+              return(
               <RadioGroup.Option
                 key={option.id}
                 value={option}
@@ -93,7 +97,8 @@ const Options = ({ options, onChange, questionId, formData }) => {
                   </>
                 )}
               </RadioGroup.Option>
-            ))}
+              )
+            })}
           </div>
         </RadioGroup>
       </div>
