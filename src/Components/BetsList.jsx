@@ -62,6 +62,7 @@ const BetsList = ({ data, questions, editLink }) => {
 const statuses = {
   Won: "text-green-700 bg-green-200 ring-green-600/20",
   Pending: "text-gray-600 bg-gray-200 ring-gray-500/10",
+  Void: "text-gray-600 bg-gray-200 ring-gray-500/10",
   Lost: "text-red-700 bg-red-200 ring-red-600/10",
 };
 
@@ -120,11 +121,12 @@ const ListItem = ({
                 {/* <div className="font-medium ">{amount}</div> */}
                 <div
                   className={classNames(
+                    correctOption?.option == "void" ? statuses["Void"] :
                     statuses[status],
                     "rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset"
                   )}
                 >
-                  {status}
+                  {correctOption?.option == "void" ? "Void" : status}
                 </div>
               </dd>
             </div>
