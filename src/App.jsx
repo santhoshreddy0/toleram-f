@@ -20,6 +20,11 @@ import RoundHistory from "./features/V2/History/Round";
 import BestPlayersHistory from "./features/V2/History/BestPlayers";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminDashboard from "./Components/Admin/index";
+import AdminMatches from "./Components/Admin/Matches/AdminMatches";
+import AdminTournament from "./Components/Admin/Teams/AdminTournament";
+import AdminTeams from "./Components/Admin/Teams/AdminTeams";
+import AdminTeamDetails from "./Components/Admin/Teams/AdminTeamDetails";
 
 function App() {
     moment.tz.setDefault();
@@ -42,6 +47,7 @@ function App() {
                         pauseOnHover
                         theme="dark"
                         transition: Bounce
+                        style={{zIndex: -1}}
                     />
                     <Routes>
                         <Route path="/matches" Component={Matches} />
@@ -55,6 +61,16 @@ function App() {
                         <Route path="/history/rounds/:roundId" Component={RoundHistory} />
                         <Route path="/history/bestPlayers" Component={BestPlayersHistory} />
                         <Route path="*" Component={Matches} />
+
+                        {/* mayuris work */}
+                        <Route path="/admin" Component={AdminDashboard} />
+                        <Route path="/admin/teams" Component={AdminTeams} />
+                        <Route path="/admin/teams/:teamId" Component={AdminTeamDetails} />
+
+                        <Route path="/admin/matches" Component={AdminMatches} />
+                        <Route path="/admin/tournament" Component={AdminTournament} />
+
+
                     </Routes>
                 </Protected>
             </Layout>
