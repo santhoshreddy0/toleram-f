@@ -3,9 +3,15 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import { CheckIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { toast } from "react-toastify";
 import { useAddMatchMutation } from '../../../app/Services/Admin/AdminMatches';
+import { useGetTeamsQuery } from '../../../app/Services/Admin/AdminTeams';
 
 export default function CreateNewMatch({open, setOpen}) {
   const [createMatch, { isLoading }] = useAddMatchMutation();
+  const { data: teams, isLoading: teamsLoading, isError: teamsError } = useGetTeamsQuery();
+const teamOptions = teams?.teams?.map(team => ({
+  value: team.id,
+  label: team.team_name
+})) || [];
   const [matchData, setMatchData] = useState({
     teamOneId: '',
     teamTwoId: '',
@@ -79,23 +85,33 @@ export default function CreateNewMatch({open, setOpen}) {
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
 
-                  <input
-                    type="text"
+                  <select
                     value={matchData.teamOneId}
                     onChange={(e) => setMatchData({...matchData, teamOneId: e.target.value})}
-                    placeholder="Enter Team One"
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
+                  >
+                    <option value="">Select Team One</option>
+                    {teams?.teams.map((team) => (
+                      <option key={team.id} value={team.id}>
+                        {team.team_name}
+                      </option>
+                    ))}
+                  </select>
 
-                  <input
-                    type="text" 
+                  <select
                     value={matchData.teamTwoId}
                     onChange={(e) => setMatchData({...matchData, teamTwoId: e.target.value})}
-                    placeholder="Enter Team Two"
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
+                  >
+                    <option value="">Select Team Two</option>
+                    {teams?.teams.map((team) => (
+                      <option key={team.id} value={team.id}>
+                        {team.team_name}
+                      </option>
+                    ))}
+                  </select>
 
-                  <div className="flex gap-4">
+                  {/* <div className="flex gap-4">
                     <label className="flex items-center">
                       <input
                         type="checkbox"
@@ -115,9 +131,9 @@ export default function CreateNewMatch({open, setOpen}) {
                       />
                       Can Show
                     </label>
-                  </div>
+                  </div> */}
 
-                  <select
+                  {/* <select
                     value={matchData.betStatus}
                     onChange={(e) => setMatchData({...matchData, betStatus: e.target.value})}
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -125,7 +141,7 @@ export default function CreateNewMatch({open, setOpen}) {
                     <option value="dont_process">Don't Process</option>
                     <option value="processing">Processing</option>
                     <option value="completed">Completed</option>
-                  </select>
+                  </select> */}
                 </div>
               </div>
             </div>

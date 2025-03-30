@@ -54,13 +54,13 @@ export default function CreateTeamPopup({open, setOpen, selectedTeam}) {
 
       const payload = {
         name: teamName,
-        teamId: imageUrl
-        // selectedTeam.id,
-        // ...(imageFile && { imageUrl }),
+        teamId: selectedTeam?.id,
+        ...(imageFile && { imageUrl }),
       };
-console.log("payload", payload)
+
+      
       if (isEditMode) {
-        await updateTeam({...payload }).unwrap();
+        await updateTeam(payload).unwrap();
         toast.success('Team updated successfully');
       } else {
         await createTeam(payload).unwrap();
