@@ -141,6 +141,7 @@ export default function CreateTeamPopup({ open, setOpen, selectedTeam }) {
             <UploadImage
               placeholder={"Upload team logo"}
               updateImageUrl={setImageUrl}
+              existingImageUrl={selectedTeam?.team_logo}
             />
             <div className="mt-5 sm:mt-6">
               <button

@@ -5,14 +5,12 @@ import { toast } from "react-toastify";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 function Index({ placeholder, updateImageUrl, existingImageUrl }) {
-  const [addImageUrl, { isLoading: isAddImageLoading }] =
-    useAddImageUrlMutation();
+  const [addImageUrl] = useAddImageUrlMutation();
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [imgFile, setImgFile] = useState(null);
   const [imgUrl, setImgUrl] = useState(existingImageUrl || "");
 
   const resetImage = () => {
-    setImgFile(null);
+    setImgUrl(null);
   };
 
   useEffect(() => {
@@ -51,7 +49,6 @@ function Index({ placeholder, updateImageUrl, existingImageUrl }) {
           throw new Error("Failed to upload image");
         }
         setImgUrl(imageUrl);
-        setImgFile(file);
       } catch (error) {
         toast.error("Failed to generate image upload URL");
         console.error("Error:", error);
@@ -68,10 +65,14 @@ function Index({ placeholder, updateImageUrl, existingImageUrl }) {
         </label>
 
         <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-600 px-6 py-4">
-          {imgFile ? (
+          {imgUrl ? (
             <>
               <span className="relative inline-block">
-                <img alt="" src={imgUrl} className="size-16 rounded-md" />
+                <img
+                  alt={"loading.."}
+                  src={imgUrl}
+                  className="size-16 rounded-md"
+                />
                 <span
                   className="absolute right-0 top-0 block size-4 -translate-y-1/2 translate-x-1/2 transform rounded-full ring-2"
                   onClick={resetImage}
