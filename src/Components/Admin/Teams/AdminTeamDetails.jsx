@@ -11,6 +11,7 @@ export default function AdminTeamDetails() {
   const { data: team, isLoading: teamLoading, isError: teamError } = useGetTeamQuery(teamId);
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [player, setPlayer] = useState(null);
   if (isLoading) return <Loader />
   if (isError) return <div>Error loading players</div>;
 
@@ -60,8 +61,8 @@ export default function AdminTeamDetails() {
                 <p className="text-sm text-gray-400">{player.player_role}</p>
                 <button
                   onClick={() => {
-                    // Add your edit player logic here
-                    console.log('Edit player:', player.id);
+                    setOpen(true);
+                    setPlayer(player);
                   }}
                   className="mt-4 w-full rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-100 hover:bg-gray-600 transition-colors"
                 >
@@ -72,7 +73,7 @@ export default function AdminTeamDetails() {
           </ul>
         )}
       </div>
-      <AddTeamPlayerPopup open={open} setOpen={setOpen} teamId={teamId} />
+      <AddTeamPlayerPopup open={open} setOpen={setOpen} teamId={teamId} player={player}/>
       <CreateTeamPopup open={openEdit} setOpen={setOpenEdit} selectedTeam={team?.team}/>
     </>
   )

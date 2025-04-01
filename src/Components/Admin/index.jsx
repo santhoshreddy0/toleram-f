@@ -1,66 +1,56 @@
-import { ArrowsRightLeftIcon, TrophyIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, ArrowsRightLeftIcon, TrophyIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import React from "react";
 const people = [
     {
       name: 'Teams',
-      email: 'leslie.alexander@example.com',
-      role: 'Co-Founder / CEO',
-      icon: UserGroupIcon,
-      imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
+      icon: UserGroupIcon,lastSeen: '3h ago',
       href: '/admin/teams',
       lastSeenDateTime: '2023-01-23T13:23Z',
     },
     {
       name: 'Matches',
-      email: 'michael.foster@example.com',
-      role: 'Co-Founder / CTO',
-      icon: ArrowsRightLeftIcon,
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: '3h ago',
+      icon: ArrowsRightLeftIcon,lastSeen: '3h ago',
       href: '/admin/matches',
       lastSeenDateTime: '2023-01-23T13:23Z',
     },
     {
       name: 'Tournament',
-      email: 'dries.vincent@example.com',
-      role: 'Business Relations',
-      icon: TrophyIcon,
-      imageUrl:
-        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-      lastSeen: null,
+      icon: TrophyIcon,lastSeen: null,
       href: '/admin/tournament',
     }
   ]
   
   export default function AdminDashboard() {
     return (
-      <ul role="list" className="divide-y divide-gray-100">
+      <ul role="list" className="max-w-2xl mx-auto space-y-4 py-8 px-4">
         {people.map((person) => (
-          <a href={person.href} key={person.email} className="flex justify-between gap-x-6 py-5">
-            <div className="flex min-w-0 gap-x-4">
-              <person.icon className="size-12 flex-none rounded-full p-2 bg-gray-500" />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm/6 font-semibold text-gray-100">{person.name}</p>
-                <p className="mt-1 truncate text-xs/5 text-gray-500">{person.email}</p>
+          <a
+            href={person.href}
+            key={person.email}
+            className="flex items-center gap-x-6 p-4 rounded-xl transition-all duration-300 
+              hover:bg-gray-800/50 hover:scale-102 hover:shadow-lg hover:shadow-gray-800/30
+              bg-gray-900/50 bg-gray-800"
+          >
+            <div className="flex items-center gap-x-4">
+              <div className="relative">
+                <person.icon 
+                  className="size-12 rounded-lg p-2.5 text-gray-100
+                    bg-gradient-to-br from-gray-700 to-gray-800 
+                    shadow-inner shadow-gray-950/50" 
+                />
+                <div className="absolute inset-0 rounded-lg bg-gray-400/10 backdrop-blur-sm -z-10" />
               </div>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm/6 text-gray-900">{person.role}</p>
-              {person.lastSeen ? (
-                <p className="mt-1 text-xs/5 text-gray-500">
-                  Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
+              <div>
+                <p className="text-lg font-medium text-gray-100 tracking-wide">
+                  {person.name}
                 </p>
-              ) : (
-                <div className="mt-1 flex items-center gap-x-1.5">
-                  <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                    <div className="size-1.5 rounded-full bg-emerald-500" />
-                  </div>
-                  <p className="text-xs/5 text-gray-500">Online</p>
-                </div>
-              )}
+                <p className="text-sm text-gray-400 mt-0.5">
+                  Manage {person.name.toLowerCase()}
+                </p>
+              </div>
+              <div>
+                <ArrowRightIcon className="size-4 text-gray-400" />
+              </div>
             </div>
           </a>
         ))}
