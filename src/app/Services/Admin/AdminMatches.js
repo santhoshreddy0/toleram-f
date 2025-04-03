@@ -2,7 +2,7 @@ import { baseApi } from "../baseApi";
 
 const betsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getmatch: builder.query({
+        getmatches: builder.query({
             query: () => `/matches`,
             providesTags: (result, error, arg) => {
                 return ["match"];
@@ -48,25 +48,59 @@ const betsApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['match'],
         }),
-        updatematchDetails: builder.mutation({
+        updateMatchDetails: builder.mutation({
             query: (MatchData) => ({
-                url: `/admin/match/${MatchData.matchId}`,
+                url: `/admin/matches/${MatchData.id}`,
                 method: 'PATCH',
                 body: MatchData,
             }),
-            invalidatesTags: ['match'],
+            invalidatesTags: ['player'],
+        }),
+        getAdminQuestions: builder.query({
+            query: (matchId) => `/admin/matches/${matchId}/questions`,
+            providesTags: (result, error, arg) => {
+                return ["question"];
+            },
+        }),
+        addQuestion: builder.mutation({
+            query: (matchData) => ({
+                url: `/admin/matches/${matchData.matchId}/addQuestion`,
+                method: 'POST',
+                body: matchData,
+            }),
+            invalidatesTags: ['matches'],
+        }),
+        updateQuestion: builder.mutation({
+            query: (questionsData) => ({
+                url: `/admin/questions/${questionsData.id}`,
+                method: 'PATCH',
+                body: questionsData,
+            }),
+           invalidatesTags: (result, error, arg) => [{ type: 'question', id: arg.id }],
+        }),
+        updateCorrectAnswer: builder.mutation({
+            query: (questionsData) => ({
+                url: `/admin/questions/${questionsData.questionId}/correctOption`,
+                method: 'PATCH',
+                body: questionsData,
+            }),
+           invalidatesTags: (result, error, arg) => [{ type: 'question', id: arg.id }],
         }),
     }),
     overrideExisting: false,
 });
 
 export const {
-    useGetmatchQuery,
+    useGetmatchesQuery,
     useGetMatchQuery,
     useGetMatchPlayersListQuery,
     useGetPlayerDetailsQuery,
     useGetPlayersQuery,
     useCreateMatchMutation,
     useAddMatchMutation,
-    useUpdatematchDetailsMutation,
+    useUpdateMatchDetailsMutation,
+    useGetAdminQuestionsQuery,
+    useAddQuestionMutation,
+    useUpdateQuestionMutation,
+    useUpdateCorrectAnswerMutation
 } = betsApi;

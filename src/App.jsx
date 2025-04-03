@@ -25,6 +25,7 @@ import AdminMatches from "./Components/Admin/Matches/AdminMatches";
 import AdminTournament from "./Components/Admin/Teams/AdminTournament";
 import AdminTeams from "./Components/Admin/Teams/AdminTeams";
 import AdminTeamDetails from "./Components/Admin/Teams/AdminTeamDetails";
+import AdminMatchDetails from "./Components/Admin/Matches/AdminMatchDetails";
 
 function App() {
     moment.tz.setDefault();
@@ -68,6 +69,8 @@ function App() {
                         <Route path="/admin/teams/:teamId" Component={AdminTeamDetails} />
 
                         <Route path="/admin/matches" Component={AdminMatches} />
+                        <Route path="/admin/matches/:matchId" Component={AdminMatchDetails} />
+
                         <Route path="/admin/tournament" Component={AdminTournament} />
 
 

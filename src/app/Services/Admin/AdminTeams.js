@@ -11,7 +11,7 @@ const betsApi = baseApi.injectEndpoints({
     getTeam: builder.query({
       query: (teamId) => `/teams/${teamId}`,
       providesTags: (result, error, arg) => {
-        return ["team"];
+        return ["teams"];
       },
     }),
     getTeamPlayersList: builder.query({
@@ -52,12 +52,12 @@ const betsApi = baseApi.injectEndpoints({
       invalidatesTags: ["players"],
     }),
     updateTeamsDetails: builder.mutation({
-      query: ({ name, imageUrl, teamId }) => ({
+      query: ({ teamName, imageUrl, teamId }) => ({
         url: `/admin/teams/${teamId}`,
         method: "PATCH",
         body: {
-          name,
-          imageUrl: imageUrl && imageUrl,
+          name: teamName,
+          imageUrl: imageUrl,
         },
       }),
       invalidatesTags: ["teams"],
@@ -69,6 +69,17 @@ const betsApi = baseApi.injectEndpoints({
         body: imageData,
       }),
       invalidatesTags: ["teams"],
+    }),
+    updatePlayerDetails: builder.mutation({
+        query: ({name, imageUrl, playerId}) => ({
+            url: `/admin/players/${playerId}`,
+            method: 'PATCH',
+            body: {
+                name,
+                imageUrl: imageUrl && imageUrl,
+            },
+        }),
+        invalidatesTags: ['players'],
     }),
   }),
   overrideExisting: false,
@@ -84,4 +95,5 @@ export const {
   useAddPlayerToTeamMutation,
   useUpdateTeamsDetailsMutation,
   useAddImageUrlMutation,
+  useUpdatePlayerDetailsMutation,
 } = betsApi;

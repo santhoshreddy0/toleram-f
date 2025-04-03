@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { CheckIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { toast } from "react-toastify";
-import { useAddMatchMutation } from '../../../app/Services/Admin/AdminMatches';
+import { useAddMatchMutation, useGetMatchQuery, useUpdateMatchDetailsMutation } from '../../../app/Services/Admin/AdminMatches';
 import { useGetTeamsQuery } from '../../../app/Services/Admin/AdminTeams';
 
-export default function CreateNewMatch({open, setOpen}) {
+export default function CreateNewMatch({open, setOpen, match}) {
   const [createMatch, { isLoading }] = useAddMatchMutation();
-  const { data: teams, isLoading: teamsLoading, isError: teamsError } = useGetTeamsQuery();
-const teamOptions = teams?.teams?.map(team => ({
-  value: team.id,
-  label: team.team_name
-})) || [];
+  const [updateMatchDetails, {isLoading: isUpdateMatchLoading}] = useUpdateMatchDetailsMutation();
+  const { data: teams } = useGetTeamsQuery();
+
   const [matchData, setMatchData] = useState({
     teamOneId: '',
     teamTwoId: '',
@@ -21,6 +19,20 @@ const teamOptions = teams?.teams?.map(team => ({
     canShow: "1",
     betStatus: "dont_process"
   });
+
+  useEffect(() => {
+    if (match) {
+      setMatchData({
+        teamOneId: match.team_one.toString(),
+        teamTwoId: match.team_two.toString(),
+        matchTitle: match.match_title,
+        matchTime: match.match_time.split('.')[0],
+        canBet: match.can_bet,
+        canShow: match.can_show,
+        betStatus: match.bet_status
+      });
+    }
+  }, [match]);
 
   const onSubmit = async () => {
     if (!matchData.matchTitle.trim()) {
@@ -39,11 +51,19 @@ const teamOptions = teams?.teams?.map(team => ({
     }
 
     try {
-      await createMatch(matchData).unwrap();
-      toast.success('Match created successfully');
+      if (match) {
+        await updateMatchDetails({
+          id: match.id,
+          ...matchData
+        }).unwrap();
+        toast.success('Match updated successfully');
+      } else {
+        await createMatch(matchData).unwrap();
+        toast.success('Match created successfully');
+      }
       setOpen(false);
     } catch (error) {
-      toast.error(error?.data?.message || 'Failed to create match');
+      toast.error(error?.data?.message || `Failed to ${match ? 'update' : 'create'} match`);
       console.error('Error details:', error);
     }
   };
@@ -67,7 +87,7 @@ const teamOptions = teams?.teams?.map(team => ({
               </div>
               <div className="mt-3 text-center sm:mt-5">
                 <DialogTitle as="h3" className="text-base font-semibold text-gray-100">
-                  Create New Match
+                  {match ? 'Edit Match' : 'Create New Match'}
                 </DialogTitle>
                 <div className="mt-4 space-y-4">
                   <input
@@ -87,7 +107,14 @@ const teamOptions = teams?.teams?.map(team => ({
 
                   <select
                     value={matchData.teamOneId}
-                    onChange={(e) => setMatchData({...matchData, teamOneId: e.target.value})}
+                    onChange={(e) => {
+                      const newTeamId = e.target.value;
+                      if (newTeamId === matchData.teamTwoId) {
+                        toast.error("Cannot select same team for both sides");
+                        return;
+                      }
+                      setMatchData({...matchData, teamOneId: newTeamId})
+                    }}
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="">Select Team One</option>
@@ -100,7 +127,14 @@ const teamOptions = teams?.teams?.map(team => ({
 
                   <select
                     value={matchData.teamTwoId}
-                    onChange={(e) => setMatchData({...matchData, teamTwoId: e.target.value})}
+                    onChange={(e) => {
+                      const newTeamId = e.target.value;
+                      if (newTeamId === matchData.teamOneId) {
+                        toast.error("Cannot select same team for both sides");
+                        return;
+                      }
+                      setMatchData({...matchData, teamTwoId: newTeamId})
+                    }}
                     className="w-full bg-gray-900 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     <option value="">Select Team Two</option>
@@ -151,7 +185,10 @@ const teamOptions = teams?.teams?.map(team => ({
                 onClick={onSubmit}
                 className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                {isLoading ? 'Creating...' : 'Create Match'}
+                {match ?
+                  (isUpdateMatchLoading ? 'Updating...' : 'Update Match') :
+                  (isLoading ? 'Creating...' : 'Create Match')
+                }
               </button>
             </div>
           </DialogPanel>

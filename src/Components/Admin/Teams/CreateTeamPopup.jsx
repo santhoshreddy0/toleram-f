@@ -52,8 +52,8 @@ export default function CreateTeamPopup({ open, setOpen, selectedTeam }) {
       const payload = {
         teamName,
         teamId: selectedTeam?.id,
-        ...(imageUrl && { imageUrl }),
-      };
+        imageUrl: imageUrl
+      }; 
 
       if (isEditMode) {
         await updateTeam(payload).unwrap();
@@ -70,33 +70,6 @@ export default function CreateTeamPopup({ open, setOpen, selectedTeam }) {
           `Failed to ${isEditMode ? "update" : "create"} team`
       );
       console.error("Error details:", error);
-    }
-  };
-
-  // Helper function to convert file to base64
-  const convertFileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      try {
-        const response = await addImageUrl({
-          fileName: file.name,
-          fileType: file.type,
-        }).unwrap();
-        setImageUrl(response.imageUrl);
-        setImageFile(file);
-      } catch (error) {
-        toast.error("Failed to generate image upload URL");
-        console.error("Error:", error);
-      }
     }
   };
 

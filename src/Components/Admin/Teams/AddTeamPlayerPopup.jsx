@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { CheckIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { toast } from "react-toastify";
-import { useAddPlayerToTeamMutation } from '../../../app/Services/Admin/AdminTeams';
+import { useAddPlayerToTeamMutation, useUpdatePlayerDetailsMutation } from '../../../app/Services/Admin/AdminTeams';
 import { useParams } from 'react-router-dom';
+import UploadImage from '../../UploadImage/Index';
+
 
 export default function AddTeamPlayerPopup({open, setOpen, player}) {
   const { teamId } = useParams();
   const [addplayer, { isLoading, isError }] = useAddPlayerToTeamMutation(teamId);
+  const [updatePlayer, { isLoading: updatePlayerLoading, isError: updatePlayerError }] = useUpdatePlayerDetailsMutation(teamId);
   
   const [playerName, setPlayerName] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  const [role, setRole] = useState('batsman');
+  const [role, setRole] = useState('batsman'); 
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     if (player) {
@@ -29,35 +33,40 @@ export default function AddTeamPlayerPopup({open, setOpen, player}) {
   
   const onSubmit = async () => {
     try {
-      const res = await addplayer({
-        name: playerName,
-        role: role,
-        teamId: teamId,
-        imageUrl: "https://files.hubhopper.com/podcast/337445/cric-it-with-badri_1453.png?v=1637821458&s=hh-web-app",
-      }).unwrap();
+      if (player) {
+        // Update existing player
+        const res = await updatePlayer({
+          name: playerName,
+          role: role,
+          teamId: teamId,
+          imageUrl: imageUrl,
+          playerId: player.id // Assuming player object has an id field
+        }).unwrap();
+        toast.success('Player updated successfully');
+      } else {
+        // Add new player
+        const res = await addplayer({
+          name: playerName,
+          role: role,
+          teamId: teamId,
+          imageUrl: imageUrl,
+        }).unwrap();
+        toast.success('Player added successfully');
+      }
       resetForm();
       setOpen(false);
-      toast.success('Player added successfully');
     } catch (error) {
-      toast.error(error?.data?.message || 'Failed to add player');
+      toast.error(error?.data?.message || `Failed to ${player ? 'update' : 'add'} player`);
       console.error('Error details:', error);
     }
   };
-  
-  // Helper function to convert file to base64
-  const convertFileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
+
   
   const resetForm = () => {
     setPlayerName('');
     setImageFile(null);
     setRole('batsman');
+    setImageUrl("");
   };
 
   return (
@@ -108,34 +117,11 @@ export default function AddTeamPlayerPopup({open, setOpen, player}) {
                       </option>
                     ))}
                   </select>
-
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Uplaod player image
-                    </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-600 px-6 py-4">
-                      <div className="text-center">
-                        <div className="mt-1 flex text-sm text-gray-400">
-                          <label
-                            htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md font-medium text-indigo-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-300"
-                          >
-                            <span>Upload a file</span>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              accept="image/*"
-                              className="sr-only"
-                              onChange={(e) => setImageFile(e.target.files[0])}
-                            />
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
-                        </div>
-                        <p className="text-xs text-gray-500">PNG, JPG up to 2MB</p>
-                      </div>
-                    </div>
-                  </div>
+                  <UploadImage
+                    placeholder={"Upload player image"}
+                    updateImageUrl={setImageUrl}
+                    existingImageUrl={player?.player_logo}
+                  />
                 </div>
               </div>
             </div>

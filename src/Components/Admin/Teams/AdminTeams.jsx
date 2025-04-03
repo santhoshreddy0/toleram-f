@@ -14,10 +14,9 @@ export default function AdminTeams() {
   return (
     <div className="">
       <div className="py-12 sm:py-24 px-6 lg:px-8">
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="bg-gray-800 backdrop-blur-sm rounded-2xl shadow-lg p-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col">
-            <h3 className="text-gray-100 text-2xl font-semibold text-left">Create a new team</h3>
-            <p className="text-gray-400 mt-1">Add a new team to manage players and schedules</p>
+            <h3 className="text-gray-200 text-xl font-semibold text-left">Add a new team to manage players and schedules</h3>
           </div>
           <div className="flex items-center gap-4">
             <button
