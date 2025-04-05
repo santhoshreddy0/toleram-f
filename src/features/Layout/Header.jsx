@@ -4,15 +4,18 @@ import {
   ArrowRightStartOnRectangleIcon,
   Bars3Icon,
   HashtagIcon,
-  
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unsetCredentials } from "../../Utils/AuthSlice";
 import { useGetRewardsQuery } from "../../app/Services/betHistory";
-import { CircleStackIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import {
+  CircleStackIcon,
+  EllipsisVerticalIcon,
+} from "@heroicons/react/20/solid";
 import { format, formatFixed } from "indian-number-format";
 import numeral from "numeral";
+import { baseApi } from "../../app/Services/baseApi";
 
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
@@ -73,7 +76,10 @@ const CustomMenu = () => {
           <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600">
             <span className="sr-only">Open options</span>
             {/* <Bars3Icon className="h-6 w-6 text-white" aria-hidden="true" /> */}
-            <EllipsisVerticalIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            <EllipsisVerticalIcon
+              className="h-6 w-6 text-white"
+              aria-hidden="true"
+            />
           </Menu.Button>
         </div>
 
@@ -88,7 +94,7 @@ const CustomMenu = () => {
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
-            <Menu.Item>
+              <Menu.Item>
                 {({ active }) => (
                   <Link
                     to={"/rules"}
@@ -106,6 +112,7 @@ const CustomMenu = () => {
                 {({ active }) => (
                   <div
                     onClick={() => {
+                      dispatch(baseApi.util.resetApiState());
                       dispatch(unsetCredentials());
                     }}
                     className={classNames(
@@ -127,15 +134,22 @@ const CustomMenu = () => {
 };
 
 const Wallet = () => {
-    const {data: rewards, isLoading, isError} = useGetRewardsQuery();
-    // formatFixed(rewards?.totalPoints , 2)
-    const totalPoints = rewards?.totalPoints ? numeral(parseFloat(rewards?.totalPoints)).format('0,0.00') : 0;
+  const { data: rewards, isLoading, isError } = useGetRewardsQuery();
+  // formatFixed(rewards?.totalPoints , 2)
+  const totalPoints = rewards?.totalPoints
+    ? numeral(parseFloat(rewards?.totalPoints)).format("0,0.00")
+    : 0;
   return (
     <span className="inline-flex items-center gap-x-1.5 rounded-lg px-2 py-1 text-sm font-medium  border bg-white">
       {/* <span className="">Wallet: </span> */}
       <CircleStackIcon className="h-5 w-5 text-yellow-500 " />
-      <span className={`text-bold ${totalPoints < 0 ? 'text-red-500' : 'text-green-500'}`}>{totalPoints}</span>
-
+      <span
+        className={`text-bold ${
+          totalPoints < 0 ? "text-red-500" : "text-green-500"
+        }`}
+      >
+        {totalPoints}
+      </span>
     </span>
   );
 };
