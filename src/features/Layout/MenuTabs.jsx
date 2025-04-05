@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   BuildingOfficeIcon,
-  CreditCardIcon,
   UserIcon,
   UsersIcon,
+  TrophyIcon,
 } from "@heroicons/react/20/solid";
-import { Link, matchPath } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,7 +18,7 @@ export default function MenuTabs(props) {
       href: "/matches",
       icon: UserIcon,
       current:
-        location.pathname.includes("matches") || location.pathname == "/",
+        location.pathname.includes("matches") || location.pathname === "/",
     },
     {
       name: "Tournament",
@@ -32,14 +32,20 @@ export default function MenuTabs(props) {
       icon: UsersIcon,
       current: location.pathname.includes("history"),
     },
+    {
+      name: "Dream 11",
+      href: "/dream11",
+      icon: TrophyIcon,
+      current: location.pathname.includes("dream11"),
+    },
   ];
 
   return (
     <div>
-      <div className=" text-white text-lg">
-        <div className=" ">
+      <div className="text-white text-lg">
+        <div>
           <nav
-            className=" grid grid-cols-3 bg-gray-800 gap-0"
+            className="flex justify-evenly bg-gray-800 p-1 space-x-6"
             aria-label="Tabs"
           >
             {tabs.map((tab) => (
@@ -48,16 +54,16 @@ export default function MenuTabs(props) {
                 to={tab.href}
                 className={classNames(
                   tab.current
-                    ? "bg-wh bg-gray-400 font-bold"
-                    : "border-transparent text-White hover:border-gray-300 hover:text-gray-700",
-                  "group inline-flex items-center border-b-0 py-4 px-1 font-medium flex-col",
+                    ? "bg-gray-400 font-bold"
+                    : "border-transparent text-white hover:border-gray-300 hover:text-gray-700",
+                  "group inline-flex items-center py-4 px-1 font-medium flex-col"
                 )}
                 aria-current={tab.current ? "page" : undefined}
               >
                 <tab.icon
                   className={classNames(
                     tab.current ? "" : "text-white group-hover:text-gray-500",
-                    "-ml-0.5 mr-2 h-5 w-5",
+                    "-ml-0.5 mr-2 h-5 w-5"
                   )}
                   aria-hidden="true"
                 />

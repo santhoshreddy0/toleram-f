@@ -20,6 +20,9 @@ import RoundHistory from "./features/V2/History/Round";
 import BestPlayersHistory from "./features/V2/History/BestPlayers";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dream11 from "./features/Dream11";
+
+
 
 function App() {
     moment.tz.setDefault();
@@ -45,6 +48,7 @@ function App() {
                     />
                     <Routes>
                         <Route path="/matches" Component={Matches} />
+                        <Route path="dream11" Component={Dream11} />
                         <Route path="/matches/:matchId" Component={MatchQuestions} />
                         <Route path="/rounds" Component={Rounds} />
                         <Route path="/rounds/:roundId" Component={RoundQuestions} />
