@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetmatchesQuery } from "../../../app/Services/Admin/AdminMatches";
 import Loader from "../../Loader";
 import CreateNewMatch from "./AddNewmatchPopup";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function AdminMatches() {
     const navigate = useNavigate();
@@ -15,9 +16,14 @@ export default function AdminMatches() {
         <div className="">
             <div className="py-12 sm:py-24 px-6 lg:px-8">
                 <div className="bg-gray-800 rounded-2xl inset-x-0 bottom-0 flex flex-col justify-between gap-x-8 gap-y-4 p-6 ring-1 ring-gray-900/10 md:flex-row md:items-center lg:px-8">
-                    <p className="max-w-4xl text-gray-100 text-2xl">
-                        Create a new match
-                    </p>
+                    <div className="flex items-center">
+                        <a href="/admin">
+                            <ChevronLeftIcon className="size-6 text-gray-100 mr-3" />
+                        </a>
+                        <p className="max-w-4xl text-gray-100 text-2xl">
+                            Create a new match
+                        </p>
+                    </div>
                     <div className="flex flex-none items-center gap-x-5">
                         <button
                             type="button"

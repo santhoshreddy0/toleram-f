@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import AddTeamPlayerPopup from "./AddTeamPlayerPopup";
 import CreateTeamPopup from "./CreateTeamPopup";
 import Loader from "../../Loader";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function AdminTeamDetails() {
   const { teamId } = useParams();
@@ -31,9 +32,14 @@ export default function AdminTeamDetails() {
     <>
       <div className="py-8 sm:py-16 px-6 lg:px-8">
         <div className="bg-gray-800/50 rounded-2xl flex flex-col justify-between gap-x-8 gap-y-4 p-6 md:flex-row md:items-center lg:px-8">
-          <p className="max-w-4xl text-gray-100 text-2xl font-semibold">
-            {team?.team?.team_name || "Team Details"}
-          </p>
+          <div className="flex items-center">
+            <a href="/admin/matches">
+              <ChevronLeftIcon className="size-6 text-gray-100 mr-3" />
+            </a>
+            <p className="max-w-4xl text-gray-100 text-2xl font-semibold">
+              {team?.team?.team_name || "Team Details"}
+            </p>
+          </div>
           <div className="flex flex-none items-center gap-x-4">
             <button
               type="button"

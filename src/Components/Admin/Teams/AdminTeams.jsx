@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetTeamsQuery } from "../../../app/Services/Admin/AdminTeams";
 import CreateTeamPopup from "./CreateTeamPopup";
 import Loader from "../../Loader";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function AdminTeams() {
   const navigate = useNavigate();
@@ -15,7 +16,10 @@ export default function AdminTeams() {
     <div className="">
       <div className="py-12 sm:py-24 px-6 lg:px-8">
         <div className="bg-gray-800 backdrop-blur-sm rounded-2xl shadow-lg p-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col">
+          <div className="flex items-center">
+            <a href="/admin">
+              <ChevronLeftIcon className="size-6 text-gray-100 mr-3" />
+            </a>
             <h3 className="text-gray-200 text-xl font-semibold text-left">Add a new team to manage players and schedules</h3>
           </div>
           <div className="flex items-center gap-4">
