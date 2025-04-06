@@ -16,7 +16,7 @@ import UploadImage from "../../UploadImage/Index";
 import { useAddQuestionMutation, useUpdateQuestionMutation } from "../../../app/Services/Admin/AdminMatches";
 import { useParams } from "react-router-dom";
 
-export default function CreateNewQuestionPopup({ open, setOpen, question }) {
+export default function CreateNewQuestionPopup({ open, setOpen, question, match }) {
   const { matchId } = useParams();
 console.log(question)
   const [addQuestion, { isLoading: isAddQuestionLoading }] = useAddQuestionMutation();
@@ -103,7 +103,6 @@ console.log(question)
     }
 
     try {
-    console.log(questionData)
 
       const formattedOptions = questionData.options.map((opt, index) => ({
         id: index + 1,
@@ -141,7 +140,8 @@ console.log(question)
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel className="relative bg-gray-900 rounded-lg p-4 sm:p-6 w-full max-w-md mx-2">
             <DialogTitle className="text-lg sm:text-xl font-semibold text-gray-100 mb-4">
-              {question ? 'Edit Question' : 'Create New Question'}
+            {question ? 'Edit Question' : 'Create New Question - '}
+              <p className="text-gray-200 text-sm font-normal">Match: {match?.match_title}</p>
             </DialogTitle>
 
             <div className="space-y-4">
