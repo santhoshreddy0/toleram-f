@@ -5,9 +5,9 @@ import {
 } from "../../../app/Services/Admin/AdminTeams";
 import { useParams } from "react-router-dom";
 import AddTeamPlayerPopup from "./AddTeamPlayerPopup";
-import CreateTeamPopup from "./CreateTeamPopup";
+import CreateTeamPopup from "./CreateOrEditTeamPopup";
 import Loader from "../../Loader";
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 export default function AdminTeamDetails() {
   const { teamId } = useParams();
@@ -29,43 +29,29 @@ export default function AdminTeamDetails() {
   if (isError) return <div>Error loading players</div>;
 
   return (
-    <>
-      <div className="py-8 sm:py-16 px-6 lg:px-8">
-        <div className="bg-gray-800/50 rounded-2xl flex flex-col justify-between gap-x-8 gap-y-4 p-6 md:flex-row md:items-center lg:px-8">
-          <div className="flex items-center">
-            <a href="/admin/matches">
-              <ChevronLeftIcon className="size-6 text-gray-100 mr-3" />
-            </a>
-            <p className="max-w-4xl text-gray-100 text-2xl font-semibold">
-              {team?.team?.team_name || "Team Details"}
-            </p>
-          </div>
-          <div className="flex flex-none items-center gap-x-4">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setOpen(true);
-                setPlayer(null);
-              }}
-              className="rounded-md bg-indigo-600 px-4 py-2 text-white text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Add player
-            </button>
-            <button
-              type="button"
-              onClick={() => setOpenEdit(true)}
-              className="rounded-md bg-gray-600 px-4 py-2 text-white text-sm font-semibold shadow-sm hover:bg-gray-500"
-            >
-              Edit team
-            </button>
-          </div>
+    <div className="py-8">
+      <div className="flex justify-around items-center px-6 lg:px-8">
+        <div className="text-pretty text-4xl font-semibold tracking-tight text-gray-100 sm:text-4xl">
+          {team?.team?.team_name}
         </div>
       </div>
-      <div className="px-6 lg:px-8">
-        <h2 className="text-4xl font-semibold tracking-tight text-gray-100 sm:text-5xl text-center mb-12">
+      <div className="py-8 sm:py-16 px-6 lg:px-8 flex justify-around items-center">
+        <h2 className="text-3xl font-semibold tracking-tight text-gray-100 sm:text-5xl text-center ">
           Team Players
         </h2>
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(true);
+            setPlayer(null);
+          }}
+          className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          <PlusIcon className="size-5" />
+          Add Player
+        </button>
+      </div>
+      <div className="px-6 lg:px-8">
         {players?.teamPlayers?.length === 0 ? (
           <div className="mt-12 text-center">
             <p className="text-xl text-gray-100">
@@ -116,6 +102,6 @@ export default function AdminTeamDetails() {
         setOpen={setOpenEdit}
         selectedTeam={team?.team}
       />
-    </>
+    </div>
   );
 }
