@@ -238,12 +238,13 @@ const Dream11TeamSelector = ({players, onSubmit}) => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
             {filteredPlayers.map((player) => {
-              const isSelected = isPlayerSelected(player.id);
+              const isSelected = true;
               const roleColor = getRoleColorClass(player.player_role);
       
               return (
                 <div
                   key={player.id}
+                  style={{overflowAnchor: 'none'}}
                   onClick={() => togglePlayerSelection(player)}
                   className={`border rounded-lg overflow-hidden cursor-pointer transition-all ${
                     isSelected ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-gray-300'

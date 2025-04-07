@@ -4,6 +4,8 @@ import {
   ArrowRightStartOnRectangleIcon,
   Bars3Icon,
   HashtagIcon,
+  UserIcon,
+  
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +67,7 @@ function Header() {
 }
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ");_w
 }
 const CustomMenu = () => {
   const dispatch = useDispatch();
@@ -105,6 +107,20 @@ const CustomMenu = () => {
                   >
                     <HashtagIcon className="mr-3 h-5 w-5 text-gray-400" />
                     <span>Rules</span>
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={"/admin"}
+                    className={classNames(
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "flex px-4 py-2 text-sm"
+                    )}
+                  >
+                    <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
+                    <span>Admin</span>
                   </Link>
                 )}
               </Menu.Item>

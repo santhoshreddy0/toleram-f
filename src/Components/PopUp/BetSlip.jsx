@@ -24,10 +24,10 @@ function BetSlip({
     setError,
     formState: { errors },
   } = useForm();
-  
+
   const onAmountChange = (e, questionId) => {
     let val = e.target.value
-    if(isNaN(e.target.value) ){
+    if (isNaN(e.target.value)) {
       val = 0
     }
     setFormData({
@@ -92,78 +92,78 @@ function BetSlip({
         </button>
         <ul role="list" className="divide-y divide-gray-100 m-2 sm:m-4 md:m-6">
           <form className="" onSubmit={handleSubmit(onSubmit)} id="bets">
-          {Object.keys(formData).length > 0 ? (
-            Object.keys(formData)?.map((key, index) => {
-              const question = questions?.questions?.find((i) => i.id == key);
-              const option = questions?.questions
-                ?.find((i) => i.id == key)
-                .options.find((i) => i.id == formData[key].option);
+            {Object.keys(formData).length > 0 ? (
+              Object.keys(formData)?.map((key, index) => {
+                const question = questions?.questions?.find((i) => i.id == key);
+                const option = questions?.questions
+                  ?.find((i) => i.id == key)
+                  .options.find((i) => i.id == formData[key].option);
 
-              return (
-                <li
-                  key={index}
-                  className="flex-col justify-between gap-x-6 py-5"
-                >
-                  <div className="flex min-w-0 gap-x-4">
-                    <XMarkIcon
-                      className="h-10 w-10 text-gray-400"
-                      onClick={() => deleteAnswer(key)}
-                    />
-                    <div className="min-w-0 flex-auto text-xl">
-                      <p className=" font-medium leading-6 ">
-                        <CogIcon className="h-6 w-6 inline-block" />{" "}
-                        {question?.question}
-                      </p>
-                      <p className="mt-1 truncate  leading-5 text-green-500 text-base">
-                        {option?.option + " X " + option?.odds}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <div className="text-sm leading-6">
-                      <div className="">
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium leading-6 text-right"
-                        >
-                          Enter Bet Amount
-                        </label>
-                        <Text
-                          register={register}
-                          name={"number"+key}
-                          type="number"
-                          value={formData?.[key]?.amount}
-                          onChange={(i) => {
-                            onAmountChange(i, key);
-                          }}
-                          // withCheck={true}
-                          options={{
-                            min: {
-                              value: 1000,
-                              message: "Minimum amount is 1000",
-                            },
-                          }}
-                          errors={errors}
-                          className={
-                            "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-gray-800 text-white"
-                          }
-                        />
+                return (
+                  <li
+                    key={index}
+                    className="flex-col justify-between gap-x-6 py-5"
+                  >
+                    <div className="flex min-w-0 gap-x-4">
+                      <XMarkIcon
+                        className="h-10 w-10 text-gray-400"
+                        onClick={() => deleteAnswer(key)}
+                      />
+                      <div className="min-w-0 flex-auto text-xl">
+                        <p className=" font-medium leading-6 ">
+                          <CogIcon className="h-6 w-6 inline-block" />{" "}
+                          {question?.question}
+                        </p>
+                        <p className="mt-1 truncate  leading-5 text-green-500 text-base">
+                          {option?.option + " X " + option?.odds}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })
-          ) : (
-            <div className="flex justify-center items-center h-40">
-              <p className="text-sm ">No Bets Selected</p>
-            </div>
-          )}
+                    <div className="shrink-0 sm:flex sm:flex-col sm:items-end">
+                      <div className="text-sm leading-6">
+                        <div className="">
+                          <label
+                            htmlFor="email"
+                            className="block text-sm font-medium leading-6 text-right"
+                          >
+                            Enter Bet Amount
+                          </label>
+                          <Text
+                            register={register}
+                            name={"number" + key}
+                            type="number"
+                            value={formData?.[key]?.amount}
+                            onChange={(i) => {
+                              onAmountChange(i, key);
+                            }}
+                            // withCheck={true}
+                            options={{
+                              min: {
+                                value: 1000,
+                                message: "Minimum amount is 1000",
+                              },
+                            }}
+                            errors={errors}
+                            className={
+                              "w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-gray-800 text-white"
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })
+            ) : (
+              <div className="flex justify-center items-center h-40">
+                <p className="text-sm ">No Bets Selected</p>
+              </div>
+            )}
           </form>
         </ul>
         <div className=" border-t-2">
           <div className="px-4 py-5 sm:p-6">
-          <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
+            <div className="text-base font-semibold leading-6 flex justify-between px-4 py-2">
               <div>Total bet allowed: </div>
               <div className="text-sm ">{numeral(parseFloat(totalBetAllowed)).format('0,0.00')}</div>
             </div>

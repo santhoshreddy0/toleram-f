@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import BackButton from "../../../../Components/BackButton";
 import BackButtonWithRules from "../../../../Components/BackButtonWithRules";
+import CommentsSection from "../../../../Components/comments/CommentsSection";
 
 function MatchQuestions() {
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ function MatchQuestions() {
           setShow={setShow}
           totalBetAllowed={import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}
         />
+        <CommentsSection roomName={'testing'}/>
       </div>
     </>
   );

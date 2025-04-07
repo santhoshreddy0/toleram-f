@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+import {
+  useGetTeamPlayersListQuery,
+  useGetTeamQuery,
+} from "../../../app/Services/Admin/AdminTeams";
+import { useParams } from "react-router-dom";
+import AddTeamPlayerPopup from "./AddTeamPlayerPopup";
+import CreateTeamPopup from "./CreateOrEditTeamPopup";
+import Loader from "../../Loader";
+import { ChevronLeftIcon, PlusIcon } from "@heroicons/react/24/outline";
+
+export default function AdminTeamDetails() {
+  const { teamId } = useParams();
+  const {
+    data: players,
+    isLoading,
+    isError,
+  } = useGetTeamPlayersListQuery(teamId);
+  const {
+    data: team,
+    isLoading: teamLoading,
+    isError: teamError,
+  } = useGetTeamQuery(teamId);
+  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [player, setPlayer] = useState(null);
+
+  if (isLoading) return <Loader />;
+  if (isError) return <div>Error loading players</div>;
+
+  return (
+    <div className="py-8">
+      <div className="flex justify-around items-center px-6 lg:px-8">
+        <div className="text-pretty text-4xl font-semibold tracking-tight text-gray-100 sm:text-4xl">
+          {team?.team?.team_name}
+        </div>
+      </div>
+      <div className="py-8 sm:py-16 px-6 lg:px-8 flex justify-around items-center">
+        <h2 className="text-3xl font-semibold tracking-tight text-gray-100 sm:text-5xl text-center ">
+          Team Players
+        </h2>
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(true);
+            setPlayer(null);
+          }}
+          className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          <PlusIcon className="size-5" />
+          Add Player
+        </button>
+      </div>
+      <div className="px-6 lg:px-8">
+        {players?.teamPlayers?.length === 0 ? (
+          <div className="mt-12 text-center">
+            <p className="text-xl text-gray-100">
+              No players found in this team
+            </p>
+          </div>
+        ) : (
+          <ul
+            role="list"
+            className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 text-center sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4 xl:grid-cols-5"
+          >
+            {players?.teamPlayers?.map((player) => (
+              <li
+                key={player.id}
+                className="group relative bg-gray-800/30 rounded-lg p-6 hover:bg-gray-800/50 transition-all"
+              >
+                <img
+                  alt={player.name}
+                  src={player.player_logo}
+                  className="mx-auto size-16 rounded-full"
+                />
+                <h3 className="mt-4 text-lg font-semibold tracking-tight text-gray-100">
+                  {player.name}
+                </h3>
+                <p className="text-sm text-gray-400">{player.player_role}</p>
+                <button
+                  onClick={() => {
+                    setOpen(true);
+                    setPlayer(player);
+                  }}
+                  className="mt-4 w-full rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-100 hover:bg-gray-600 transition-colors"
+                >
+                  Edit Player
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <AddTeamPlayerPopup
+        open={open}
+        setOpen={setOpen}
+        teamId={teamId}
+        player={player}
+      />
+      <CreateTeamPopup
+        open={openEdit}
+        setOpen={setOpenEdit}
+        selectedTeam={team?.team}
+      />
+    </div>
+  );
+}

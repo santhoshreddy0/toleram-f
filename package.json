@@ -10,8 +10,10 @@
     "compile:css": "postcss src/styles/tailwind.css -o src/tailwind.css"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.14",
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.0.18",
+    "@mui/icons-material": "^7.0.0",
+    "@mui/material": "^7.0.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@tailwindcss/forms": "^0.5.3",
     "connected-react-router": "^6.9.3",
@@ -26,6 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-hot-toast": "^2.5.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-toastify": "^10.0.5"
