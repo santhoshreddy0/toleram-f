@@ -32,7 +32,7 @@ function App() {
         pauseOnHover
         theme="dark"
         transition:Bounce
-        style={{ zIndex: -1 }}
+        style={{ zIndex: 9999 }}
       />
       {!!store_token || !!storage_token ? (
         <Protected>

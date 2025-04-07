@@ -238,7 +238,7 @@ const Dream11TeamSelector = ({players, onSubmit}) => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
             {filteredPlayers.map((player) => {
-              const isSelected = true;
+              const isSelected = isPlayerSelected(player.id);
               const roleColor = getRoleColorClass(player.player_role);
       
               return (

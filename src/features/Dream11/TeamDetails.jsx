@@ -13,7 +13,7 @@ const TeamDetails = ({teamData, handleEdit}) => {
   return (
     <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 min-h-screen text-white">
       {/* Header with glassmorphism effect - Mobile optimized */}
-      <div className="backdrop-blur-md bg-white/10 p-3 sticky top-0 z-10 border-b border-white/20 shadow-lg">
+      <div className="backdrop-blur-md bg-white/10 p-3 sticky top-0 border-b border-white/20 shadow-lg">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 max-w-6xl mx-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <Trophy className="text-yellow-400" size={24} />
