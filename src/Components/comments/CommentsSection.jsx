@@ -168,7 +168,7 @@ const CommentsSection = ({ roomName }) => {
           </form>
         </div>
       </div>
-      <div className="px-2 overflow-y-auto max-h-screen overflow-hidden scrollbar-hide">
+      <div className="px-2 overflow-y-auto max-h-96 overflow-hidden scrollbar-hide">
         {roomLoading || commentsLoading ? (
           <div className="flex justify-center py-4">
             <p className="text-gray-400">Loading comments...</p>
