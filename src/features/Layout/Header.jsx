@@ -5,7 +5,6 @@ import {
   Bars3Icon,
   HashtagIcon,
   UserIcon,
-  
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,61 +17,69 @@ import {
 import { format, formatFixed } from "indian-number-format";
 import numeral from "numeral";
 import { baseApi } from "../../app/Services/baseApi";
+import { isAdmin } from "../../Utils/Helpers";
+import AdminBanner from "../../Components/Banner/AdminBanner";
 
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
   return (
-    <header className="bg-red-600 text-white sticky w-full inset-x top-0 z-10">
-      <div className="max-w-7xl mx-auto">
-        <nav
-          className="flex items-center justify-between p-6 lg:px-8"
-          aria-label="Global"
-        >
-          <div className="flex lg:flex-1 flex-row">
-            <Link to="/" className="-m-1.5 p-1.5 flex">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-14 w-auto bg-white rounded "
-                src="/new_tpl_logo.png"
-                alt=""
-              />
-              <div className="text-white font-bold text-xl ml-3 text-center align-baseline text-left">
-                {" "}
-                TOLARAM <br />
-                <span className="text-sm">Premier League </span>
-              </div>
-            </Link>
-          </div>
-          <div className="lg:flex lg:flex-1 lg:justify-end text-white">
-            {token ? (
-              <div className="flex gap-1">
-                <Wallet />
-                <CustomMenu />
-              </div>
-            ) : (
-              <Link
-                onClick={() => setMobileMenuOpen(false)}
-                to="/login"
-                className="text-xl font-semibold leading-6 border-2 border-white rounded-lg p-2"
-              >
-                Log in
+    <>
+      <header className="bg-red-600 text-white sticky w-full inset-x top-0 z-20">
+        <div className="max-w-7xl mx-auto">
+          <nav
+            className="flex items-center justify-between p-6 lg:px-8"
+            aria-label="Global"
+          >
+            <div className="flex lg:flex-1 flex-row">
+              <Link to="/" className="-m-1.5 p-1.5 flex">
+                <span className="sr-only">Your Company</span>
+                <img
+                  className="h-14 w-auto bg-white rounded "
+                  src="/new_tpl_logo.png"
+                  alt=""
+                />
+                <div className="text-white font-bold text-xl ml-3 text-center align-baseline text-left">
+                  {" "}
+                  TOLARAM <br />
+                  <span className="text-sm">Premier League </span>
+                </div>
               </Link>
-            )}
-          </div>
-        </nav>
-      </div>
-    </header>
+            </div>
+            <div className="lg:flex lg:flex-1 lg:justify-end text-white">
+              {token ? (
+                <div className="flex gap-1">
+                  <Wallet />
+                  <CustomMenu />
+                </div>
+              ) : (
+                <Link
+                  onClick={() => setMobileMenuOpen(false)}
+                  to="/login"
+                  className="text-xl font-semibold leading-6 border-2 border-white rounded-lg p-2"
+                >
+                  Log in
+                </Link>
+              )}
+            </div>
+          </nav>
+        </div>
+      </header>
+      {isAdmin(token) ? <AdminBanner /> : <></>}
+    </>
   );
 }
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");_w
+  return classes.filter(Boolean).join(" ");
+  _w;
 }
 const CustomMenu = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.JWTtoken);
+
   return (
     <div className="flex flex-shrink-0 self-center">
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className="relative inline-block text-left ">
         <div>
           <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600">
             <span className="sr-only">Open options</span>
@@ -93,7 +100,7 @@ const CustomMenu = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0  mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
@@ -109,20 +116,25 @@ const CustomMenu = () => {
                   </Link>
                 )}
               </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to={"/admin"}
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "flex px-4 py-2 text-sm"
-                    )}
-                  >
-                    <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
-                    <span>Admin</span>
-                  </Link>
-                )}
-              </Menu.Item>
+              {isAdmin(token) ? (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to={"/admin"}
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "flex px-4 py-2 text-sm"
+                      )}
+                    >
+                      <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
+                      <span>Admin</span>
+                    </Link>
+                  )}
+                </Menu.Item>
+              ) : (
+                <></>
+              )}
+
               <Menu.Item>
                 {({ active }) => (
                   <div

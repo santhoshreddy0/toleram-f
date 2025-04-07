@@ -15,9 +15,9 @@ import AdminTeams from "../../Components/Admin/Teams/AdminTeams";
 import AdminTeamDetails from "../../Components/Admin/Teams/AdminTeamDetails";
 import AdminMatches from "../../Components/Admin/Matches/AdminMatches";
 import AdminMatchDetails from "../../Components/Admin/Matches/AdminMatchDetails";
-import AdminTournament from "../../Components/Admin/Teams/AdminTournament";
 import AdminLayout from "../Layout/AdminLayout";
 import Dream11 from "../Dream11";
+import Tournamet from "../../Components/Admin/Tournament/Tournamet";
 
 function AuthRoutes() {
   return (
@@ -48,7 +48,7 @@ function AuthRoutes() {
         <Route path="teams/:teamId" Component={AdminTeamDetails} />
         <Route path="matches" Component={AdminMatches} />
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
-        <Route path="tournament" Component={AdminTournament} />
+        <Route path="tournament" Component={Tournamet} />
         <Route index Component={AdminDashboard} />
       </Route>
 
