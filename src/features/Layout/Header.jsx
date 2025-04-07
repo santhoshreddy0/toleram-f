@@ -22,9 +22,8 @@ import { baseApi } from "../../app/Services/baseApi";
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
   return (
-    <div>
-      {" "}
-      <header className=" inset-x top-0 z-50 bg-red-600 text-white">
+    <header className="bg-red-600 text-white fixed w-full inset-x top-0 z-50">
+      <div className="max-w-7xl mx-auto">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
@@ -61,8 +60,8 @@ function Header() {
             )}
           </div>
         </nav>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 

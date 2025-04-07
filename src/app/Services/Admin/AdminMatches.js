@@ -72,7 +72,7 @@ const betsApi = baseApi.injectEndpoints({
     }),
     updateQuestion: builder.mutation({
       query: (questionsData) => ({
-        url: `/admin/questions/${questionsData.id}`,
+        url: `/admin/match-questions/${questionsData.id}`,
         method: "PATCH",
         body: questionsData,
       }),
@@ -80,7 +80,7 @@ const betsApi = baseApi.injectEndpoints({
     }),
     updateCorrectAnswer: builder.mutation({
       query: (questionsData) => ({
-        url: `/admin/questions/${questionsData.questionId}/correctOption`,
+        url: `/admin/match-questions/${questionsData.questionId}/correctOption`,
         method: "PATCH",
         body: questionsData,
       }),

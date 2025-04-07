@@ -32,7 +32,7 @@ function Matches() {
   return (
     <>
       <MenuTabs>
-        <div className="matches-container grid grid-cols-1 md:grid-cols-2 ">
+        <div className="matches-container grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto mt-12">
           {filteredMatches.map((match) => {
             if (match.can_bet == "0") {
               return <></>;
