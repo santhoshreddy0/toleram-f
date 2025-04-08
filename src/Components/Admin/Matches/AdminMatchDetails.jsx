@@ -118,7 +118,7 @@ export default function AdminMatches() {
                                                 {faq.options.map((option) => (
                                                     <div key={option.id} className="flex items-center gap-x-4">
                                                         <button
-                                                            onClick={() => handleAnswerSelect(faq.id, option.option)}
+                                                            onClick={() => handleAnswerSelect(faq.id, option.id)}
                                                             className={`px-4 py-2 rounded-md text-sm font-medium ${
                                                                 faq.correct_option === option.id 
                                                                     ? 'bg-green-600 text-white' 
@@ -155,7 +155,7 @@ export default function AdminMatches() {
                                                                 <button
                                                                     key={option.id}
                                                                     onClick={() => {
-                                                                        handleAnswerSelect(faq.id, option.option);
+                                                                        handleAnswerSelect(faq.id, option.id);
                                                                         // Hide dropdown after selection
                                                                         const dropdown = document.querySelector(`#dropdown-${faq.id}`);
                                                                         if (dropdown) dropdown.classList.add('hidden');
