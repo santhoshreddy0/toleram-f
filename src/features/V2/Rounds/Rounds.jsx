@@ -14,7 +14,7 @@ function Rounds() {
   const roundOne = rounds?.rounds[0] || {}
   return (
     <MenuTabs>
-      <ul role="list" className=" mx-5 grid grid-cols-1 md:grid-cols-2">
+      <ul role="list" className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
         <li
           key={"round.id"}
           className="border md:max-w-lg m-5 rounded-lg border-white px-5 bg-gray-800"

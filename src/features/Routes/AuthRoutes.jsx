@@ -16,10 +16,10 @@ import AdminMatches from "../../Components/Admin/Matches/AdminMatches";
 import AdminMatchDetails from "../../Components/Admin/Matches/AdminMatchDetails";
 import AdminLayout from "../Layout/AdminLayout";
 import Dream11 from "../Dream11";
-import Tournamet from "../../Components/Admin/Tournament/Tournamet";
 import User from "../../Components/Admin/User";
 import BetHistoryWithLayout from "../V2/History/BetHistoryWithLayout";
 import AdminRoundDetails from "../../Components/Admin/Tournamet/AdminTournamentDetails";
+import Tournamet from "../../Components/Admin/Tournamet/AdminTournament";
 
 function AuthRoutes() {
   return (

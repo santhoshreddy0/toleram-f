@@ -41,39 +41,41 @@ export default function MenuTabs(props) {
   ];
 
   return (
-    <div>
-      <div className="text-white text-lg">
-        <div>
-          <nav
-            className="flex justify-evenly bg-gray-800 p-1 space-x-6"
-            aria-label="Tabs"
-          >
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-7xl mx-auto">
+        <nav
+          className="bg-gray-800 rounded-lg shadow-xl mx-4 mt-4"
+          aria-label="Tabs"
+        >
+          <div className="flex justify-around items-center px-2 py-3">
             {tabs.map((tab) => (
               <Link
                 key={tab.name}
                 to={tab.href}
                 className={classNames(
                   tab.current
-                    ? "bg-gray-400 font-bold"
-                    : "border-transparent text-white hover:border-gray-300 hover:text-gray-700",
-                  "group inline-flex items-center py-4 px-1 text-sm sm:text-lg font-medium flex-col"
+                    ? "bg-indigo-600 text-white shadow-lg transform scale-105 transition-all duration-200"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200",
+                  "rounded-lg px-4 py-3 text-sm font-medium flex flex-col items-center space-y-1 min-w-[80px]"
                 )}
                 aria-current={tab.current ? "page" : undefined}
               >
                 <tab.icon
                   className={classNames(
-                    tab.current ? "" : "text-white group-hover:text-gray-500",
-                    "-ml-0.5 mr-2 h-5 w-5"
+                    tab.current ? "text-white" : "text-gray-400 group-hover:text-white",
+                    "h-6 w-6"
                   )}
                   aria-hidden="true"
                 />
-                <span>{tab.name}</span>
+                <span className="text-xs sm:text-sm whitespace-nowrap">{tab.name}</span>
               </Link>
             ))}
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
-      {props.children}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {props.children}
+      </div>
     </div>
   );
 }

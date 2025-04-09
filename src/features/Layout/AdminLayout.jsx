@@ -165,7 +165,7 @@ export default function AdminLayout() {
             </DialogPanel>
           </div>
         </Dialog>
-        <div className="max-w-7xl mx-auto min-h-full md:mt-16">
+        <div className="max-w-7xl mx-auto min-h-full">
          
           <div className="hidden lg:fixed lg:inset-y-3 lg:z-50 lg:flex lg:w-72 lg:flex-col mt-[6.5rem] border-r border-gray-700">
             
