@@ -6,7 +6,6 @@ import Rounds from "../V2/Rounds";
 import RoundQuestions from "../V2/Rounds/Questions";
 import Players from "../V2/Players";
 import Rules from "../../Rules";
-import BetHistory from "../V2/History/BetHistory";
 import MatchHistory from "../V2/History/Match";
 import RoundHistory from "../V2/History/Round";
 import BestPlayersHistory from "../V2/History/BestPlayers";
@@ -19,6 +18,7 @@ import AdminLayout from "../Layout/AdminLayout";
 import Dream11 from "../Dream11";
 import Tournamet from "../../Components/Admin/Tournament/Tournamet";
 import User from "../../Components/Admin/User";
+import BetHistoryWithLayout from "../V2/History/BetHistoryWithLayout";
 
 function AuthRoutes() {
   return (
@@ -40,7 +40,7 @@ function AuthRoutes() {
         <Route path="matches/:matchId" Component={MatchHistory} />
         <Route path="rounds/:roundId" Component={RoundHistory} />
         <Route path="bestPlayers" Component={BestPlayersHistory} />
-        <Route index Component={BetHistory} />
+        <Route index Component={BetHistoryWithLayout} />
       </Route>
 
       <Route path="/admin" Component={AdminLayout}>

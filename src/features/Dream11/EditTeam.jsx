@@ -39,7 +39,7 @@ const EditTeam = ({ teamData, handleEdit }) => {
       <Dream11TeamSelector
         players={teamData.team} 
         onSubmit={handleUpdateTeam}
-        isLoading={creatTeamLoading}
+        onClose={handleEdit}
       />
     </>
   );

@@ -56,7 +56,7 @@ export default function MenuTabs(props) {
                   tab.current
                     ? "bg-gray-400 font-bold"
                     : "border-transparent text-white hover:border-gray-300 hover:text-gray-700",
-                  "group inline-flex items-center py-4 px-1 font-medium flex-col"
+                  "group inline-flex items-center py-4 px-1 text-sm sm:text-lg font-medium flex-col"
                 )}
                 aria-current={tab.current ? "page" : undefined}
               >
