@@ -18,11 +18,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   Link,
-  matchPath,
   Outlet,
-  redirect,
   useLocation,
-  useMatch,
   useNavigate,
 } from "react-router-dom";
 import { isAdmin } from "../../Utils/Helpers";
@@ -123,8 +120,8 @@ export default function AdminLayout() {
                               to={item.href}
                               className={classNames(
                                 item.current
-                                  ? "bg-gray-50 text-indigo-600"
-                                  : "text-gray-700 hover:bg-gray-800 hover:text-white",
+                                  ? "bg-gray-800 text-gray-100 border border-gray-700"
+                                  : "text-gray-400 hover:bg-gray-700 hover:text-white",
                                 "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
                               )}
                             >
@@ -149,7 +146,7 @@ export default function AdminLayout() {
             </DialogPanel>
           </div>
         </Dialog>
-        <div className="max-w-7xl mx-auto min-h-full md:mt-16">
+        <div className="max-w-7xl mx-auto min-h-full">
           {/* Static sidebar for desktop */}
           <div className="hidden lg:fixed lg:inset-y-3 lg:z-50 lg:flex lg:w-72 lg:flex-col mt-[6.5rem] border-r border-gray-700">
             {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -188,9 +185,8 @@ export default function AdminLayout() {
               </nav>
             </div>
           </div>
-
           <div className="lg:pl-72 ">
-            <main className="py-10">
+            <main className="">
               <div className="mx-auto">
                 <>
                   <Outlet />

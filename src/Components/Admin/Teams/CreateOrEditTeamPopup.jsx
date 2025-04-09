@@ -82,7 +82,7 @@ export default function CreateOrEditTeamPopup({ open, setOpen, selectedTeam }) {
         canShowPopUp={open}
         dismissPopUP={() => setOpen(false)}
       >
-        <div className="bg-gray-900 m-2 p-5">
+        <div className="bg-gray-900 p-5">
           <div>
             <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100">
               <UserGroupIcon
