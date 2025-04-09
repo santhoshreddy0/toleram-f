@@ -6,7 +6,7 @@ import {
   HashtagIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unsetCredentials } from "../../Utils/AuthSlice";
 import { useGetRewardsQuery } from "../../app/Services/betHistory";
@@ -22,6 +22,8 @@ import AdminBanner from "../../Components/Banner/AdminBanner";
 
 function Header() {
   const token = useSelector((state) => state.auth.JWTtoken);
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
   return (
     <>
       <header className="bg-red-600 text-white sticky w-full inset-x top-0 z-20">
@@ -64,7 +66,7 @@ function Header() {
           </nav>
         </div>
       </header>
-      {isAdmin(token) ? <AdminBanner /> : <></>}
+      {isAdmin(token) && isAdminRoute ? <AdminBanner /> : <></>}
     </>
   );
 }

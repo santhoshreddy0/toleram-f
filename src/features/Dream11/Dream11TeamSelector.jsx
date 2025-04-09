@@ -126,9 +126,8 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const goBack = () => {
     if (step > 1) {
       setStep(step - 1);
-    }else{
+    } else {
       onClose();
-
     }
   };
 
@@ -583,21 +582,15 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
   const NavigationBar = () => (
     <div className="flex justify-between items-center py-3 px-4 border-t bg-white">
-      { (
-       <button
-       onClick={goBack}
-       className={`
-         px-4 py-2 rounded-md 
-         ${step > 1 ? 'bg-indigo-600 hover:bg-indigo-500' : 'bg-indigo-600 hover:bg-indigo-500'}
-         text-white text-sm font-medium shadow-sm 
-         transition-colors duration-200
-         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
-       `}
-     >
-       {step > 1 ? 'Back' : 'Cancel'}
-     </button>
-     
-      ) }
+      {
+        <button
+          onClick={goBack}
+          className={`
+         px-4 py-2 rounded-md bg-white text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-900 hover:bg-gray-50`}
+        >
+          {step > 1 ? "Back" : "Cancel"}
+        </button>
+      }
 
       {step < 3 ? (
         <button
@@ -657,7 +650,9 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           {stepNumber < 3 && (
             <div
               className={`flex-1 h-1 ${
-                step > stepNumber ? "bg-indigo-600 shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" : "bg-gray-200"
+                step > stepNumber
+                  ? "bg-indigo-600 shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  : "bg-gray-200"
               }`}
             ></div>
           )}

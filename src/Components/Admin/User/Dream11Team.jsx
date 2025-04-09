@@ -39,11 +39,11 @@ const Dream11Team = ({ dream11 }) => {
               <img
                 src={player.player_logo}
                 alt={player.player_name}
-                className="w-full h-full object-cover"
+                className="w-full h-full"
               />
             </div>
             <div className="ml-3 flex-grow">
-              <p className="font-medium">{player.player_name}</p>
+              <p className="font-medium text-left">{player.player_name}</p>
               <div className="flex items-center">
                 <span
                   className={`text-xs ${
