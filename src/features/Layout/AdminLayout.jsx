@@ -11,6 +11,7 @@ import {
   HomeIcon,
   TrophyIcon,
   UserGroupIcon,
+  UserIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -51,6 +52,11 @@ const nav = [
     name: "Tournaments",
     href: "/admin/tournament",
     icon: TrophyIcon,
+  },
+  {
+    name: "User",
+    href: "/admin/user",
+    icon: UserIcon,
   },
 ];
 
@@ -118,11 +124,11 @@ export default function AdminLayout() {
                 </div>
               </TransitionChild>
               
-              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
+              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-800 px-6 pb-4">
                 <div className="flex h-16 shrink-0 items-center">
                   <img
                     alt="Tolaram"
-                    src="./toleram-icon.png"
+                    src="/toleram-icon.png"
                     className="h-8 w-auto"
                   />
                 </div>
