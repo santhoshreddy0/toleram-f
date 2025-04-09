@@ -18,6 +18,7 @@ import AdminMatchDetails from "../../Components/Admin/Matches/AdminMatchDetails"
 import AdminLayout from "../Layout/AdminLayout";
 import Dream11 from "../Dream11";
 import Tournamet from "../../Components/Admin/Tournament/Tournamet";
+import User from "../../Components/Admin/User";
 
 function AuthRoutes() {
   return (
@@ -32,7 +33,6 @@ function AuthRoutes() {
       </Route>
 
       <Route path="/dream11">
-        <Route path=":roundId" Component={RoundQuestions} />
         <Route index Component={Dream11} />
       </Route>
 
@@ -49,6 +49,7 @@ function AuthRoutes() {
         <Route path="matches" Component={AdminMatches} />
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
         <Route path="tournament" Component={Tournamet} />
+        <Route path="user" Component={User} />
         <Route index Component={AdminDashboard} />
       </Route>
 
