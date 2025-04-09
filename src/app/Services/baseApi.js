@@ -38,6 +38,7 @@ export const baseApi = createApi({
     "Question",
     "Match",
     "Player",
+    "Round",
   ],
   endpoints: () => ({}),
 });

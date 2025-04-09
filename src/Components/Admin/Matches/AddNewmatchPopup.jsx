@@ -5,9 +5,11 @@ import { toast } from "react-toastify";
 import { useAddMatchMutation, useGetMatchQuery, useUpdateMatchDetailsMutation } from '../../../app/Services/Admin/AdminMatches';
 import { useGetTeamsQuery } from '../../../app/Services/Admin/AdminTeams';
 
-export default function CreateNewMatch({open, setOpen, match}) {
+export default function CreateNewMatch({open, setOpen, matchId}) {
+  const { data: match, isLoading: matchLoading, isError: matchError } = useGetMatchQuery(matchId);
   const [createMatch, { isLoading }] = useAddMatchMutation();
   const [updateMatchDetails, {isLoading: isUpdateMatchLoading}] = useUpdateMatchDetailsMutation();
+
   const { data: teams } = useGetTeamsQuery();
 
   const [matchData, setMatchData] = useState({
@@ -23,13 +25,13 @@ export default function CreateNewMatch({open, setOpen, match}) {
   useEffect(() => {
     if (match) {
       setMatchData({
-        teamOneId: match.team_one.toString(),
-        teamTwoId: match.team_two.toString(),
-        matchTitle: match.match_title,
-        matchTime: match.match_time.split('.')[0],
-        canBet: match.can_bet,
-        canShow: match.can_show,
-        betStatus: match.bet_status
+        teamOneId: match?.match?.team_one.toString(),
+        teamTwoId: match?.match?.team_two.toString(),
+        matchTitle: match?.match?.match_title,
+        matchTime: match?.match?.match_time.split('.')[0],
+        canBet: match?.match?.can_bet,
+        canShow: match?.match?.can_show,
+        betStatus: match?.match?.bet_status
       });
     }
   }, [match]);
@@ -53,7 +55,7 @@ export default function CreateNewMatch({open, setOpen, match}) {
     try {
       if (match) {
         await updateMatchDetails({
-          id: match.id,
+          id: match?.match?.id,
           ...matchData
         }).unwrap();
         toast.success('Match updated successfully');

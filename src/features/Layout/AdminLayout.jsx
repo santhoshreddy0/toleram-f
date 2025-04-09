@@ -19,11 +19,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   Link,
-  matchPath,
   Outlet,
-  redirect,
   useLocation,
-  useMatch,
   useNavigate,
 } from "react-router-dom";
 import { isAdmin } from "../../Utils/Helpers";
@@ -207,9 +204,8 @@ export default function AdminLayout() {
               </nav>
             </div>
           </div>
-
           <div className="lg:pl-72 ">
-            <main className="py-10">
+            <main className="">
               <div className="mx-auto">
                 <>
                   <Outlet />

@@ -3,10 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGetTeamsQuery } from "../../../app/Services/Admin/AdminTeams";
 import CreateTeamPopup from "./CreateOrEditTeamPopup";
 import Loader from "../../Loader";
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import {
-  ChevronRightIcon,
-  PencilSquareIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import TeamCard from "./TeamCard";
@@ -41,7 +38,7 @@ export default function AdminTeams() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
-          <div className="mt-16 lg:mt-20">
+          <div className="mt-8 lg:mt-4">
             {teams?.teams.length === 0 ? (
                 <div className="text-center py-12 flex flex-col items-center justify-center col-span-2 bg-gray-800 rounded-2xl">
                     <svg

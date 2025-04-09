@@ -19,6 +19,7 @@ import Dream11 from "../Dream11";
 import Tournamet from "../../Components/Admin/Tournament/Tournamet";
 import User from "../../Components/Admin/User";
 import BetHistoryWithLayout from "../V2/History/BetHistoryWithLayout";
+import AdminRoundDetails from "../../Components/Admin/Tournamet/AdminTournamentDetails";
 
 function AuthRoutes() {
   return (
@@ -50,6 +51,7 @@ function AuthRoutes() {
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
         <Route path="tournament" Component={Tournamet} />
         <Route path="user" Component={User} />
+        <Route path="/admin/tournament/rounds/:roundId" Component={AdminRoundDetails} />
         <Route index Component={AdminDashboard} />
       </Route>
 

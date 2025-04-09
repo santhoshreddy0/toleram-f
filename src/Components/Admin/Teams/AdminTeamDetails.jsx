@@ -92,7 +92,7 @@ export default function AdminTeamDetails() {
             ) : (
               <ul
                 role="list"
-                className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 text-center sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4 xl:grid-cols-5"
+                className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-8 text-center sm:grid-cols-2 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4 xl:grid-cols-4"
               >
                 {players?.teamPlayers?.map((player) => (
                   <li

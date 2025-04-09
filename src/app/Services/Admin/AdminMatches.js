@@ -54,7 +54,7 @@ const betsApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: MatchData,
       }),
-      invalidatesTags: ["Player"],
+      invalidatesTags: ["Match"],
     }),
     getAdminQuestions: builder.query({
       query: (matchId) => `/admin/matches/${matchId}/questions`,
