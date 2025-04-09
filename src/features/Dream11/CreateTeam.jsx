@@ -27,6 +27,10 @@ const CreateTeam = () => {
       console.error('Error creating team:', error);
     }
   }
+  const handCreateTeam =()=>{
+    setShowTeamSelector(!showTeamSelector);
+
+  };
 
   return (
     <>
@@ -35,7 +39,7 @@ const CreateTeam = () => {
              <div className="flex flex-col items-center justify-center h-screen text-center">
           <p className="text-xl text-white font-medium mb-4">You haven't created a team yet</p>
           <button
-            onClick={() => setShowTeamSelector(true)}
+            onClick={handCreateTeam}
             className="flex items-center justify-center bg-blue-500 text-white rounded-full px-6 py-2 shadow-lg hover:bg-blue-600 transition duration-300"
           >
             <span className="text-2xl">+</span>
@@ -45,7 +49,7 @@ const CreateTeam = () => {
     
        
       ) : (
-        <Dream11TeamSelector players={null} onSubmit={handleCreateTeam} />
+        <Dream11TeamSelector players={null} onSubmit={handleCreateTeam} onClose={handCreateTeam} />
       )}
     </>
   );

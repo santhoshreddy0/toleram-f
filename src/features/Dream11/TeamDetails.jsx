@@ -18,8 +18,8 @@ const TeamDetails = ({ teamData, handleEdit }) => {
   );
 
   return (
-    <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 min-h-screen text-white">
-      <div className="backdrop-blur-md bg-white/10 p-3 sticky top-0 border-b border-white/20 shadow-lg">
+    <div className="bg-gray-900 min-h-screen text-white">
+      <div className="bg-gray-800 p-3 sticky top-0 shadow-lg">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 max-w-6xl mx-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <svg
@@ -49,7 +49,7 @@ const TeamDetails = ({ teamData, handleEdit }) => {
           </div>
           <button
             onClick={handleEdit}
-            className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-4 rounded-full flex items-center shadow-lg transition-all duration-300 w-full sm:w-auto justify-center"
+            className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 py-2 px-4 w-full sm:w-auto justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const TeamDetails = ({ teamData, handleEdit }) => {
         <div className="mb-6 mt-4">
           <div className="flex flex-col gap-4">
             {captain && (
-              <div className="relative bg-gradient-to-br from-red-600/40 to-red-900/40 backdrop-blur-sm rounded-xl overflow-hidden border border-red-500/50 shadow-2xl">
+              <div className="relative rounded-xl overflow-hidden bg-gray-800 shadow">
                 <div className="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 rounded-bl-lg font-bold flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -93,11 +93,11 @@ const TeamDetails = ({ teamData, handleEdit }) => {
                   CAPTAIN
                 </div>
                 <div className="p-4 flex items-center gap-4">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-4 border-red-500 shadow-lg flex-shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-red-500 shadow-lg flex-shrink-0">
                     <img
                       src={captain.player_logo}
                       alt={captain.player_name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
                       onError={(e) => {
                         e.target.src = "/api/placeholder/100/100";
                       }}
@@ -119,7 +119,7 @@ const TeamDetails = ({ teamData, handleEdit }) => {
               </div>
             )}
             {viceCaptain && (
-              <div className="relative bg-gradient-to-br from-blue-600/40 to-blue-900/40 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-500/50 shadow-2xl">
+              <div className="relative  rounded-xl overflow-hidden bg-gray-800 shadow">
                 <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 rounded-bl-lg font-bold flex items-center text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -138,11 +138,11 @@ const TeamDetails = ({ teamData, handleEdit }) => {
                   VICE CAPTAIN
                 </div>
                 <div className="p-4 flex items-center gap-4">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-4 border-blue-500 shadow-lg flex-shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-blue-500 shadow-lg flex-shrink-0">
                     <img
                       src={viceCaptain.player_logo}
                       alt={viceCaptain.player_name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
                       onError={(e) => {
                         e.target.src = "/api/placeholder/100/100";
                       }}
@@ -168,12 +168,12 @@ const TeamDetails = ({ teamData, handleEdit }) => {
 
         <div className="mb-6">
           <h2 className="text-lg font-bold mb-4 text-center">
-            <span className="bg-gradient-to-r from-purple-600 to-purple-800 px-4 py-1 rounded-full inline-block">
+            <span className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 px-4 py-2 rounded-full inline-block">
               TEAM PLAYERS
             </span>
           </h2>
 
-          <div className="relative bg-gradient-to-b from-green-800/30 to-green-600/30 rounded-xl px-2 py-6 backdrop-blur-sm border border-green-500/30">
+          <div className="relative rounded-xl px-2 py-8 bg-gray-800 shadow">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-2 gap-y-6">
               {players.map((player) => (
                 <PlayerBubble key={player.player_id} player={player} />
@@ -190,17 +190,14 @@ const PlayerBubble = ({ player }) => {
   return (
     <div className="flex flex-col items-center transform transition-transform hover:scale-105 group">
       <div className="relative">
-        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-white/20 backdrop-blur-sm border-2 border-white/50 shadow-lg group-hover:border-yellow-400 transition-all duration-300">
+        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-white/20 backdrop-blur-sm border-2 border-white/50 shadow-lg group-hover:border-indigo-600 transition-all duration-300">
           <img
             src={player.player_logo}
             alt={player.player_name}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              e.target.src = "/api/placeholder/100/100";
-            }}
+            className="w-full h-full"
           />
         </div>
-        <div className="absolute -top-2 -right-2 bg-purple-600 text-white w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold border border-white/50">
+        <div className="absolute -top-2 -right-2 text-white w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold">
           {player.points}
         </div>
       </div>

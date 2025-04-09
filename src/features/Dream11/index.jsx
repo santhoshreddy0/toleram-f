@@ -4,6 +4,7 @@ import Dream11TeamDisplay from './ViewTeam';
 import Loader from '../../Components/Loader';
 import CreateTeam from './CreateTeam';
 import ViewTeam from './ViewTeam';
+import MenuTabs from '../Layout/MenuTabs';
 
 
 const Dream11 = () => {
@@ -35,6 +36,7 @@ const Dream11 = () => {
   const hasTeam = teamData?.team && teamData.team.length > 0;
 
   return (
+    <MenuTabs >
     <div className="team-container rounded-lg shadow-sm">
       {hasTeam ? (
         <ViewTeam teamData={teamData}/>
@@ -42,6 +44,7 @@ const Dream11 = () => {
        <CreateTeam />
       )}
     </div>
+    </MenuTabs>
   );
 };
 

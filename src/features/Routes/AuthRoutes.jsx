@@ -6,7 +6,6 @@ import Rounds from "../V2/Rounds";
 import RoundQuestions from "../V2/Rounds/Questions";
 import Players from "../V2/Players";
 import Rules from "../../Rules";
-import BetHistory from "../V2/History/BetHistory";
 import MatchHistory from "../V2/History/Match";
 import RoundHistory from "../V2/History/Round";
 import BestPlayersHistory from "../V2/History/BestPlayers";
@@ -17,7 +16,9 @@ import AdminMatches from "../../Components/Admin/Matches/AdminMatches";
 import AdminMatchDetails from "../../Components/Admin/Matches/AdminMatchDetails";
 import AdminLayout from "../Layout/AdminLayout";
 import Dream11 from "../Dream11";
-import Tournamet from "../../Components/Admin/Tournamet/AdminTournament";
+import Tournamet from "../../Components/Admin/Tournament/Tournamet";
+import User from "../../Components/Admin/User";
+import BetHistoryWithLayout from "../V2/History/BetHistoryWithLayout";
 import AdminRoundDetails from "../../Components/Admin/Tournamet/AdminTournamentDetails";
 
 function AuthRoutes() {
@@ -33,7 +34,6 @@ function AuthRoutes() {
       </Route>
 
       <Route path="/dream11">
-        <Route path=":roundId" Component={RoundQuestions} />
         <Route index Component={Dream11} />
       </Route>
 
@@ -41,7 +41,7 @@ function AuthRoutes() {
         <Route path="matches/:matchId" Component={MatchHistory} />
         <Route path="rounds/:roundId" Component={RoundHistory} />
         <Route path="bestPlayers" Component={BestPlayersHistory} />
-        <Route index Component={BetHistory} />
+        <Route index Component={BetHistoryWithLayout} />
       </Route>
 
       <Route path="/admin" Component={AdminLayout}>
@@ -50,6 +50,7 @@ function AuthRoutes() {
         <Route path="matches" Component={AdminMatches} />
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
         <Route path="tournament" Component={Tournamet} />
+        <Route path="user" Component={User} />
         <Route path="/admin/tournament/rounds/:roundId" Component={AdminRoundDetails} />
         <Route index Component={AdminDashboard} />
       </Route>

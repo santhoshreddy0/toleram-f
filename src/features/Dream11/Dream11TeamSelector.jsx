@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useGetPlayersQuery } from "../../app/Services/playersApi";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const Dream11TeamSelector = ({ players, onSubmit }) => {
+const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [allPlayers, setAllPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -125,6 +126,8 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
   const goBack = () => {
     if (step > 1) {
       setStep(step - 1);
+    } else {
+      onClose();
     }
   };
 
@@ -215,7 +218,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
             onClick={() => setFilter(role)}
             className={`px-1 py-1 rounded-full text-sm font-medium ${
               filter === role
-                ? "bg-purple-600 text-white"
+                ? "bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
           >
@@ -244,7 +247,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
     return (
       <div className="flex flex-col h-full">
         <div className="flex-shrink-0">
-          <div className="bg-gradient-to-r from-purple-800 to-indigo-800 p-2 rounded-lg mb-2">
+          <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-2 rounded-lg mb-2">
             <h2 className="text-sm font-bold text-white mb-2">
               Select 11 Players
             </h2>
@@ -271,7 +274,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                     onClick={() => togglePlayerSelection(player)}
                     className={`border rounded-lg overflow-hidden cursor-pointer transition-all ${
                       isSelected
-                        ? "border-purple-500 bg-purple-50"
+                        ? "border-indigo-500 bg-indigo-50"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
@@ -280,7 +283,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                         <img
                           src={player.player_logo}
                           alt={player.name}
-                          className="w-12 h-12 rounded-full object-cover"
+                          className="w-12 h-12 rounded-full"
                         />
                       </div>
                       <div className="flex-1">
@@ -293,7 +296,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="currentColor"
-                              className="w-5 h-5 text-purple-600"
+                              className="w-5 h-5 text-indigo-600"
                             >
                               <path
                                 strokeLinecap="round"
@@ -327,7 +330,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
   const CaptainSelectionScreen = () => (
     <div className="flex flex-col h-full">
       <div className="flex-shrink-0">
-        <div className="bg-gradient-to-r from-purple-800 to-indigo-800 p-4 rounded-lg mb-4">
+        <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-4 rounded-lg mb-4">
           <h2 className="text-lg font-bold text-white mb-2">
             Choose Captain & Vice Captain
           </h2>
@@ -370,11 +373,11 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                     <img
                       src={player.player_logo}
                       alt={player.name}
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="w-12 h-12 rounded-full"
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium">{player.name}</h3>
+                    <h3 className="font-medium text-left">{player.name}</h3>
                     <div className="flex items-center text-xs mt-1">
                       <span
                         className={`${roleColor} text-white px-2 py-0.5 rounded-full mr-2`}
@@ -449,7 +452,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
     return (
       <div className="flex flex-col h-full">
         <div className="flex-shrink-0">
-          <div className="bg-gradient-to-r from-purple-800 to-indigo-800 p-4 rounded-lg mb-4">
+          <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-4 rounded-lg mb-4">
             <h2 className="text-lg font-bold text-white mb-2">
               Your Dream 11 Team
             </h2>
@@ -536,7 +539,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                                 <img
                                   src={player.player_logo}
                                   alt={player.name}
-                                  className="w-10 h-10 rounded-full object-cover"
+                                  className="w-10 h-10 rounded-full"
                                 />
                                 {isCaptain && (
                                   <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-orange-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
@@ -550,7 +553,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
                                 )}
                               </div>
                               <div className="flex-1">
-                                <h3 className="font-medium text-sm">
+                                <h3 className="font-medium text-sm text-left">
                                   {player.name}
                                 </h3>
                                 <div className="flex items-center text-xs mt-1">
@@ -579,16 +582,15 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
 
   const NavigationBar = () => (
     <div className="flex justify-between items-center py-3 px-4 border-t bg-white">
-      {step > 1 ? (
+      {
         <button
           onClick={goBack}
-          className="px-4 py-2 text-purple-600 font-medium rounded-lg hover:bg-purple-50"
+          className={`
+         px-4 py-2 rounded-md bg-white text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-900 hover:bg-gray-50`}
         >
-          Back
+          {step > 1 ? "Back" : "Cancel"}
         </button>
-      ) : (
-        <div></div>
-      )}
+      }
 
       {step < 3 ? (
         <button
@@ -601,7 +603,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
             (step === 1 && !isTeamValid()) ||
             (step === 2 && (!captain || !viceCaptain))
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-purple-600 text-white hover:bg-purple-700"
+              : "bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           }`}
         >
           {step === 1 ? "Next" : "Preview Team"}
@@ -639,7 +641,7 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center font-medium ${
               step >= stepNumber
-                ? "bg-purple-600 text-white"
+                ? "bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 : "bg-gray-200 text-gray-500"
             }`}
           >
@@ -648,7 +650,9 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
           {stepNumber < 3 && (
             <div
               className={`flex-1 h-1 ${
-                step > stepNumber ? "bg-purple-600" : "bg-gray-200"
+                step > stepNumber
+                  ? "bg-indigo-600 shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  : "bg-gray-200"
               }`}
             ></div>
           )}
@@ -659,16 +663,17 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
 
   return (
     <div className="max-w-3xl mx-auto pb-2 text-black max-h-screen">
-      <div className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white p-2 rounded-t-lg">
+      <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-white p-2 rounded-t-lg">
         <h1 className="text-xl font-bold text-center">
           Dream 11 Team Selection
         </h1>
       </div>
 
       <div className="bg-white rounded-b-lg shadow-lg flex flex-col h-screen max-h-screen">
-        <div className="p-2 flex-shrink-0">
+        {/* <div className="p-2 flex-shrink-0">
           <ProgressIndicator />
-        </div>
+        </div> */}
+        <NavigationBar />
 
         <div className="px-4 flex-grow overflow-hidden flex flex-col">
           {step === 1 && <PlayerSelectionScreen />}
@@ -676,7 +681,6 @@ const Dream11TeamSelector = ({ players, onSubmit }) => {
           {step === 3 && <ConfirmationScreen />}
         </div>
       </div>
-      <NavigationBar />
     </div>
   );
 };
