@@ -28,7 +28,10 @@ export default function User() {
     if (analyticsData) {
       setUserData(analyticsData);
     }
-  }, [analyticsData]);
+    if (error){
+        setUserData(null);
+    }
+  }, [analyticsData, error]);
 
 
   const getAllBets = () => {
