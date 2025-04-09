@@ -68,7 +68,7 @@ const betsApi = baseApi.injectEndpoints({
         method: "POST",
         body: matchData,
       }),
-      invalidatesTags: ["Matche"],
+      invalidatesTags: ["Match", "Question"],
     }),
     updateQuestion: builder.mutation({
       query: (questionsData) => ({

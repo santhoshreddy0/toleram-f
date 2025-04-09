@@ -64,7 +64,7 @@ const betsApi = baseApi.injectEndpoints({
     }),
     addImageUrl: builder.mutation({
       query: (imageData) => ({
-        url: `/media/generate-presigned-url`,
+        url: `/admin/media/generate-presigned-url`,
         method: "POST",
         body: imageData,
       }),
