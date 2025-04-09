@@ -21,6 +21,7 @@ export default function User() {
     e.preventDefault();
     if (searchQuery.trim()) {
       setEmail(searchQuery.trim());
+      setUserData(null);
     }
   };
 
@@ -28,10 +29,8 @@ export default function User() {
     if (analyticsData) {
       setUserData(analyticsData);
     }
-    if (error){
-        setUserData(null);
-    }
-  }, [analyticsData, error]);
+    
+  }, [analyticsData]);
 
 
   const getAllBets = () => {
