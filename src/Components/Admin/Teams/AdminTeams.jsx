@@ -39,7 +39,7 @@ export default function AdminTeams() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="mt-8 lg:mt-4">
-            {teams?.teams.length === 0 ? (
+            {!teams || teams?.teams.length === 0 ? (
                 <div className="text-center py-12 flex flex-col items-center justify-center col-span-2 bg-gray-800 rounded-2xl">
                     <svg
                         className="mx-auto h-24 w-24 text-gray-400"

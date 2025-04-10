@@ -8,7 +8,6 @@ import {ChevronRightIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24
 export default function AdminMatches() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const [selectedMatch, setSelectedMatch] = useState(null);
     const [matchId, setMatchId] = useState(null);
     const { data: matches, isLoading, isError } = useGetmatchesQuery();
     const { data: match, isLoading: matchLoading, isError: matchError, } = useGetMatchQuery(matchId);
@@ -41,7 +40,7 @@ console.log(match);
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:max-w-none">
                     <div className="mt-4 sm:mt-6">
-                            {matches?.matches.length === 0 ? (
+                            {!matches || matches?.matches.length === 0 ? (
                                 <div className="text-center py-12 flex flex-col items-center justify-center col-span-2 bg-gray-800 rounded-2xl">
                                     <svg
                                         className="mx-auto h-24 w-24 text-gray-400"
@@ -123,10 +122,21 @@ console.log(match);
                                                     <div className="-ml-px flex w-0 flex-1">
                                                         <button
                                                             onClick={() => navigate(`/admin/matches/${match.id}`)}
-                                                            className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-gray-700 py-4 text-sm font-semibold border-l-gray-700"
+                                                            className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 border border-gray-700 py-4 text-sm font-semibold border-l-gray-700"
                                                         >
                                                             View
                                                             <ChevronRightIcon className="size-5" />
+                                                        </button>
+                                                    </div>
+                                                    <div className="-ml-px flex w-0 flex-1">
+                                                        <button
+                                                            onClick={() => navigate(`/admin/matches/${match.id}/bet`)}
+                                                            className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-gray-700 py-4 text-sm font-semibold border-l-gray-700"
+                                                        >
+                                                            Bet
+                                                            <span className={`ml-2 inline-flex h-4 w-8 rounded-full transition-colors duration-200 ease-in-out ${match.can_show ? 'bg-indigo-600' : 'bg-gray-600'}`}>
+                                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out ${match.can_show ? 'translate-x-4' : 'translate-x-0'}`} />
+                                                            </span>
                                                         </button>
                                                     </div>
                                                 </div>

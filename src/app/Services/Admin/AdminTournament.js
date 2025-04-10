@@ -38,7 +38,7 @@ const betsApi = baseApi.injectEndpoints({
         method: "POST",
         body: roundData,
       }),
-      invalidatesTags: ["Round"],
+      invalidatesTags: ["Round", "Question"],
     }),
     addRound: builder.mutation({
       query: (playerData) => ({
@@ -46,7 +46,7 @@ const betsApi = baseApi.injectEndpoints({
         method: "POST",
         body: playerData,
       }),
-      invalidatesTags: ["Round"],
+      invalidatesTags: ["Round", "Question"],
     }),
     updateRound: builder.mutation({
       query: (roundData) => ({

@@ -36,7 +36,7 @@ console.log(rounds?.rounds);
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:max-w-none">
                     <div className="mt-4 sm:mt-6">
-                            {rounds?.rounds.length === 0 ? (
+                            {!rounds || rounds?.rounds.length === 0 ? (
                                 <div className="text-center py-12 flex flex-col items-center justify-center col-span-2 bg-gray-800 rounded-2xl">
                                     <svg
                                         className="mx-auto h-24 w-24 text-gray-400"
