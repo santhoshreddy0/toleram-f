@@ -14,13 +14,12 @@ export default function CustomAreaChart({
       <h3 className="text-lg font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
         {title}
       </h3>
-      <AreaChart
+      <BarChart
         className="mx-5"
         data={chartdata}
         index="name"
         categories={categories}
         colors={colors}
-        yAxisWidth={20}
         onValueChange={(v) => setValue(v)}
         showAnimation={true}
       />
