@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";
 import AddNewTournament from "./AddNewTournament";
-import { ArrowRightIcon, ChevronRightIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useGetRoundsQuery } from "../../../app/Services/roundsApi";
-import { useUpdateRoundStatusMutation, useUpdateRoundBetStatusMutation } from "../../../app/Services/Admin/adminTournament";
 import { Link } from "react-router-dom";
 import { Switch } from '@headlessui/react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { useGetTournamentRoundsQuery, useUpdateRoundBetStatusMutation, useUpdateRoundStatusMutation } from "../../../app/Services/Admin/AdminTournament";
 
 export default function Tournamet() {
-    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [round, setRound] = useState(null);
     const [roundId, setRoundId] = useState(null);
-    const { data: rounds, isLoading, isError } = useGetRoundsQuery();
+    const { data: rounds, isLoading, isError } = useGetTournamentRoundsQuery();
     const [updateRoundStatus, { isLoading: isUpdatingRound }] = useUpdateRoundStatusMutation();
     const [updateRoundBetStatus, { isLoading: isUpdatingRoundBet }] = useUpdateRoundBetStatusMutation();
     if (isLoading) return <Loader />
