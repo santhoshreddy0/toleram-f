@@ -14,32 +14,6 @@ const betsApi = baseApi.injectEndpoints({
         return [{ type: "Round", id: arg.id }];
       },
     }),
-    getRoundPlayersList: builder.query({
-      query: (roundId) => `/rounds/${roundId}/players`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
-    getPlayers: builder.query({
-      query: () => `/players`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
-    getPlayerDetails: builder.query({
-      query: (playrId) => `/players/${playrId}`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
-    createRound: builder.mutation({
-      query: (roundData) => ({
-        url: "/admin/round",
-        method: "POST",
-        body: roundData,
-      }),
-      invalidatesTags: ["Round", "Question"],
-    }),
     addRound: builder.mutation({
       query: (playerData) => ({
         url: `/admin/rounds`,
@@ -111,10 +85,6 @@ const betsApi = baseApi.injectEndpoints({
 export const {
   useGetRoundsQuery,
   useGetRoundQuery,
-  useGetRoundPlayersListQuery,
-  useGetPlayerDetailsQuery,
-  useGetPlayersQuery,
-  useCreateRoundMutation,
   useAddRoundMutation,
   useUpdateRoundMutation,
   useGetRoundQuestionsQuery,

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";
 import AddNewTournament from "./AddNewTournament";
-import { ArrowRightIcon, ChevronRightIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useGetRoundsQuery } from "../../../app/Services/roundsApi";
 import { useUpdateRoundStatusMutation, useUpdateRoundBetStatusMutation } from "../../../app/Services/Admin/adminTournament";
 import { Link } from "react-router-dom";
@@ -11,7 +10,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 
 export default function Tournamet() {
-    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [round, setRound] = useState(null);
     const [roundId, setRoundId] = useState(null);
@@ -167,8 +165,8 @@ export default function Tournamet() {
                                                                         <div className="py-1">
                                                                             <MenuItem>
                                                                                 {({ active }) => (
-                                                                                    <a
-                                                                                        href={`/admin/tournament/rounds/${round.id}`}
+                                                                                    <Link
+                                                                                        to={`/admin/tournament/rounds/${round.id}`}
                                                                                         className={`group flex items-center px-4 py-2 text-sm text-gray-100 bg-gray-800 ${active ? 'bg-gray-900 text-gray-100' : ''
                                                                                             }`}
                                                                                     >
@@ -177,7 +175,7 @@ export default function Tournamet() {
                                                                                             aria-hidden="true"
                                                                                         />
                                                                                         View
-                                                                                    </a>
+                                                                                    </Link>
                                                                                 )}
                                                                             </MenuItem>
                                                                             <MenuItem>

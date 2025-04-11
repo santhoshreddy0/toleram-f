@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../../Loader";
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { ChevronLeftIcon, MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
-import BackButton from "../../BackButton";
+import { Disclosure, DisclosureButton } from '@headlessui/react'
+import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 import { toast } from "react-hot-toast";
 import { useGetRoundQuery, useGetRoundQuestionsQuery, useUpdateCorrectAnswerTournamentMutation } from "../../../app/Services/Admin/adminTournament";
 import CreateNewQuestionPopup from "./CreateNewQuestionPopup";
@@ -13,7 +12,6 @@ import { useGetRoundByIdQuery } from "../../../app/Services/roundsApi";
 export default function AdminRoundDetails() {
     const { roundId } = useParams();
     const [open, setOpen] = useState(false);
-    const [openEdit, setOpenEdit] = useState(false);
     const [question, setQuestion] = useState(null);
     const [editingQuestionId, setEditingQuestionId] = useState(null);
     const {
@@ -23,18 +21,6 @@ export default function AdminRoundDetails() {
     } = useGetRoundByIdQuery(roundId);
     const { data: questions, isLoading, isError } = useGetRoundQuestionsQuery(roundId);
     const [updateCorrectAnswer, { isLoading: isUpdating }] = useUpdateCorrectAnswerTournamentMutation();
-    const handleAnswerSelect = async (questionId, option) => {
-        try {
-            await updateCorrectAnswer({
-                questionId,
-                correctOption: option
-            }).unwrap();
-            toast.success('Correct answer updated successfully!');
-        } catch (error) {
-            console.error('Failed to update correct answer:', error);
-            toast.error('Failed to update correct answer');
-        }
-    };
 
     if (isLoading || isUpdating) return <Loader />
 
