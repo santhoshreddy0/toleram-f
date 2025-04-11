@@ -5,9 +5,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { ChevronLeftIcon, MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 import BackButton from "../../BackButton";
 import { toast } from "react-hot-toast";
-import { useGetRoundQuery, useGetRoundQuestionsQuery, useUpdateCorrectAnswerTournamentMutation } from "../../../app/Services/Admin/adminTournament";
 import CreateNewQuestionPopup from "./CreateNewQuestionPopup";
 import { useGetRoundByIdQuery } from "../../../app/Services/roundsApi";
+import { useGetAdminRoundQuestionsQuery, useUpdateCorrectAnswerTournamentMutation } from "../../../app/Services/Admin/AdminTournament";
 
 
 export default function AdminRoundDetails() {
@@ -21,7 +21,9 @@ export default function AdminRoundDetails() {
         isLoading: roundLoading,
         isError: roundError,
     } = useGetRoundByIdQuery(roundId);
-    const { data: questions, isLoading, isError } = useGetRoundQuestionsQuery(roundId);
+    console.log(roundId);
+    
+    const { data: questions, isLoading, isError } = useGetAdminRoundQuestionsQuery({roundId});
     const [updateCorrectAnswer, { isLoading: isUpdating }] = useUpdateCorrectAnswerTournamentMutation();
     const handleAnswerSelect = async (questionId, option) => {
         try {
