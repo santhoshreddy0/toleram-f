@@ -4,9 +4,9 @@ import Loader from "../../Loader";
 import { Disclosure, DisclosureButton } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 import { toast } from "react-hot-toast";
-import { useGetRoundQuery, useGetRoundQuestionsQuery, useUpdateCorrectAnswerTournamentMutation } from "../../../app/Services/Admin/adminTournament";
 import CreateNewQuestionPopup from "./CreateNewQuestionPopup";
 import { useGetRoundByIdQuery } from "../../../app/Services/roundsApi";
+import { useGetAdminRoundQuestionsQuery, useUpdateCorrectAnswerTournamentMutation } from "../../../app/Services/Admin/adminTournament";
 
 
 export default function AdminRoundDetails() {
@@ -19,7 +19,9 @@ export default function AdminRoundDetails() {
         isLoading: roundLoading,
         isError: roundError,
     } = useGetRoundByIdQuery(roundId);
-    const { data: questions, isLoading, isError } = useGetRoundQuestionsQuery(roundId);
+    console.log(roundId);
+    
+    const { data: questions, isLoading, isError } = useGetAdminRoundQuestionsQuery({roundId});
     const [updateCorrectAnswer, { isLoading: isUpdating }] = useUpdateCorrectAnswerTournamentMutation();
 
     if (isLoading || isUpdating) return <Loader />

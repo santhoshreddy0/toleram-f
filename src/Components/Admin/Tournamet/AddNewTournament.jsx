@@ -8,16 +8,12 @@ import {
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { useGetTeamsQuery } from "../../../app/Services/Admin/adminTeams";
-import {
-  useAddRoundMutation,
-  useUpdateRoundMutation,
-} from "../../../app/Services/Admin/adminTournament";
+import { useAddRoundMutation, useAddTournamentRoundMutation, useUpdateRoundMutation } from "../../../app/Services/Admin/adminTournament";
 
 export default function AddNewTournament({ open, setOpen, round }) {
-  const [addRound, { isLoading }] = useAddRoundMutation();
+  const [addTournamentRound, { isLoading }] = useAddTournamentRoundMutation();
   const [updateRound, { isLoading: isUpdateRoundLoading }] =
     useUpdateRoundMutation();
-  const { data: teams } = useGetTeamsQuery();
 
   const [roundData, setRoundData] = useState({
     roundName: "",
@@ -46,7 +42,7 @@ export default function AddNewTournament({ open, setOpen, round }) {
         }).unwrap();
         toast.success("Round updated successfully");
       } else {
-        await addRound({
+        await addTournamentRound({
           roundName: roundData.roundName,
         }).unwrap();
         toast.success("Round created successfully");
