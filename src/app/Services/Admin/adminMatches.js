@@ -14,24 +14,6 @@ const betsApi = baseApi.injectEndpoints({
         return [{ type: "Match", id: arg.id }];
       },
     }),
-    getMatchPlayersList: builder.query({
-      query: (matchId) => `/Matches/${matchId}/players`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
-    getMatchPlayers: builder.query({
-      query: () => `/players`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
-    getPlayerDetails: builder.query({
-      query: (playrId) => `/players/${playrId}`,
-      providesTags: (result, error, arg) => {
-        return ["Player"];
-      },
-    }),
     createMatch: builder.mutation({
       query: (MatchData) => ({
         url: "/admin/match",
@@ -110,9 +92,6 @@ const betsApi = baseApi.injectEndpoints({
 export const {
   useGetmatchesQuery,
   useGetMatchQuery,
-  useGetMatchPlayersListQuery,
-  useGetPlayerDetailsQuery,
-  useGetPlayersQuery,
   useCreateMatchMutation,
   useAddMatchMutation,
   useUpdateMatchDetailsMutation,

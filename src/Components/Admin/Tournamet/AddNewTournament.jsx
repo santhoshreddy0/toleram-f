@@ -5,10 +5,10 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { CheckIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { useGetTeamsQuery } from "../../../app/Services/Admin/adminTeams";
-import { useAddRoundMutation, useAddTournamentRoundMutation, useUpdateRoundMutation } from "../../../app/Services/Admin/AdminTournament";
+import { useAddRoundMutation, useAddTournamentRoundMutation, useUpdateRoundMutation } from "../../../app/Services/Admin/adminTournament";
 
 export default function AddNewTournament({ open, setOpen, round }) {
   const [addTournamentRound, { isLoading }] = useAddTournamentRoundMutation();

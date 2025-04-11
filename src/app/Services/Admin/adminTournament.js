@@ -85,13 +85,8 @@ const betsApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetRoundPlayersListQuery,
-  useGetPlayerDetailsQuery,
-  useGetPlayersQuery,
-  useCreateRoundMutation,
   useAddRoundMutation,
   useUpdateRoundMutation,
-  useGetRoundQuestionsQuery,
   useAddRoundQuestionMutation,
   useUpdateTournamentQuestionMutation,
   useUpdateCorrectAnswerTournamentMutation,
@@ -99,7 +94,6 @@ export const {
   useUpdateRoundBetStatusMutation,
   useGetTournamentRoundsQuery,
   useAddTournamentRoundMutation,
-  useGetRoundQuery,
   useGetAdminRoundQuestionsQuery
   
 } = betsApi;

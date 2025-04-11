@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Switch } from '@headlessui/react'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { useGetTournamentRoundsQuery, useUpdateRoundBetStatusMutation, useUpdateRoundStatusMutation } from "../../../app/Services/Admin/AdminTournament";
+import { useGetTournamentRoundsQuery, useUpdateRoundBetStatusMutation, useUpdateRoundStatusMutation } from "../../../app/Services/Admin/adminTournament";
 import { betProcessStateCtaText, betStatus } from "../../../Utils/constants";
 
 
@@ -167,8 +167,8 @@ export default function Tournamet() {
                                                                         <div className="py-1">
                                                                             <MenuItem>
                                                                                 {({ active }) => (
-                                                                                    <a
-                                                                                        href={`/admin/tournament/rounds/${round.id}`}
+                                                                                    <Link
+                                                                                        to={`/admin/tournament/rounds/${round.id}`}
                                                                                         className={`group flex items-center px-4 py-2 text-sm text-gray-100 bg-gray-800 ${active ? 'bg-gray-900 text-gray-100' : ''
                                                                                             }`}
                                                                                     >
@@ -177,7 +177,7 @@ export default function Tournamet() {
                                                                                             aria-hidden="true"
                                                                                         />
                                                                                         View
-                                                                                    </a>
+                                                                                    </Link>
                                                                                 )}
                                                                             </MenuItem>
                                                                             <MenuItem>

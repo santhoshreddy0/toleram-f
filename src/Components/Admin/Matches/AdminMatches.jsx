@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useGetmatchesQuery, useGetMatchQuery, useUpdateMatchStatusMutation, useUpdateBetStatusMutation } from "../../../app/Services/Admin/adminMatches";
+import { Link } from "react-router-dom";
+import { useGetmatchesQuery, useUpdateMatchStatusMutation, useUpdateBetStatusMutation } from "../../../app/Services/Admin/adminMatches";
 import Loader from "../../Loader";
 import CreateNewMatch from "./AddNewmatchPopup";
-import { ArrowRightIcon, ChevronRightIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
@@ -11,11 +11,9 @@ import { Switch } from '@headlessui/react'
 import { betProcessStateCtaText, betStatus } from "../../../Utils/constants";
 
 export default function AdminMatches() {
-    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [matchId, setMatchId] = useState(null);
     const { data: matches, isLoading, isError } = useGetmatchesQuery();
-    const { data: match, isLoading: matchLoading, isError: matchError, } = useGetMatchQuery(matchId);
     const [updateMatchStatus, { isLoading: isUpdating }] = useUpdateMatchStatusMutation();
     const [updateBetStatus, { isLoading: isUpdatingBet }] = useUpdateBetStatusMutation();
     const statusFillColor = {
@@ -179,8 +177,8 @@ export default function AdminMatches() {
                                                                         <div className="py-1">
                                                                             <MenuItem>
                                                                                 {({ active }) => (
-                                                                                    <a
-                                                                                        href={`/admin/matches/${match.id}`}
+                                                                                    <Link
+                                                                                        to={`/admin/matches/${match.id}`}
                                                                                         className={`group flex items-center px-4 py-2 text-sm text-gray-100 bg-gray-800 ${active ? 'bg-gray-900 text-gray-100' : ''
                                                                                             }`}
                                                                                     >
@@ -189,7 +187,7 @@ export default function AdminMatches() {
                                                                                             aria-hidden="true"
                                                                                         />
                                                                                         View
-                                                                                    </a>
+                                                                                    </Link>
                                                                                 )}
                                                                             </MenuItem>
                                                                             <MenuItem>
