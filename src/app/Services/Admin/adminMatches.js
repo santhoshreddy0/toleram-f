@@ -88,27 +88,20 @@ const betsApi = baseApi.injectEndpoints({
     }),
     updateMatchStatus: builder.mutation({
       query: (matchData) => ({
+        url:`/admin/matches/${matchData.id}/process-bet`,
+        method: "PATCH",
+        body: matchData,
+      }),
+      invalidatesTags: (result, error, arg) => ["Match"],
+    }),
+  
+    updateBetStatus: builder.mutation({
+      query: (matchData) => ({
         url: `/admin/matches/${matchData.id}`,
         method: "PATCH",
         body: matchData,
       }),
-      invalidatesTags: (result, error, arg) => ["Question"],
-    }),
-    setProcessing: builder.mutation({
-      query: (matchData) => ({
-        url: `/admin/matches/${matchData.id}/process-bet`,
-        method: "PATCH",
-        body: matchData,
-      }),
-      invalidatesTags: (result, error, arg) => ["Question"],
-    }),
-    updateBetStatus: builder.mutation({
-      query: (matchData) => ({
-        url: `/admin/matches/${matchData.id}/process-bet`,
-        method: "PATCH",
-        body: matchData,
-      }),
-      invalidatesTags: (result, error, arg) => ["Question"],
+      invalidatesTags: (result, error, arg) => ["Match"],
     }),
   }),
   overrideExisting: false,

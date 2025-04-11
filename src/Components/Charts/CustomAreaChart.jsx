@@ -15,7 +15,7 @@ export default function CustomAreaChart({
         {title}
       </h3>
       <BarList
-        className="mx-5 w-[300px] mt-3"
+        className="mx-5 mt-1"
         data={chartdata.map((item) => ({
           name: item.name,
           value: item[categories[0]],
