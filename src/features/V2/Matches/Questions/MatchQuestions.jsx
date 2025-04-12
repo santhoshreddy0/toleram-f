@@ -109,6 +109,7 @@ function MatchQuestions() {
           totalBetAllowed={import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}
         />
         <CommentsSection roomName={`match-${matchId}`} />
+        
       </div>
     </>
   );
