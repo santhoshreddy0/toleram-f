@@ -6,6 +6,7 @@ import {
   TrophyIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import CommentsSection from "../../Components/comments/CommentsSection";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -76,6 +77,7 @@ export default function MenuTabs(props) {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {props.children}
       </div>
+      <CommentsSection roomName="all-matches" />
     </div>
   );
 }
