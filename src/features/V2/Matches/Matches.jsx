@@ -6,6 +6,7 @@ import MenuTabs from "../../Layout/MenuTabs";
 import { FireIcon } from "@heroicons/react/20/solid";
 import moment from "moment";
 import AddPopup from "../../../Components/PopUp/AddPopup";
+import CommentsSection from "../../../Components/comments/CommentsSection";
 // import "../../../styles/matches.css";
 
 function Matches() {
@@ -173,6 +174,7 @@ function Matches() {
           })}
         </div>
       </MenuTabs>
+      <CommentsSection roomName="all-matches" />
       <AddPopup/>
     </>
   );

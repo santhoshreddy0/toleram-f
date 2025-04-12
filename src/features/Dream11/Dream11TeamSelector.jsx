@@ -249,7 +249,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
     return (
       <div className="flex flex-col h-full">
         <div className="flex-shrink-0">
-          <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-2 rounded-lg mb-2">
+          <div className="text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-2 rounded-lg mb-2">
             <h2 className="text-sm font-bold text-white">
               Select 11 Players
             </h2>
