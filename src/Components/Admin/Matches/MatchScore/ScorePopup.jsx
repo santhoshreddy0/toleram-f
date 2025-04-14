@@ -42,7 +42,7 @@ export default function ScorePopup({
             );
             
             await updatePlayerScore({
-                matchId: matchId,
+                matchId,
                 playerId: player.id,
                 stats: submitStats
             });
