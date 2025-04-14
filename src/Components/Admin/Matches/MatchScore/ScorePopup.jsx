@@ -48,7 +48,8 @@ export default function ScorePopup({
             });
             setOpen(false);
         } catch (error) {
-            console.error('Error updating stats:', error);
+            toast.error(error?.data?.message);
+            console.log(error);
         }
     };
 
