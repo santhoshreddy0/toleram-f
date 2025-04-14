@@ -42,13 +42,14 @@ export default function ScorePopup({
             );
             
             await updatePlayerScore({
-                matchId: 1,
+                matchId: matchId,
                 playerId: player.id,
                 stats: submitStats
             });
             setOpen(false);
         } catch (error) {
-            console.error('Error updating stats:', error);
+            toast.error(error?.data?.message);
+            console.log(error);
         }
     };
 
