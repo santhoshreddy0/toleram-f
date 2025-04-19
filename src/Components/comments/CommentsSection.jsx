@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  usePostCommentMutation,
-  useGetCommentsQuery,
-} from "../app/Services/commentsApi";
-import { useGetRoomQuery } from "../app/Services/roomsApi";
+import { useGetCommentsQuery, usePostCommentMutation } from "../../app/Services/commentsApi";
+import { useGetRoomQuery } from "../../app/Services/roomsApi";
+import moment from "moment";
+
 
 const getRandomColor = (name) => {
   const colors = [
@@ -27,7 +26,7 @@ const getInitials = (name) => {
   return name.charAt(0).toUpperCase();
 };
 
-const CommentsSection = ({ roomName }) => {
+const CommentsSection = ({ title = '', description = '', roomName }) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [postComment, { isLoading: postLoading }] = usePostCommentMutation();
@@ -113,24 +112,25 @@ const CommentsSection = ({ roomName }) => {
     }
   };
 
-  const formatTimestamp = (dateString) => {
-    if (!dateString || dateString === "Sending...") return "Sending...";
 
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffSeconds = Math.floor((now - date) / 1000);
+  const formatTime = (date) =>{
+    return moment(date).from(moment.utc());
 
-    if (diffSeconds < 60) return "Just now";
-    if (diffSeconds < 3600) return `${Math.floor(diffSeconds / 60)}m ago`;
-    if (diffSeconds < 86400) return `${Math.floor(diffSeconds / 3600)}h ago`;
-    if (diffSeconds < 604800) return `${Math.floor(diffSeconds / 86400)}d ago`;
 
-    return date.toLocaleDateString();
   };
 
   return (
     <>
-      <div className="bg-gray mt-4 mx-2 flex items-start space-x-4 px-1 sticky top-0 z-10">
+     <div className="p-3 rounded-lg shadow-md">
+     {title && ( <h2 className="text-2xl font-semibold text-gray-100">
+        {title}
+      </h2>)}
+      {description && <p className="text-gray-300">
+        {description}
+      </p>}
+    </div>
+      <div className="bg-gray-900 mt-4 mx-1 flex items-start space-x-4 px-1 sticky top-0 z-10 max-w-6xl mx-auto px-8 sm:px-0">
+
         <div className="shrink-0">
           <div
             className={`flex items-center justify-center size-10 rounded-full text-white font-semibold ${getRandomColor(
@@ -159,7 +159,7 @@ const CommentsSection = ({ roomName }) => {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="Add your comment..."
-                className="block w-full resize-none text-base text-gray-900 rounded-md placeholder:text-gray-400 sm:text-sm/6"
+                className="bg-gray-900 block w-full resize-none text-base text-gray-100 rounded-md placeholder:text-gray-400 sm:text-sm/6"
               />
             </div>
             <div className="flex justify-end pt-2">
@@ -176,14 +176,14 @@ const CommentsSection = ({ roomName }) => {
           </form>
         </div>
       </div>
-      <div className="px-2 overflow-y-auto max-h-screen overflow-hidden scrollbar-hide">
+      <div className="px-2 overflow-y-auto max-h-96 overflow-hidden scrollbar-hide max-w-6xl mx-auto px-8 sm:px-0">
         {roomLoading || commentsLoading ? (
           <div className="flex justify-center py-4">
             <p className="text-gray-400">Loading comments...</p>
           </div>
         ) : comments.length === 0 ? (
           <div className="flex justify-center py-4">
-            <p className="text-gray-400">No comments found</p>
+            <p className="text-gray-400">No discussions yet. Start one!</p>
           </div>
         ) : (
           <>
@@ -202,17 +202,17 @@ const CommentsSection = ({ roomName }) => {
                       <p className="text-sm/6 font-semibold text-white-900">
                         {comment.user_name}
                       </p>
-                      <p className="flex-none text-xs text-gray-600">
+                      <p className="flex-none text-xs text-gray-300">
                         <time dateTime={comment.created_at}>
                           {comment.pending
                             ? "Sending..."
-                            : formatTimestamp(comment.created_at)}
+                            : formatTime(comment.created_at)}
                         </time>
                       </p>
                     </div>
                     <p
-                      className={`mt-1 line-clamp-2 text-sm/6 text-left ${
-                        comment.pending ? "text-gray-500" : "text-gray-400"
+                      className={`mt-1 line-clamp-2 text-sm/6 break-words text-left ${
+                        comment.pending ? "text-gray-500" : "text-gray-300"
                       }`}
                     >
                       {comment.comment}
