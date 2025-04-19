@@ -40,34 +40,40 @@ function Dream11Leaderboard() {
 
 
     const renderEmptyState = () => (
-        <div className="divide-y divide-gray-700">
-            {[1, 2, 3, 4, 5].map((_, index) => (
-                <div
-                    key={index}
-                    className="animate-pulse"
-                >
-                    <div className="p-4 flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full shadow-md bg-gray-700">
-                            </div>
-                            <div className="flex items-center">
-                                <div className="w-10 h-10 rounded-full bg-gray-700 mr-3">
+        <MenuTabs>
+            <div className="bg-gray-900 min-h-screen p-3 md:p-6">
+                <div className="max-w-lg mx-auto">
+                    <div className="divide-y divide-gray-700">
+                        {[1, 2, 3, 4, 5].map((_, index) => (
+                            <div
+                                key={index}
+                                className="animate-pulse"
+                            >
+                                <div className="p-4 flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="flex items-center justify-center w-8 h-8 rounded-full shadow-md bg-gray-700">
+                                        </div>
+                                        <div className="flex items-center">
+                                            <div className="w-10 h-10 rounded-full bg-gray-700 mr-3">
+                                            </div>
+                                            <div className="h-4 w-24 bg-gray-700 rounded">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="h-4 w-16 bg-gray-700 rounded">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="h-4 w-24 bg-gray-700 rounded">
-                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div className="h-4 w-16 bg-gray-700 rounded">
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            ))}
-        </div>
+            </div>
+        </MenuTabs>
     );
     if (isLoading) {
-        return <renderEmptyState />
+        return renderEmptyState()
     }
 
     return (
