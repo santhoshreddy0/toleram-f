@@ -16,11 +16,6 @@ export default function AdminMatches() {
     const { data: matches, isLoading, isError } = useGetmatchesQuery();
     const [updateMatchStatus, { isLoading: isUpdating }] = useUpdateMatchStatusMutation();
     const [updateBetStatus, { isLoading: isUpdatingBet }] = useUpdateBetStatusMutation();
-    const statusFillColor = {
-        dont_process: "fill-red-500",
-        process: "fill-yellow-500",
-        competed: "fill-green-500",
-    };
     const formatDateTime = (dateTimeStr) => {
         return `${moment(dateTimeStr).utc().format("h:mm a")} | ${moment(dateTimeStr).utc().format("Do MMM")}`;
     };
@@ -225,7 +220,12 @@ export default function AdminMatches() {
                     </div>
                 </div>
             )}
-            {open && <CreateNewMatch open={open} setOpen={setOpen} matchId={matchId} />}
+            {open && <CreateNewMatch open={open} setOpen={(value) => {
+                setOpen(value);
+                if (!value) {
+                    setMatchId(null);
+                }
+            }} matchId={matchId} />}
         </div>
 
     )
