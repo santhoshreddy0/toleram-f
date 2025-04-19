@@ -1,5 +1,6 @@
 import React from "react";
 import { PLAYER_IMAGE } from "../../constants/teamLimits";
+import { Link } from "react-router-dom";
 
 const TeamDetails = ({ teamData, handleEdit }) => {
   const calculatedTotalPoints = teamData.team.reduce(
@@ -68,6 +69,12 @@ const TeamDetails = ({ teamData, handleEdit }) => {
             </svg>
             Edit Team
           </button>)}
+          {!teamData.canCreate && !teamData.canEdit && ( <Link to="/dream11/leaderboard"
+            className="inline-flex items-center gap-2 rounded-lg bg-gray-600 text-white text-sm font-medium shadow-sm hover:bg-gray-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 py-2 px-4 w-full sm:w-auto justify-center"
+          >
+            Leaderboard
+            </Link>
+            )}
         </div>
       </div>
 
