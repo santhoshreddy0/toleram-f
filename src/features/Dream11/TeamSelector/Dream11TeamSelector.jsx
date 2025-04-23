@@ -225,39 +225,41 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           usedCredits={usedCredits}
           totalCredits={totalCredits}
         />
-        <div className="flex w-full border border-gray-700 rounded-md overflow-hidden mb-2">
-          {filter !== "All" ? (
+        {step === 1 && (
+          <div className="flex w-full border border-gray-700 rounded-md overflow-hidden mb-2">
+            {filter !== "All" ? (
+              <div
+                className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
+                  countByRole(filter) >= roleLimits[filter].min
+                    ? "bg-green-200 text-green-800"
+                    : "bg-red-200 text-red-800"
+                }`}
+              >
+                {filter} : {countByRole(filter)}/
+                {`${roleLimits[filter].min} - ${roleLimits[filter].max}`}
+              </div>
+            ) : (
+              <div
+                className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
+                  countByGender("female") >= genderLimits.female.min
+                    ? "bg-green-200 text-green-800"
+                    : "bg-red-200 text-red-800"
+                }`}
+              >
+                Female: {countByGender("female")}/{genderLimits.female.min}
+              </div>
+            )}
             <div
-              className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
-                countByRole(filter) >= roleLimits[filter].min
+              className={`flex-1 py-2 text-sm font-medium transition-colors duration-200 ${
+                selectedPlayers.length >= maxPlayers
                   ? "bg-green-200 text-green-800"
                   : "bg-red-200 text-red-800"
               }`}
             >
-              {filter} : {countByRole(filter)}/
-              {`${roleLimits[filter].min} - ${roleLimits[filter].max}`}
+              Total: {selectedPlayers.length}/{maxPlayers}
             </div>
-          ) : (
-            <div
-              className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
-                countByGender("female") >= genderLimits.female.min
-                  ? "bg-green-200 text-green-800"
-                  : "bg-red-200 text-red-800"
-              }`}
-            >
-              Female: {countByGender("female")}/{genderLimits.female.min}
-            </div>
-          )}
-          <div
-            className={`flex-1 py-2 text-sm font-medium transition-colors duration-200 ${
-              selectedPlayers.length >= maxPlayers
-                ? "bg-green-200 text-green-800"
-                : "bg-red-200 text-red-800"
-            }`}
-          >
-            Total: {selectedPlayers.length}/{maxPlayers}
           </div>
-        </div>
+        )}
 
         <div className="flex-grow overflow-hidden flex flex-col">
           {step === 1 && (
