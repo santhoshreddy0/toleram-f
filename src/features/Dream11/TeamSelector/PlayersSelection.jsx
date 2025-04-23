@@ -31,7 +31,7 @@ const PlayerSelection = ({
       ) : (
         <>
           <div className="flex-shrink-0">
-            <div className="overflow-x-auto pb-1 mb-2"></div>
+            <div className="overflow-x-auto pb-1"></div>
             <div className="mb-2">
               <div className="flex flex-col sm:flex-row gap-2">
                 <div className="relative flex-1">
@@ -60,47 +60,35 @@ const PlayerSelection = ({
                     />
                   </svg>
                 </div>
-                <div className="flex flex-row w-full gap-3 px-2 py-2">
-                  <div className="flex items-center w-2/5">
-                    <label
-                      htmlFor="gender"
-                      className="text-xs font-medium text-white w-14 flex-shrink-0"
-                    >
-                      Gender:
-                    </label>
-                    <select
-                      id="gender"
-                      value={genderFilter}
-                      onChange={(e) => setGenderFilter(e.target.value)}
-                      className="w-full border rounded-lg px-2 py-1 bg-gray-800 text-xs text-white"
-                    >
-                      {["All", "male", "female", "others"].map((gender) => (
-                        <option key={gender} value={gender}>
-                          {gender.charAt(0).toUpperCase() + gender.slice(1)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="flex items-center w-4/5">
-                    <label
-                      htmlFor="team"
-                      className="text-xs font-medium text-white w-14 flex-shrink-0"
-                    >
-                      Teams:
-                    </label>
+                <div className="w-full py-2 pb-1">
+                  <div className="relative w-full">
                     <select
                       id="team"
                       value={teamFilter}
                       onChange={(e) => setTeamFilter(e.target.value)}
-                      className="w-full border rounded-lg px-2 py-1 bg-gray-800 text-xs text-white"
+                      className="w-full border rounded-lg px-4 py-2 bg-gray-800 text-sm text-white appearance-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                       {getUniqueTeams().map((team) => (
-                        <option key={team} value={team}>
+                        <option className="w-4/5" key={team} value={team}>
                           {team}
                         </option>
                       ))}
                     </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
+                      {/* Heroicon - Chevron Down */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>

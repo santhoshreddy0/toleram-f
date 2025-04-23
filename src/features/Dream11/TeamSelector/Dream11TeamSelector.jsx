@@ -23,7 +23,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [filter, setFilter] = useState("batsman");
   const [genderFilter, setGenderFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [teamFilter, setTeamFilter] = useState("All");
+  const [teamFilter, setTeamFilter] = useState("All Teams");
   const [maxPlayers] = useState(DEFAULT_MAX_PLAYERS);
   const [totalCredits] = useState(DEFAULT_TOTAL_CREDITS);
   const [roleLimits] = useState(DEFAULT_ROLE_LIMITS);
@@ -68,7 +68,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
       const roleMatches = filter === "All" || player.player_role === filter;
 
       const teamMatches =
-        teamFilter === "All" || player.team_name === teamFilter;
+        teamFilter === "All Teams" || player.team_name === teamFilter;
 
       const genderMatches =
         genderFilter === "All" || player.gender === genderFilter;
@@ -115,7 +115,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
   const getUniqueTeams = () => {
     const teams = allPlayers.map((player) => player.team_name);
-    return ["All", ...new Set(teams)];
+    return ["All Teams", ...new Set(teams)];
   };
 
   const togglePlayerSelection = (player) => {
@@ -211,7 +211,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
   return (
     <div className="max-w-3xl mx-auto pb-2 text-black max-h-screen">
-      <Dream11Header/>
+      <Dream11Header />
 
       <div className="bg-gray-900 rounded-b-lg shadow-lg flex flex-col h-screen max-h-screen">
         <NavigationBar
@@ -225,52 +225,41 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           usedCredits={usedCredits}
           totalCredits={totalCredits}
         />
-        <div className="flex space-x-2 min-w-max px-2 mb-2">
-          {Object.entries(roleLimits)
-            .filter(([role]) => role !== "wicket-keeper")
-            .map(([role, limits]) => {
-              const count = countByRole(role);
-              return (
-                <div
-                  key={role}
-                  className={`px-2 py-1 rounded text-xs ${
-                    count >= limits.min && count <= limits.max
-                      ? "bg-green-200 text-green-800"
-                      : "bg-red-200 text-red-800"
-                  }`}
-                >
-                  {role === "bowler"
-                    ? "BOW"
-                    : role === "batsman"
-                    ? "BAT"
-                    : "AR"}
-                  : {count}/{`${limits.min} - ${limits.max}`}
-                </div>
-              );
-            })}
-
+        <div className="flex w-full border border-gray-700 rounded-md overflow-hidden mb-2">
+          {filter !== "All" ? (
+            <div
+              className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
+                countByRole(filter) >= roleLimits[filter].min
+                  ? "bg-green-200 text-green-800"
+                  : "bg-red-200 text-red-800"
+              }`}
+            >
+              {filter} : {countByRole(filter)}/
+              {`${roleLimits[filter].min} - ${roleLimits[filter].max}`}
+            </div>
+          ) : (
+            <div
+              className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
+                countByGender("female") >= genderLimits.female.min
+                  ? "bg-green-200 text-green-800"
+                  : "bg-red-200 text-red-800"
+              }`}
+            >
+              Female: {countByGender("female")}/{genderLimits.female.min}
+            </div>
+          )}
           <div
-            className={`px-2 py-1 rounded text-xs ${
-              countByGender("female") >= genderLimits.female.min
-                ? "bg-green-200 text-green-800"
-                : "bg-red-200 text-red-800"
-            }`}
-          >
-            F: {countByGender("female")}/{genderLimits.female.min}
-          </div>
-          <div
-            className={`px-2 py-1 rounded text-xs ${
+            className={`flex-1 py-2 text-sm font-medium transition-colors duration-200 ${
               selectedPlayers.length >= maxPlayers
                 ? "bg-green-200 text-green-800"
                 : "bg-red-200 text-red-800"
             }`}
           >
-            P: {selectedPlayers.length}/{maxPlayers}
+            Total: {selectedPlayers.length}/{maxPlayers}
           </div>
-
         </div>
 
-        <div className="px-2 flex-grow overflow-hidden flex flex-col">
+        <div className="flex-grow overflow-hidden flex flex-col">
           {step === 1 && (
             <PlayerSelection
               playersLoading={playersLoading}
