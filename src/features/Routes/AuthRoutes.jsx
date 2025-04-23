@@ -37,13 +37,8 @@ function AuthRoutes() {
         <Route index Component={Rounds} />
       </Route>
 
-      <Route path="/dream11">
+      <Route path="/super12">
         <Route index Component={Dream11} />
-        <Route path="leaderboard" Component={Dream11Leaderboard} />
-      </Route>
-
-      <Route path="/points">
-        <Route index Component={Dream11ScoringRules} />
       </Route>
 
       <Route path="/discussions">

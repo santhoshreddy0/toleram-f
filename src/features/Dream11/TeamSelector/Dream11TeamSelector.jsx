@@ -5,13 +5,13 @@ import PlayerSelection from "./PlayersSelection";
 import CaptainViceCaptainSelection from "./CaptainViceCaptainSelection";
 import TeamPreview from "./TeamPreview";
 import NavigationBar from "./NavigationBar";
-import { useGetTournamentQuery } from "../../../app/Services/tournament";
 import {
   DEFAULT_MAX_PLAYERS,
   DEFAULT_TOTAL_CREDITS,
   DEFAULT_ROLE_LIMITS,
   DEFAULT_GENDER_LIMITS,
 } from "../../../constants/teamLimits";
+import Dream11Header from "./Dream11Header";
 
 const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [allPlayers, setAllPlayers] = useState([]);
@@ -20,21 +20,21 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [captain, setCaptain] = useState(null);
   const [viceCaptain, setViceCaptain] = useState(null);
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("batsman");
   const [genderFilter, setGenderFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [teamFilter, setTeamFilter] = useState("All");
-  const [maxPlayers, setMaxPlayers] = useState(DEFAULT_MAX_PLAYERS);
-  const [totalCredits, setTotalCredits] = useState(DEFAULT_TOTAL_CREDITS);
-  const [roleLimits, setRoleLimits] = useState(DEFAULT_ROLE_LIMITS);
-  const [genderLimits, setGenderLimits] = useState(DEFAULT_GENDER_LIMITS);
+  const [maxPlayers] = useState(DEFAULT_MAX_PLAYERS);
+  const [totalCredits] = useState(DEFAULT_TOTAL_CREDITS);
+  const [roleLimits] = useState(DEFAULT_ROLE_LIMITS);
+  const [genderLimits] = useState(DEFAULT_GENDER_LIMITS);
+
   const {
     data: playerData,
     isLoading: playersLoading,
     isError,
     error: errorMesssage,
   } = useGetPlayersQuery();
-  const { data: limits, isLoading: limitsLoading } = useGetTournamentQuery();
 
   useEffect(() => {
     if (isError) {
@@ -51,48 +51,6 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
     } else {
     }
   }, [playersLoading, isError, playerData, error]);
-
-  useEffect(() => {
-    if (limits?.tournament) {
-      const t = limits.tournament;
-      setMaxPlayers(t.noOfPlayers || DEFAULT_MAX_PLAYERS);
-      setTotalCredits(t.totalCredits ?? DEFAULT_TOTAL_CREDITS);
-
-      setRoleLimits({
-        batsman: {
-          min: t.batsmenMin ?? DEFAULT_ROLE_LIMITS.batsman.min,
-          max: 11,
-        },
-        bowler: {
-          min: t.bowlersMin ?? DEFAULT_ROLE_LIMITS.bowler.min,
-          max: 11,
-        },
-        "all-rounder": {
-          min: t.allRoundersMin ?? DEFAULT_ROLE_LIMITS["all-rounder"].min,
-          max: 11,
-        },
-        "wicket-keeper": {
-          min: t.wicketKeepersMin ?? DEFAULT_ROLE_LIMITS["wicket-keeper"].min,
-          max: 11,
-        },
-      });
-
-      setGenderLimits({
-        male: {
-          min: DEFAULT_GENDER_LIMITS.male.min,
-          max: DEFAULT_GENDER_LIMITS.male.max,
-        },
-        female: {
-          min: t.femalePlayersMin ?? DEFAULT_GENDER_LIMITS.female.min,
-          max: DEFAULT_GENDER_LIMITS.female.max,
-        },
-        others: {
-          min: DEFAULT_GENDER_LIMITS.others.min,
-          max: DEFAULT_GENDER_LIMITS.others.max,
-        },
-      });
-    }
-  }, [limits]);
 
   const countByRole = (role) =>
     selectedPlayers.filter((player) => player.player_role === role).length;
@@ -253,11 +211,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
   return (
     <div className="max-w-3xl mx-auto pb-2 text-black max-h-screen">
-      <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-white p-2 rounded-t-lg">
-        <h1 className="text-md font-bold text-center">
-          Dream 11 Team Selection
-        </h1>
-      </div>
+      <Dream11Header/>
 
       <div className="bg-gray-900 rounded-b-lg shadow-lg flex flex-col h-screen max-h-screen">
         <NavigationBar
@@ -272,21 +226,29 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           totalCredits={totalCredits}
         />
         <div className="flex space-x-2 min-w-max px-2 mb-2">
-          {Object.entries(roleLimits).map(([role, limits]) => {
-            const count = countByRole(role);
-            return (
-              <div
-                key={role}
-                className={`px-2 py-1 rounded text-xs ${
-                  count >= limits.min && count <= limits.max
-                    ? "bg-green-200 text-green-800"
-                    : "bg-red-200 text-red-800"
-                }`}
-              >
-                {role.toUpperCase().slice(0, 3)}: {count}/{limits.min}
-              </div>
-            );
-          })}
+          {Object.entries(roleLimits)
+            .filter(([role]) => role !== "wicket-keeper")
+            .map(([role, limits]) => {
+              const count = countByRole(role);
+              return (
+                <div
+                  key={role}
+                  className={`px-2 py-1 rounded text-xs ${
+                    count >= limits.min && count <= limits.max
+                      ? "bg-green-200 text-green-800"
+                      : "bg-red-200 text-red-800"
+                  }`}
+                >
+                  {role === "bowler"
+                    ? "BOW"
+                    : role === "batsman"
+                    ? "BAT"
+                    : "AR"}
+                  : {count}/{`${limits.min} - ${limits.max}`}
+                </div>
+              );
+            })}
+
           <div
             className={`px-2 py-1 rounded text-xs ${
               countByGender("female") >= genderLimits.female.min
@@ -296,6 +258,16 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           >
             F: {countByGender("female")}/{genderLimits.female.min}
           </div>
+          <div
+            className={`px-2 py-1 rounded text-xs ${
+              selectedPlayers.length >= maxPlayers
+                ? "bg-green-200 text-green-800"
+                : "bg-red-200 text-red-800"
+            }`}
+          >
+            P: {selectedPlayers.length}/{maxPlayers}
+          </div>
+
         </div>
 
         <div className="px-2 flex-grow overflow-hidden flex flex-col">

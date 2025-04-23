@@ -60,16 +60,19 @@ const PlayerSelection = ({
                     />
                   </svg>
                 </div>
-                <div className="flex gap-3">
-                  <div className="flex items-center gap-2">
-                    <label htmlFor="gender" className="text-xs text-white">
+                <div className="flex flex-row w-full gap-3 px-2 py-2">
+                  <div className="flex items-center w-2/5">
+                    <label
+                      htmlFor="gender"
+                      className="text-xs font-medium text-white w-14 flex-shrink-0"
+                    >
                       Gender:
                     </label>
                     <select
                       id="gender"
                       value={genderFilter}
                       onChange={(e) => setGenderFilter(e.target.value)}
-                      className="border rounded-lg px-2 py-1 bg-gray-800 text-xs text-white"
+                      className="w-full border rounded-lg px-2 py-1 bg-gray-800 text-xs text-white"
                     >
                       {["All", "male", "female", "others"].map((gender) => (
                         <option key={gender} value={gender}>
@@ -78,15 +81,19 @@ const PlayerSelection = ({
                       ))}
                     </select>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <label htmlFor="gender" className="text-xs text-white">
+
+                  <div className="flex items-center w-4/5">
+                    <label
+                      htmlFor="team"
+                      className="text-xs font-medium text-white w-14 flex-shrink-0"
+                    >
                       Teams:
                     </label>
-
                     <select
+                      id="team"
                       value={teamFilter}
                       onChange={(e) => setTeamFilter(e.target.value)}
-                      className="border rounded-lg px-2 py-1 bg-gray-800 text-white text-xs"
+                      className="w-full border rounded-lg px-2 py-1 bg-gray-800 text-xs text-white"
                     >
                       {getUniqueTeams().map((team) => (
                         <option key={team} value={team}>
@@ -98,22 +105,61 @@ const PlayerSelection = ({
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-1 mb-2 mt-3">
-              {["All", "batsman", "bowler", "all-rounder", "wicket-keeper"].map(
-                (role) => (
-                  <button
-                    key={role}
-                    onClick={() => setFilter(role)}
-                    className={`px-2 sm:px-1 py-1 rounded-full text-xs font-medium ${
-                      filter === role
-                        ? "bg-indigo-600 text-white text-xs font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        : "bg-gray-800 text-gray-100 hover:bg-indigo-500"
-                    }`}
-                  >
-                    {role}
-                  </button>
-                )
-              )}
+            <div className="flex flex-wrap justify-center mb-2 mt-3">
+              <div className="flex w-full max-w-md border border-gray-700 rounded-md overflow-hidden">
+                <button
+                  onClick={() => {
+                    setGenderFilter("All");
+                    setFilter("batsman");
+                  }}
+                  className={`flex-1 py-2 text-xs font-medium border-r border-gray-700 ${
+                    filter === "batsman"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
+                  }`}
+                >
+                  batsman
+                </button>
+                <button
+                  onClick={() => {
+                    setGenderFilter("All");
+                    setFilter("bowler");
+                  }}
+                  className={`flex-1 py-2 text-xs font-medium border-r border-gray-700 ${
+                    filter === "bowler"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
+                  }`}
+                >
+                  bowler
+                </button>
+                <button
+                  onClick={() => {
+                    setGenderFilter("All");
+                    setFilter("all-rounder");
+                  }}
+                  className={`flex-1 py-2 text-xs font-medium border-r border-gray-700 ${
+                    filter === "all-rounder"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
+                  }`}
+                >
+                  all-rounder
+                </button>
+                <button
+                  onClick={() => {
+                    setFilter("All");
+                    setGenderFilter("female");
+                  }}
+                  className={`flex-1 py-2 text-xs font-medium ${
+                    genderFilter === "female"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
+                  }`}
+                >
+                  female
+                </button>
+              </div>
             </div>
           </div>
 
