@@ -121,7 +121,7 @@ const CommentsSection = ({ title = '', description = '', roomName }) => {
 
   return (
     <>
-     <div className="p-3 rounded-lg shadow-md">
+     <div className="rounded-lg shadow-md">
      {title && ( <h2 className="text-2xl font-semibold text-gray-100">
         {title}
       </h2>)}
@@ -129,7 +129,7 @@ const CommentsSection = ({ title = '', description = '', roomName }) => {
         {description}
       </p>}
     </div>
-      <div className="bg-gray-900 mt-4 mx-1 flex items-start space-x-4 px-1 sticky top-0 z-10 max-w-6xl mx-auto px-8 sm:px-0">
+      <div className="bg-gray-900 mt-4 mx-1 flex items-start space-x-4 px-1 sticky top-0 z-10 max-w-6xl mx-auto">
 
         <div className="shrink-0">
           <div
@@ -176,7 +176,7 @@ const CommentsSection = ({ title = '', description = '', roomName }) => {
           </form>
         </div>
       </div>
-      <div className="px-2 overflow-y-auto max-h-96 overflow-hidden scrollbar-hide max-w-6xl mx-auto px-8 sm:px-0">
+      <div className="overflow-y-auto max-h-96 overflow-hidden scrollbar-hide max-w-6xl mx-auto sm:px-0">
         {roomLoading || commentsLoading ? (
           <div className="flex justify-center py-4">
             <p className="text-gray-400">Loading comments...</p>

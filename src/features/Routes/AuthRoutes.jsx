@@ -24,16 +24,18 @@ import ScoreDashboard from "../../Components/Admin/Matches/MatchScore/ScoreDashb
 import CommentsSection from "../../Components/comments/CommentsSection";
 import Dream11ScoringRules from "../Dream11/Dream11ScoringRules";
 import Dream11Leaderboard from "../Dream11/Leaderboard";
+import Match from "../V2/Matches/Match";
+import Round from "../V2/Rounds/Round";
 
 function AuthRoutes() {
   return (
     <Routes>
       <Route path="/matches">
-        <Route path=":matchId" Component={MatchQuestions} />
+        <Route path=":matchId" Component={Match} />
         <Route index Component={Matches} />
       </Route>
       <Route path="/rounds">
-        <Route path=":roundId" Component={RoundQuestions} />
+        <Route path=":roundId" Component={Round} />
         <Route index Component={Rounds} />
       </Route>
 
