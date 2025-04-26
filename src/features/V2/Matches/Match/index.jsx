@@ -11,7 +11,7 @@ function Match() {
     { label: "Questions", content: <MatchQuestions /> },
     {
       label: "Discussion",
-      content: <CommentsSection roomName={`match-${matchId}`} />,
+      content: <CommentsSection title="MatchTalk: Dive Into the Discussion" roomName={`match-${matchId}`} />,
     },
   ];
 

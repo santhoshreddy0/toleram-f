@@ -11,7 +11,7 @@ function Round() {
     { label: "Questions", content: <RoundQuestions /> },
     {
       label: "Discussion",
-      content: <CommentsSection roomName={`round-${roundId}`} />,
+      content: <CommentsSection title="RoundTalk: Dive Into the Discussion" roomName={`round-${roundId}`} />,
     },
   ];
 

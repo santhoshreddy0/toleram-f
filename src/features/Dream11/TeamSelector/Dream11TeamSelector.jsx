@@ -12,6 +12,7 @@ import {
   DEFAULT_GENDER_LIMITS,
 } from "../../../constants/teamLimits";
 import Dream11Header from "./Dream11Header";
+import { toast } from "react-toastify";
 
 const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [allPlayers, setAllPlayers] = useState([]);
@@ -20,8 +21,8 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [captain, setCaptain] = useState(null);
   const [viceCaptain, setViceCaptain] = useState(null);
-  const [filter, setFilter] = useState("batsman");
-  const [genderFilter, setGenderFilter] = useState("All");
+  const [filter, setFilter] = useState("All");
+  const [genderFilter, setGenderFilter] = useState("female");
   const [searchQuery, setSearchQuery] = useState("");
   const [teamFilter, setTeamFilter] = useState("All Teams");
   const [maxPlayers] = useState(DEFAULT_MAX_PLAYERS);
@@ -124,18 +125,36 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
     if (isSelected) {
       setSelectedPlayers(selectedPlayers.filter((p) => p.id !== player.id));
-    } else {
-      const newTotalCredits = usedCredits + playerCredits;
-
-      if (
-        selectedPlayers.length < maxPlayers &&
-        !isRoleFull(player.player_role) &&
-        !isGenderFull(player.gender) &&
-        newTotalCredits <= totalCredits
-      ) {
-        setSelectedPlayers([...selectedPlayers, player]);
-      }
+      return;
     }
+
+    const newTotalCredits = usedCredits + playerCredits;
+
+    if (selectedPlayers.length >= maxPlayers) {
+      toast.error(`You can only select ${maxPlayers} players.`);
+      return;
+    }
+
+    if (isRoleFull(player.player_role)) {
+      toast.error(`No more spots for ${player.player_role}s.`);
+      return;
+    }
+
+    if (isGenderFull(player.gender)) {
+      toast.error(`Limit reached for ${player.gender} players.`);
+      return;
+    }
+
+    if (newTotalCredits > totalCredits) {
+      toast.error(
+        `You need ${playerCredits} points, only ${
+          totalCredits - usedCredits
+        } left.`
+      );
+      return;
+    }
+
+    setSelectedPlayers([...selectedPlayers, player]);
   };
 
   const selectCaptain = (playerId) => {
