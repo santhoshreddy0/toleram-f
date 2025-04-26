@@ -1,5 +1,6 @@
 import React from "react";
 import { PLAYER_IMAGE } from "../../../constants/teamLimits";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 const PlayerSelection = ({
   playersLoading,
@@ -33,7 +34,7 @@ const PlayerSelection = ({
           <div className="flex-shrink-0">
             <div className="overflow-x-auto pb-1"></div>
             <div className="mb-2">
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col">
                 <div className="relative flex-1">
                   <input
                     type="search"
@@ -97,6 +98,19 @@ const PlayerSelection = ({
               <div className="flex w-full max-w-md border border-gray-700 rounded-md overflow-hidden">
                 <button
                   onClick={() => {
+                    setFilter("All");
+                    setGenderFilter("female");
+                  }}
+                  className={`flex-1 py-2 text-xs font-medium ${
+                    genderFilter === "female"
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
+                  }`}
+                >
+                  female
+                </button>
+                <button
+                  onClick={() => {
                     setGenderFilter("All");
                     setFilter("batsman");
                   }}
@@ -134,19 +148,6 @@ const PlayerSelection = ({
                 >
                   all-rounder
                 </button>
-                <button
-                  onClick={() => {
-                    setFilter("All");
-                    setGenderFilter("female");
-                  }}
-                  className={`flex-1 py-2 text-xs font-medium ${
-                    genderFilter === "female"
-                      ? "bg-indigo-600 text-white"
-                      : "bg-gray-800 text-gray-100 hover:bg-gray-700"
-                  }`}
-                >
-                  female
-                </button>
               </div>
             </div>
           </div>
@@ -157,7 +158,7 @@ const PlayerSelection = ({
                 No players found matching your filters
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 {filteredPlayers.map((player) => {
                   const isSelected = isPlayerSelected(player.id);
                   const roleColor = getRoleColorClass(player.player_role);
@@ -167,10 +168,10 @@ const PlayerSelection = ({
                       key={player.id}
                       style={{ overflowAnchor: "none" }}
                       onClick={() => togglePlayerSelection(player)}
-                      className={`border rounded-lg overflow-hidden cursor-pointer transition-all ${
+                      className={`rounded-lg overflow-hidden cursor-pointer transition-all ${
                         isSelected
-                          ? "border-indigo-500 bg-gray-800"
-                          : "border-gray-200 hover:border-gray-300"
+                          ? "border border-indigo-600 shadow-md shadow-green-500/20 bg-gray-800"
+                          : "border border-gray-200 hover:border-gray-300 hover:shadow-sm"
                       }`}
                     >
                       <div className="flex items-center p-3">
@@ -183,8 +184,11 @@ const PlayerSelection = ({
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between items-center">
-                            <h3 className="font-medium text-xs text-gray-100">
+                            <h3 className="font-medium text-xs text-gray-100 flex items-center gap-1">
                               {player.name}
+                              {isSelected && (
+                                <CheckBadgeIcon className="h-4 w-4 text-indigo-600" />
+                              )}
                             </h3>
                             <div
                               className={`w-4 h-4 flex items-center justify-center rounded-full bg-${
@@ -209,8 +213,6 @@ const PlayerSelection = ({
                             <span className="text-gray-300">
                               {player.team_name}
                             </span>
-
-                            {/* Player credits to the right */}
                             <span className="ml-auto text-gray-100 font-semibold">
                               +{player.credits} Pts
                             </span>

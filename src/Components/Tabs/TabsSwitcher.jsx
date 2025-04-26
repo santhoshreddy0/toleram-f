@@ -4,8 +4,8 @@ const TabSwitcher = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]?.label || '');
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="flex w-full border border-gray-700 rounded-md overflow-hidden mb-4">
+    <>
+      <div className="flex w-full max-w-md mx-auto border border-gray-700 rounded-md overflow-hidden mb-4">
         {tabs.map((tab, idx) => (
           <button
             key={tab.label}
@@ -30,7 +30,7 @@ const TabSwitcher = ({ tabs }) => {
           ) : null
         )}
       </div>
-    </div>
+    </>
   )
 };
 

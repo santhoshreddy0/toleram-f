@@ -26,6 +26,7 @@ import Dream11ScoringRules from "../Dream11/Dream11ScoringRules";
 import Dream11Leaderboard from "../Dream11/Leaderboard";
 import Match from "../V2/Matches/Match";
 import Round from "../V2/Rounds/Round";
+import Discussions from "../Discussions";
 
 function AuthRoutes() {
   return (
@@ -44,7 +45,7 @@ function AuthRoutes() {
       </Route>
 
       <Route path="/discussions">
-        <Route index element={<CommentsSection roomName={'tolaram-discussions'} title="Discussions" description=" Join the conversation! Share your thoughts"/>} />
+        <Route index Component={Discussions} />
       </Route>
 
       <Route path="/history">
