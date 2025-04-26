@@ -29,6 +29,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
   const [totalCredits] = useState(DEFAULT_TOTAL_CREDITS);
   const [roleLimits] = useState(DEFAULT_ROLE_LIMITS);
   const [genderLimits] = useState(DEFAULT_GENDER_LIMITS);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const {
     data: playerData,
@@ -204,12 +205,15 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
 
   const handleSubmit = async () => {
     if (isTeamValid() && captain && viceCaptain) {
+      setButtonLoading(true);
       await onSubmit({
         team: selectedPlayers,
         captain,
         viceCaptain,
       });
+      setButtonLoading(false);
     } else {
+      setButtonLoading(false);
       console.error("Invalid team selection");
     }
   };
@@ -238,6 +242,7 @@ const Dream11TeamSelector = ({ players, onSubmit, onClose }) => {
           goBack={goBack}
           goToNextStep={goToNextStep}
           handleSubmit={handleSubmit}
+          buttonLoading={buttonLoading}
           isTeamValid={isTeamValid}
           captain={captain}
           viceCaptain={viceCaptain}
