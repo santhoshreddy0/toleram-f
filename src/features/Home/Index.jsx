@@ -16,7 +16,6 @@ const navigation = [
 function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: teams } = useGetTeamsQuery();
-  console.log(teams?.teams);
 
   return (
     <>
@@ -162,7 +161,7 @@ function Index() {
             />
           </div>
         </div>
-        <div className="py-12 sm:py-24 max-w-7xl mx-auto bg-gray-900">
+        {teams?.teams && <div className="py-12 sm:py-24 max-w-7xl mx-auto bg-gray-900">
           <p class="mt-8 text-pretty text-2xl sm:text-4xl font-bold max-w-xl inline-block text-white bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer">
             Watch Our Teams Play
           </p>
@@ -188,7 +187,7 @@ function Index() {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
       </div>
     </>
   );
