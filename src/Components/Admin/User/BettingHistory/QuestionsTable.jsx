@@ -66,18 +66,14 @@ const BettingDetailsTable = ({ bets }) => {
         const amount = bet.betAmount;
         let points = 0;
 
-        if (correctOpt?.option?.toLowerCase() === "void") {
-          points = 0;
-        } else if (
-          bet.correct === "Yes" &&
-          bet.choseOption.toString() === bet.correctOption
-        ) {
-          points = odds * amount - amount;
-        } else if (
-          bet.correct === "No" &&
-          bet.choseOption.toString() !== bet.correctOption
-        ) {
-          points = -amount;
+        if (correctOpt) {
+          if (correctOpt.option?.toLowerCase() === "void") {
+            points = 0;
+          } else if (bet.choseOption.toString() === bet.correctOption) {
+            points = odds * amount - amount;
+          } else {
+            points = -amount;
+          }
         }
 
         return points;
