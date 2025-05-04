@@ -42,19 +42,14 @@ const BettingDetailsTable = ({ bets }) => {
         );
 
         let result = "NA";
-
-        if (correctOpt?.option?.toLowerCase() === "void") {
-          result = "NA";
-        } else if (
-          bet.correct === "Yes" &&
-          bet.choseOption.toString() === bet.correctOption
-        ) {
-          result = "Won";
-        } else if (
-          bet.correct === "No" &&
-          bet.choseOption.toString() !== bet.correctOption
-        ) {
-          result = "Lost";
+        if (correctOpt) {
+          if (correctOpt.option?.toLowerCase() === "void") {
+            result = "NA";
+          } else if (bet.choseOption.toString() === bet.correctOption) {
+            result = "Won";
+          } else {
+            result = "Lost";
+          }
         }
 
         return <ResultBadge result={result} />;
