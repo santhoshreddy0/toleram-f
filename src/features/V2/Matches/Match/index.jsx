@@ -5,6 +5,7 @@ import CommentsSection from "../../../../Components/comments/CommentsSection";
 import { useParams } from "react-router-dom";
 import TabSwitcher from "../../../../Components/Tabs/TabsSwitcher";
 
+
 function Match() {
   const { matchId } = useParams();
   const tabs = [
@@ -12,7 +13,7 @@ function Match() {
     {
       label: "Discussion",
       content: <CommentsSection title="MatchTalk: Dive Into the Discussion" roomName={`match-${matchId}`} />,
-    },
+    }
   ];
 
   return (

@@ -19,7 +19,7 @@ export default function Dream11Header() {
 
   return (
     <div className="relative">
-      <div className="bg-indigo-600 text-white text-sm font-medium shadow-sm hover:bg-indigo-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 p-2 rounded-t-lg flex justify-between items-center">
+      <div className="bg-green-600 text-white text-sm font-medium shadow-sm hover:bg-green-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 p-2 rounded-t-lg flex justify-between items-center">
         <div className="w-6"></div>
         <h1 className="text-md font-bold text-center">
           Super 12 Team Selection
