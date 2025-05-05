@@ -50,6 +50,11 @@ const nav = [
     name: "User",
     href: "/admin/user",
     icon: UserIcon,
+  },
+  {
+    name: "Super12",
+    href: "/admin/super12",
+    icon: TrophyIcon,
   }
 ];
 

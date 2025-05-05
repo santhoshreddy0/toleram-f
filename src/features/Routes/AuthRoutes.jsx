@@ -27,6 +27,7 @@ import Dream11Leaderboard from "../Dream11/Leaderboard";
 import Match from "../V2/Matches/Match";
 import Round from "../V2/Rounds/Round";
 import Discussions from "../Discussions";
+import Super12 from "../../Components/Admin/Super12";
 
 function AuthRoutes() {
   return (
@@ -63,6 +64,7 @@ function AuthRoutes() {
         <Route path="tournament" Component={Tournamet} />
         <Route path="match/:matchId/score" Component={ScoreDashboard} />
         <Route path="user" Component={User} />
+        <Route path="super12" Component={Super12} />
         <Route
           path="tournament/rounds/:roundId"
           Component={AdminRoundDetails}
