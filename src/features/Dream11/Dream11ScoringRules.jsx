@@ -103,7 +103,7 @@ export default function Dream11ScoringRules() {
           <h2 className="text-md font-bold text-gray-100">General Rules</h2>
           <ul className="list-disc list-inside space-y-1 text-sm">
             <li>Fixed bet amount: ₹20,000.</li>
-            <li>Select 10 male + 2 female players within 100 points.</li>
+            <li>Select 10 male + 2 female players within 100 credits.</li>
             <li>Bets are frozen before the first match starts.</li>
             <li>Do not share credentials. Finalized bets cannot be changed.</li>
           </ul>

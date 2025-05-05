@@ -28,7 +28,8 @@ import Match from "../V2/Matches/Match";
 import Round from "../V2/Rounds/Round";
 import Discussions from "../Discussions";
 import Super12 from "../../Components/Admin/Super12";
-import TeamPlayers from "../Teams/TeamPlayers";
+import TeamPlayers from "../Teams/Index";
+
 
 function AuthRoutes() {
   return (

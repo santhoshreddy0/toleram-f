@@ -214,7 +214,7 @@ const PlayerSelection = ({
                               {player.team_name}
                             </span>
                             <span className="ml-auto text-gray-100 font-semibold">
-                              +{player.credits} Pts
+                              +{player.credits} Cr
                             </span>
                           </div>
                         </div>

@@ -22,7 +22,7 @@ const NavigationBar = ({
         {step > 1 ? "Back" : "Cancel"}
       </button>
       <div className="text-sm font-semibold text-gray-100">
-        Points: <span className="text-green-400"> {usedCredits}</span> /{" "}
+        Credits: <span className="text-green-400"> {usedCredits}</span> /{" "}
         {totalCredits}
       </div>
 
