@@ -9,14 +9,14 @@ export default function Dream11ScoringRules() {
         role: "Captain",
         multiplier: "2×",
         icon: "C",
-        bgColor: "bg-indigo-600",
+        bgColor: "bg-green-600",
       },
       {
         id: 2,
         role: "Vice-Captain",
         multiplier: "1.5×",
         icon: "VC",
-        bgColor: "bg-indigo-600",
+        bgColor: "bg-green-600",
       },
     ],
     categories: [
@@ -42,7 +42,7 @@ export default function Dream11ScoringRules() {
   return (
     <div className="max-w-3xl mx-auto bg-gray-900 rounded-lg shadow-md overflow-hidden text-sm">
   
-      <div className="bg-indigo-600 px-4 py-3 m-2 rounded-md">
+      <div className="bg-green-600 px-4 py-3 m-2 rounded-md">
         <h1 className="text-lg font-bold text-white">Super12 Scoring Rules</h1>
       </div>
 

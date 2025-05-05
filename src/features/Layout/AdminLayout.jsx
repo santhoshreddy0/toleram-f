@@ -154,7 +154,7 @@ export default function AdminLayout() {
                                 aria-hidden="true"
                                 className={classNames(
                                   item.current
-                                    ? "text-indigo-600"
+                                    ? "text-green-600"
                                     : "text-gray-400 group-hover:text-white",
                                   "size-6 shrink-0"
                                 )}
@@ -193,7 +193,7 @@ export default function AdminLayout() {
                               aria-hidden="true"
                               className={classNames(
                                 item.current
-                                  ? "text-indigo-600"
+                                  ? "text-green-600"
                                   : "text-gray-400 group-hover:text-white",
                                 "size-6 shrink-0"
                               )}
