@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   text-align: center;
 }
@@ -46,3 +46,33 @@
   font-weight: 400;
   font-style: normal;
 }
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the icon white */
+  cursor: pointer;
+}
+
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161e31; /* Dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #111725; /* Scrollbar thumb color */
+  border-radius: 10px;
+  border: 3px solid #151e33; /* Matches the track for padding illusion */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #666;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1f2937 inset !important;
+  -webkit-text-fill-color: #c3c3c4 !important;
+}
+

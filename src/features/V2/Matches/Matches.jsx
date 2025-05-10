@@ -6,11 +6,11 @@ import MenuTabs from "../../Layout/MenuTabs";
 import { FireIcon } from "@heroicons/react/20/solid";
 import moment from "moment";
 import AddPopup from "../../../Components/PopUp/AddPopup";
+import CommentsSection from "../../../Components/comments/CommentsSection";
 // import "../../../styles/matches.css";
 
 function Matches() {
   const { data: matches, isLoading, isError } = useGetMatchesQuery();
-  
 
   if (isLoading) {
     return <Loader />;
@@ -19,7 +19,7 @@ function Matches() {
     const date = (
       <span>
         <span>{moment(dateTimeStr).utc().format("h:mm a")}</span>
-        <br/>
+        <br />
         <span>{moment(dateTimeStr).utc().format("Do MMM")}</span>
       </span>
     );
@@ -32,15 +32,22 @@ function Matches() {
   return (
     <>
       <MenuTabs>
-        <div className="matches-container grid grid-cols-1 md:grid-cols-2 ">
-          {filteredMatches.map((match) => {
+        {filteredMatches?.length == 0 && (
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold text-gray-500">
+              🥷 No battles in progress. Our warriors are preparing!
+            </h1>
+          </div>
+        )}
+        <div className="matches-container grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto mt-0 sm:mt-2">
+          {filteredMatches?.map((match) => {
             if (match.can_bet == "0") {
               return <></>;
             }
             return (
               <div
                 key={match.id}
-                className="match flex align-middle justify-center flex-col p-4 md:max-w-xl "
+                className="match flex align-middle justify-center flex-col p-4 md:max-w-2xl "
               >
                 <Link
                   to={`/matches/${match.id}`}
@@ -70,7 +77,7 @@ function Matches() {
                         <img src="/vs.png" alt="VS" className="vs-image w-16" />
                       </div>
                       <div className="match-details">
-                        <p className="match-date-time m-0 text-center text-green-600 font-semibold">
+                        <p className="match-date-time m-0 text-center text-sm text-green-600 font-semibold">
                           {formatDateTime(match.match_time)}
                         </p>
                       </div>
@@ -89,7 +96,7 @@ function Matches() {
                   <button
                     className={`${
                       match.can_bet == "1"
-                        ? "bg-green-500 font-semibold text-lg"
+                        ? "bg-gradient-to-r from-yellow-500 to-amber-600 bg-transparent font-bold text-lg"
                         : " bg-gray-500 "
                     } text-white w-full py-2 rounded-b-xl`}
                   >
@@ -100,14 +107,14 @@ function Matches() {
               </div>
             );
           })}
-          {filteredMatches.map((match) => {
+          {filteredMatches?.map((match) => {
             if (match.can_bet == "1") {
               return <></>;
             }
             return (
               <div
                 key={match.id}
-                className="match flex align-middle justify-center flex-col p-4 md:max-w-xl "
+                className="match flex align-middle justify-center flex-col p-4 md:max-w-2xl "
               >
                 <div
                   to={`/matches/${match.id}`}
@@ -157,11 +164,13 @@ function Matches() {
                     className={`${
                       match.can_bet == "1"
                         ? "bg-green-500 font-semibold text-lg"
-                        : " bg-gray-500 "
+                        : "bg-gray-600 text-gray-300 text-lg"
                     } text-white w-full py-2 rounded-b-xl`}
                   >
                     {" "}
-                    {match.can_bet == "1" ? "Bet Now" : "Bet closed Please check bet history"}{" "}
+                    {match.can_bet == "1"
+                      ? "Bet Now"
+                      : "Bet closed Please check bet history"}{" "}
                   </button>
                 </div>
               </div>
@@ -169,7 +178,7 @@ function Matches() {
           })}
         </div>
       </MenuTabs>
-      <AddPopup/>
+      <AddPopup />
     </>
   );
 }

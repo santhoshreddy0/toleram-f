@@ -8,7 +8,7 @@ function BackButton() {
     <div className="flex justify-around">
       <button
         onClick={() => navigate(-1)}
-        className="inline-flex text-xs items-start gap-x-1.5 rounded-md  px-1.5 py-3 text-2xl font-medium border m-3 "
+        className="inline-flex text-xs items-start gap-x-1.5 rounded-md px-4 py-2 text-2xl font-medium border border-gray-600 m-3 "
       >
         Back
       </button>

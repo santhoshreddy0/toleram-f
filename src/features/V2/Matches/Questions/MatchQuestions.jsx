@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import {
   useGetMatchBetsQuery,
+  useGetMatchQuery,
   useGetMatchQuestionsQuery,
   useUpdateMatchBetsMutation,
 } from "../../../../app/Services/matchesApi";
@@ -10,8 +11,7 @@ import AllQuestions from "../../../../Components/AllQuestions";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import BackButton from "../../../../Components/BackButton";
-import BackButtonWithRules from "../../../../Components/BackButtonWithRules";
+
 
 function MatchQuestions() {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ function MatchQuestions() {
     isLoading,
     isError,
   } = useGetMatchQuestionsQuery(matchId);
+  const { data: match } = useGetMatchQuery(matchId);
 
   const {
     data: bets,
@@ -40,8 +41,9 @@ function MatchQuestions() {
   const [formData, setFormData] = useState(bets ? bets?.bets : {});
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const highestCanBet = match?.match?.max_bet_amount;
+
   const onSubmit = async () => {
-    const highestCanBet = import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT;
     let totalAmount = 0;
     Object.keys(formData)?.map((key) => {
       totalAmount += parseInt(formData[key].amount);
@@ -93,21 +95,18 @@ function MatchQuestions() {
 
   return (
     <>
-      <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto">
-        <BackButtonWithRules />
-        {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Match Questions:
         </h1> */}
-        <AllQuestions
-          questions={questions}
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={onSubmit}
-          show={show}
-          setShow={setShow}
-          totalBetAllowed={import.meta.env.VITE_REACT_APP_TOTAL_AMOUNT}
-        />
-      </div>
+      <AllQuestions
+        questions={questions}
+        formData={formData}
+        setFormData={setFormData}
+        onSubmit={onSubmit}
+        show={show}
+        setShow={setShow}
+        totalBetAllowed={highestCanBet}
+      />
     </>
   );
 }
