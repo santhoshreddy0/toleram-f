@@ -22,10 +22,10 @@ export default function User() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const inputValue = searchInputRef.current.value.trim();
-    if (inputValue) {
-      setEmail(inputValue);
-    }
+    // const inputValue = searchInputRef.current.value.trim();
+    // if (inputValue) {
+    //   setEmail(inputValue);
+    // }
   };
 
   return (
