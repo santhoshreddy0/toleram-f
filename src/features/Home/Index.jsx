@@ -1,58 +1,78 @@
 import React from "react";
-import { teams } from "../../Data/teams";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useGetTeamsQuery } from "../../app/Services/Admin/adminTeams";
+
+const navigation = [
+  { name: "Product", href: "#" },
+  { name: "Features", href: "#" },
+  { name: "Marketplace", href: "#" },
+  { name: "Company", href: "#" },
+];
 
 function Index() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: teams } = useGetTeamsQuery();
+
   return (
-    <>
-      <div className="pt-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl capitalize">
-              Tolaram Premier League
-            </h1>
-            <div className="mt-14 flex items-center justify-center gap-x-3">
-              <Link
-                to="/login"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Log in
-              </Link>
-            </div>
+    <div className="bg-black text-white min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-[90vh] flex items-center justify-center bg-black overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?ixlib=rb-4.0.3&auto=format&fit=crop&w=2830&q=80"
+          alt="Cricket"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
+        <div className="relative text-center px-4">
+          <h1 className="text-5xl sm:text-7xl font-bold text-gold drop-shadow-md">
+            Tolaram Premier League
+          </h1>
+          <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-white/90">
+            Experience the thrill of premier cricket battles where legends are made.
+            Watch the finest teams compete for glory in this prestigious tournament.
+          </p>
+          <div className="mt-8">
+            <Link
+              to="/login"
+              className="inline-block text-white rounded-lg bg-gradient-to-r from-yellow-500 to-amber-600 bg-transparent px-12 py-3 text-lg font-bold hover:bg-green-500"
+            >
+              Log in
+            </Link>
           </div>
         </div>
-      </div>
-      <div
-        className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-        aria-hidden="true"
-      >
-        <div
-          className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-        />
-      </div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-5">
-        <div className="font-bold text-2xl my-3">TPL teams</div>
+      </section>
 
-        <div className="mx-auto grid max-w-lg grid-cols-2 md:grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5 mb-5">
-          {teams.slice(1).map((t) => (
-            <div className="flex-col">
-              <img
-                className=" inline-block h-24  w-20 rounded-lg"
-                src={`${t.team_logo}`}
-                alt="team"
-                width={158}
-                height={48}
-              />
-              <div className="text-sm text-gray-400">{t?.team_name}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+      {/* Teams Section */}
+      {teams?.teams && (
+        <section className="bg-black px-6 py-20 lg:px-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gold">
+            Watch Our Teams Play
+          </h2>
+          <div className="mt-12 grid gap-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-center">
+            {teams.teams.map((team, index) => (
+              <Link
+                to={`/team/${team.id}`}
+                key={team.id}
+                className="flex flex-col items-center hover:scale-105 transition-transform duration-300"
+              >
+                <div className="w-28 h-28 bg-gradient-to-b from-green-700 to-black rounded-full flex items-center justify-center shadow-lg border-2 border-gold">
+                  <img
+                    src={team.team_logo}
+                    alt={team.team_name}
+                    className="h-20 w-20 object-contain"
+                  />
+                </div>
+                <p className="mt-4 text-white text-center font-medium">
+                  {team.team_name}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
   );
 }
 
