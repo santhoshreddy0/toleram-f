@@ -1,0 +1,119 @@
+import { baseApi } from "../baseApi";
+
+const betsApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getmatches: builder.query({
+      query: () => `/matches`,
+      providesTags: (result, error, arg) => {
+        return ["Match"];
+      },
+    }),
+    getMatch: builder.query({
+      query: (matchId) => `/Matches/${matchId}`,
+      providesTags: (result, error, arg) => {
+        return [{ type: "Match", id: arg.id }];
+      },
+    }),
+    createMatch: builder.mutation({
+      query: (MatchData) => ({
+        url: "/admin/match",
+        method: "POST",
+        body: MatchData,
+      }),
+      invalidatesTags: ["Match"],
+    }),
+    addMatch: builder.mutation({
+      query: (playerData) => ({
+        url: `/admin/Matches`,
+        method: "POST",
+        body: playerData,
+      }),
+      invalidatesTags: ["Match"],
+    }),
+    updateMatchDetails: builder.mutation({
+      query: (MatchData) => ({
+        url: `/admin/matches/${MatchData.id}`,
+        method: "PATCH",
+        body: MatchData,
+      }),
+      invalidatesTags: ["Match"],
+    }),
+    getAdminQuestions: builder.query({
+      query: (matchId) => `/admin/matches/${matchId}/questions`,
+      providesTags: (result, error, arg) => {
+        return ["Question"];
+      },
+    }),
+    addQuestion: builder.mutation({
+      query: (matchData) => ({
+        url: `/admin/matches/${matchData.matchId}/addQuestion`,
+        method: "POST",
+        body: matchData,
+      }),
+      invalidatesTags: ["Match", "Question"],
+    }),
+    updateQuestion: builder.mutation({
+      query: (questionsData) => ({
+        url: `/admin/match-questions/${questionsData.id}`,
+        method: "PATCH",
+        body: questionsData,
+      }),
+      invalidatesTags: (result, error, arg) => ["Question"],
+    }),
+    updateCorrectAnswer: builder.mutation({
+      query: (questionsData) => ({
+        url: `/admin/match-questions/${questionsData.questionId}/correctOption`,
+        method: "PATCH",
+        body: questionsData,
+      }),
+      invalidatesTags: (result, error, arg) => ["Question"],
+    }),
+    updateMatchStatus: builder.mutation({
+      query: (matchData) => ({
+        url:`/admin/matches/${matchData.id}/process-bet`,
+        method: "PATCH",
+        body: matchData,
+      }),
+      invalidatesTags: (result, error, arg) => ["Match"],
+    }),
+    updateBetStatus: builder.mutation({
+      query: (matchData) => ({
+        url: `/admin/matches/${matchData.id}`,
+        method: "PATCH",
+        body: matchData,
+      }),
+      invalidatesTags: (result, error, arg) => ["Match"],
+    }),
+    getMatchPlayers: builder.query({
+      query: (matchId) => `/admin/matches/${matchId}/players`,
+      providesTags: (result, error, arg) => {
+        return ["PlayerScore"];
+      },
+    }),
+    updatePlayerScore: builder.mutation({
+      query: (playerData) => ({
+        url: `/admin/matches/${playerData.matchId}/players/${playerData.playerId}`,
+        method: "PATCH",
+        body: playerData.stats,
+      }),
+      invalidatesTags: (result, error, arg) => ["PlayerScore"],
+    }),
+  }),
+  overrideExisting: false,
+});
+
+export const {
+  useGetmatchesQuery,
+  useGetMatchQuery,
+  useCreateMatchMutation,
+  useAddMatchMutation,
+  useUpdateMatchDetailsMutation,
+  useGetAdminQuestionsQuery,
+  useAddQuestionMutation,
+  useUpdateQuestionMutation,
+  useUpdateCorrectAnswerMutation,
+  useUpdateMatchStatusMutation,
+  useUpdateBetStatusMutation,
+  useGetMatchPlayersQuery,
+  useUpdatePlayerScoreMutation,
+} = betsApi;
