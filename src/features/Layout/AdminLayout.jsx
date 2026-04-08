@@ -19,7 +19,7 @@ import {
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { isAdmin } from "../../Utils/Helpers";
+import { isAdmin, isManager } from "../../Utils/Helpers";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -30,6 +30,7 @@ const nav = [
     name: "Dashboard",
     href: "/admin/dashboard",
     icon: HomeIcon,
+    adminOnly: true,
   },
   {
     name: "Teams",
@@ -50,11 +51,13 @@ const nav = [
     name: "User",
     href: "/admin/user",
     icon: UserIcon,
+    adminOnly: true,
   },
   {
     name: "Super12",
     href: "/admin/super12",
     icon: TrophyIcon,
+    adminOnly: true,
   }
 ];
 
@@ -68,12 +71,15 @@ export default function AdminLayout() {
   }
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const navigation = nav.map((item) => {
-    return {
-      ...item,
-      current: location.pathname.includes(item.href),
-    };
-  });
+  const managerRole = isManager(token);
+  const navigation = nav
+    .filter((item) => !managerRole || !item.adminOnly)
+    .map((item) => {
+      return {
+        ...item,
+        current: location.pathname.includes(item.href),
+      };
+    });
 
   return (
     <>

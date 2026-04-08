@@ -3,7 +3,18 @@ import numeral from "numeral";
 export const isAdmin = (token) => {
   if (!token) return false;
   const role = JSON.parse(token)?.role;
-  return role === "admin";
+  return role === "admin" || role === "manager";
+};
+
+export const getRole = (token) => {
+  if (!token) return null;
+  return JSON.parse(token)?.role;
+};
+
+export const isManager = (token) => {
+  if (!token) return false;
+  const role = JSON.parse(token)?.role;
+  return role === "manager";
 };
 
 export function isEmptyObject(obj) {
