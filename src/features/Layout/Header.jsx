@@ -29,7 +29,7 @@ function Header() {
   const isAdminRoute = location.pathname.startsWith("/admin");
   return (
     <>
-      <header className="bg-green-900 text-white sticky w-full inset-x top-0 z-20">
+      <header className="sticky inset-x-0 top-0 z-20 w-full border-b border-[#f9d274]/20 bg-[linear-gradient(110deg,rgba(9,22,36,0.92),rgba(9,18,30,0.8))] text-white shadow-[0_15px_40px_rgba(0,0,0,0.35)] backdrop-blur-lg">
         <div className="max-w-7xl mx-auto">
           <nav
             className="flex items-center justify-between p-4 lg:px-8"
@@ -39,14 +39,17 @@ function Header() {
               <Link to="/" className="-m-1.5 p-1.5 flex">
                 <span className="sr-only">Your Company</span>
                 <img
-                  className="h-14 w-auto bg-white rounded "
+                  className="h-14 w-auto rounded border border-[#f9d274]/60 bg-white/95 shadow-[0_0_20px_rgba(249,210,116,0.24)]"
                   src="/TplLogo.png"
                   alt=""
                 />
-                <div className="text-white font-bold text-2xl ml-3 text-center align-baseline text-left">
-                  {" "}
-                  <p className="">TOLARAM</p>
-                  <p className="text-sm">Premier League </p>
+                <div className="ml-3 text-left text-white">
+                  <p className="text-2xl font-black tracking-[0.06em]">
+                    TOLARAM
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-[#f5dea0]">
+                    Premier League
+                  </p>
                 </div>
               </Link>
             </div>
@@ -58,9 +61,8 @@ function Header() {
                 </div>
               ) : (
                 <Link
-                  onClick={() => setMobileMenuOpen(false)}
                   to="/login"
-                  className="text-lg font-medium leading-6 border border-white rounded-lg py-2 px-8"
+                  className="rounded-full border border-[#f9d274]/65 bg-[#f9d274] px-7 py-2 text-sm font-bold uppercase tracking-[0.15em] leading-6 text-[#1a1304] transition-all duration-300 hover:translate-y-[-1px] hover:bg-[#ffe39a] hover:shadow-[0_0_24px_rgba(249,210,116,0.45)]"
                 >
                   Log in
                 </Link>
@@ -86,10 +88,10 @@ const CustomMenu = () => {
     <div className="flex flex-shrink-0 self-center">
       <Menu as="div" className="relative inline-block text-left ">
         <div>
-          <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600">
+          <Menu.Button className="-m-2 flex items-center rounded-full border border-[#f9d274]/30 bg-[#0b1b2b]/70 p-2 text-gray-400 transition hover:border-[#f9d274]/75 hover:text-gray-600">
             <span className="sr-only">Open options</span>
             <EllipsisVerticalIcon
-              className="h-6 w-6 text-white"
+              className="h-6 w-6 text-[#f8e4ae]"
               aria-hidden="true"
             />
           </Menu.Button>
@@ -104,7 +106,7 @@ const CustomMenu = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
+          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md border border-[#f9d274]/25 bg-[#071321] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
@@ -187,13 +189,13 @@ const Wallet = () => {
     : 0;
 
   return (
-    <span className="inline-flex items-center gap-x-1.5 rounded-lg px-2 py-1 text-sm font-medium border bg-white">
+    <span className="inline-flex items-center gap-x-1.5 rounded-full border border-[#f9d274]/55 bg-[#081523]/90 px-3 py-1 text-sm font-medium shadow-[0_0_20px_rgba(249,210,116,0.14)]">
       <CircleStackIcon className="h-5 w-5 text-yellow-500" />
       <span
         className={`font-bold ${
           parseFloat(rewards?.totalPoints) < 0
             ? "text-red-500"
-            : "text-green-500"
+            : "text-[#8ce99a]"
         }`}
       >
         {totalPoints}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loader from "../../../../Components/Loader";
 import {
   useGetMatchBetsQuery,
@@ -8,13 +8,9 @@ import {
   useUpdateMatchBetsMutation,
 } from "../../../../app/Services/matchesApi";
 import AllQuestions from "../../../../Components/AllQuestions";
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-
 function MatchQuestions() {
-  const navigate = useNavigate();
   const { matchId } = useParams();
   const {
     data: questions,
@@ -40,7 +36,6 @@ function MatchQuestions() {
 
   const [formData, setFormData] = useState(bets ? bets?.bets : {});
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch();
   const highestCanBet = match?.match?.max_bet_amount;
 
   const onSubmit = async () => {
@@ -94,10 +89,18 @@ function MatchQuestions() {
   }
 
   return (
-    <>
-      {/* <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Match Questions:
-        </h1> */}
+    <section className="rounded-2xl border border-[#f8d06f]/20 bg-[linear-gradient(160deg,#071522_0%,#0b2338_60%,#091927_100%)] p-4 shadow-[0_14px_28px_rgba(0,0,0,0.25)] sm:p-5">
+      <div className="mb-4 rounded-xl border border-[#f8d06f]/15 bg-[#06111d]/80 px-4 py-3 text-left">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f8d06f]">
+          Match Questions
+        </p>
+        <p className="mt-1 text-sm text-[#cad4e4]">
+          Place your predictions carefully. Total bet limit:{" "}
+          <span className="font-bold text-[#f3db9e]">
+            {highestCanBet ?? "--"}
+          </span>
+        </p>
+      </div>
       <AllQuestions
         questions={questions}
         formData={formData}
@@ -107,7 +110,7 @@ function MatchQuestions() {
         setShow={setShow}
         totalBetAllowed={highestCanBet}
       />
-    </>
+    </section>
   );
 }
 
