@@ -24,10 +24,10 @@ function Index() {
         <div className="absolute -left-24 top-24 h-64 w-64 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(22,205,255,0.32)_0%,rgba(22,205,255,0)_70%)] blur-3xl" />
         <div className="absolute -right-20 bottom-16 h-72 w-72 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(248,208,111,0.34)_0%,rgba(248,208,111,0)_72%)] blur-3xl" />
         <div className="relative z-30 mx-auto w-full max-w-6xl px-6 py-16 sm:px-10 lg:px-12">
-          <p className="inline-flex items-center rounded-full border border-[#f8d06f]/60 bg-[#081726]/60 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#f8d06f]">
+          <p className="inline-flex animate-fade-in-up items-center rounded-full border border-[#f8d06f]/60 bg-[#081726]/60 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#f8d06f] opacity-0 [animation-delay:120ms]">
             Tolaram Premier League
           </p>
-          <div className="relative mt-6 h-36 w-full max-w-4xl overflow-visible rounded-2xl border border-[#8ec7ff]/25 bg-[#061322]/70 sm:h-40">
+          <div className="relative mt-6 h-36 w-full max-w-4xl animate-fade-in-up overflow-visible rounded-2xl border border-[#8ec7ff]/25 bg-[#061322]/70 opacity-0 [animation-delay:220ms] sm:h-40">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_55%,rgba(76,149,255,0.24)_0%,rgba(6,19,34,0)_52%),radial-gradient(circle_at_18%_82%,rgba(248,208,111,0.12)_0%,rgba(6,19,34,0)_58%)]" />
             <div className="absolute inset-0 [background-image:linear-gradient(rgba(165,207,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(165,207,255,0.06)_1px,transparent_1px)] [background-size:24px_24px]" />
             <div className="absolute left-[4%] top-[72%] h-[2px] w-[73%] rounded-full bg-[linear-gradient(90deg,rgba(248,208,111,0)_0%,rgba(248,208,111,0.52)_40%,rgba(248,208,111,0)_100%)]" />
@@ -90,16 +90,16 @@ function Index() {
               ))}
             </div>
           </div>
-          <h1 className="mt-6 max-w-4xl text-[clamp(2.5rem,7.5vw,6.5rem)] font-black uppercase leading-[0.95] tracking-[0.02em] text-[#fff5d6]">
+          <h1 className="mt-6 max-w-4xl animate-fade-in-up text-[clamp(2.5rem,7.5vw,6.5rem)] font-black uppercase leading-[0.95] tracking-[0.02em] text-[#fff5d6] opacity-0 [animation-delay:320ms]">
             Back Your Team
             <span className="block text-[#f8d06f]">Own The Roar</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#f8f1e2]/90 sm:text-lg">
+          <p className="mt-6 max-w-2xl animate-fade-in-up text-base leading-relaxed text-[#f8f1e2]/90 opacity-0 [animation-delay:460ms] sm:text-lg">
             Every over changes the story. Follow the tournament, track your
             favorite teams, and place your bets before the next clash ignites
             the stadium.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-10 flex animate-fade-in-up flex-wrap items-center gap-4 opacity-0 [animation-delay:600ms]">
             <Link
               to="/login"
               className="inline-flex items-center rounded-full bg-[#f8d06f] px-8 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#151104] transition-all duration-300 hover:translate-y-[-2px] hover:bg-[#ffe08b] hover:shadow-[0_0_40px_rgba(248,208,111,0.45)]"
@@ -113,7 +113,7 @@ function Index() {
               See Teams
             </a>
           </div>
-          <div className="mt-12 grid max-w-3xl gap-5 sm:grid-cols-3">
+          <div className="mt-12 grid max-w-3xl animate-fade-in-up gap-5 opacity-0 [animation-delay:740ms] sm:grid-cols-3">
             {[
               {
                 label: "Teams Battling",

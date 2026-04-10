@@ -18,6 +18,7 @@ export default {
         'fade-in-up': 'fadeInUp 1s ease-out forwards',
         'fade-slide-up': 'fadeSlideUp 0.5s ease-out forwards',
         'pulse': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'banner-marquee': 'bannerMarquee 20s linear infinite',
         'bowl-to-bat': 'bowlToBat 3.2s linear infinite',
         'loft-to-top': 'loftToTop 3.2s ease-out infinite',
         'delivery-to-screen': 'deliveryToScreen 3.2s cubic-bezier(0.15, 0.76, 0.2, 1) infinite',
@@ -33,6 +34,10 @@ export default {
         shimmer: {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
+        },
+        bannerMarquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
         fadeInUp: {
           '0%': { opacity: 0, transform: 'translateY(30px)' },
