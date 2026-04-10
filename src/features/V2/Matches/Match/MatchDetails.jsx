@@ -16,73 +16,75 @@ export default function MatchDetails({ matchId }) {
   }
 
   const match = data.match;
-  const formattedDate = `${new Date(match.match_time).toLocaleDateString('en-IN')} starts at: ${new Date(match.match_time).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+  const formattedDate = `${new Date(match.match_time).toLocaleDateString(
+    "en-IN"
+  )} starts at ${new Date(match.match_time).toLocaleTimeString("en-IN", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  })}`;
 
   return (
-    <div className="bg-gray-900 text-white p-4">
-      <h2 className="text-3xl font-bold text-green-400 mb-2">
+    <div className="rounded-2xl border border-[#f8d06f]/20 bg-[linear-gradient(160deg,#071522_0%,#0b2338_60%,#091927_100%)] p-5 text-white shadow-[0_18px_36px_rgba(0,0,0,0.3)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f8d06f]">
+        Match Details
+      </p>
+      <h2 className="mt-2 text-left text-2xl font-black uppercase tracking-[0.02em] text-[#fff2cf] sm:text-3xl">
         {match.match_title}
       </h2>
 
-      <div class="max-w-sm mx-auto rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <div class="p-2">
-          <div class="flex items-center space-x-4 justify-center">
-            <span class="text-md">⏰</span>
-            <div>
-              <p class="text-gray-300 text-md font-medium">{formattedDate}</p>
-            </div>
-          </div>
+      <div className="mt-4 max-w-xl rounded-xl border border-[#f8d06f]/20 bg-[#07111c]/80 px-4 py-3">
+        <div className="flex items-center justify-center space-x-3">
+          <span className="text-lg">⏰</span>
+          <p className="text-sm font-medium text-[#d7dfed] sm:text-base">
+            {formattedDate}
+          </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center mb-4 mt-6 max-w-4xl mx-auto">
-        {/* Team One Card */}
-        <div className="bg-gray-800 p-4 rounded-lg">
+
+      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="rounded-xl border border-[#f8d06f]/20 bg-[#07111c]/85 p-4">
           <div className="text-center">
             <img
               src={match.team_one_logo}
               alt={match.team_one_name}
-              className="w-24 h-24 mx-auto mb-2 object-contain bg-gray-700 p-2 rounded-lg"
+              className="mx-auto mb-2 h-24 w-24 rounded-lg bg-[#0d1f31] p-2 object-contain"
             />
-            <h3 className="text-lg font-medium text-white mb-3">
+            <h3 className="mb-3 text-lg font-semibold text-[#f6ead0]">
               {match.team_one_name}
             </h3>
             <button
               onClick={() => handleShowPlayers(match.team_one)}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md w-full flex items-center justify-center"
+              className="w-full rounded-lg border border-[#f8d06f]/30 bg-[#0d2942] px-4 py-2 text-sm font-semibold text-[#f3db9e] transition hover:border-[#f8d06f] hover:bg-[#143757]"
             >
-              <span className="mr-2">👥</span>
               Show Players
             </button>
           </div>
         </div>
 
-        {/* VS Divider */}
         <div className="flex items-center justify-center text-2xl font-bold text-white">
-          <img src="/vs.png" alt="VS" class="vs-image w-16" />
+          <img src="/vs.png" alt="VS" className="w-16 opacity-95" />
         </div>
 
-        {/* Team Two Card */}
-        <div className="bg-gray-800 p-4 rounded-lg">
+        <div className="rounded-xl border border-[#f8d06f]/20 bg-[#07111c]/85 p-4">
           <div className="text-center">
             <img
               src={match.team_two_logo}
               alt={match.team_two_name}
-              className="w-24 h-24 mx-auto mb-2 object-contain bg-gray-700 p-2 rounded-lg"
+              className="mx-auto mb-2 h-24 w-24 rounded-lg bg-[#0d1f31] p-2 object-contain"
             />
-            <h3 className="text-lg font-medium text-white mb-3">
+            <h3 className="mb-3 text-lg font-semibold text-[#f6ead0]">
               {match.team_two_name}
             </h3>
             <button
               onClick={() => handleShowPlayers(match.team_two)}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md w-full flex items-center justify-center"
+              className="w-full rounded-lg border border-[#f8d06f]/30 bg-[#0d2942] px-4 py-2 text-sm font-semibold text-[#f3db9e] transition hover:border-[#f8d06f] hover:bg-[#143757]"
             >
-              <span className="mr-2">👥</span>
               Show Players
             </button>
           </div>
         </div>
       </div>
-
     </div>
   );
 }

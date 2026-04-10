@@ -1,34 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./Header";
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
-
 export default function Layout(props) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  return (
+    <div className="relative min-h-screen bg-[#04090f]">
+      <div className="pointer-events-none absolute left-0 top-0 -z-0 h-[360px] w-[360px] animate-pulse rounded-full bg-[radial-gradient(circle,rgba(255,208,107,0.28)_0%,rgba(255,208,107,0.02)_72%)] blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-16 -z-0 h-[420px] w-[420px] animate-pulse rounded-full bg-[radial-gradient(circle,rgba(81,205,255,0.25)_0%,rgba(81,205,255,0.02)_72%)] blur-3xl" />
 
-    return (
-        <div className="">
-            <Header />
-            <main className="isolate">
-                {/* Hero section */}
-                {/* <div className="relative pt-14">
-                    <div
-                        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                        aria-hidden="true"
-                    >
-                        <div
-                            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                            style={{
-                                clipPath:
-                                    "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-                            }}
-                        />
-                    </div>
-                </div> */}
-                <div className="">{props.children}</div>
-            </main>
+      <div className="top-banner relative z-30 border-b border-[#f9d274]/25 bg-[linear-gradient(110deg,#0a1522_0%,#122c45_40%,#0f1f31_100%)]">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-hidden px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f9e4a8] sm:text-xs">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-[#ffca4f] shadow-[0_0_12px_rgba(255,202,79,0.9)]" />
+          <div className="whitespace-nowrap">
+            Live Tournament Action • Smart Bets • Real-Time Leaderboard • Back
+            Your Team • Feel The Pressure •
+          </div>
         </div>
-    );
+      </div>
+
+      <Header />
+      <main className="isolate relative z-10">{props.children}</main>
+    </div>
+  );
 }
