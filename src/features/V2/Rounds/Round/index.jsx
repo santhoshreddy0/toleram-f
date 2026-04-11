@@ -16,7 +16,7 @@ function Round() {
   ];
 
   return (
-    <div className="max-w-3xl text-base leading-7  rounded bg-gray-900 h-screen md:max-w-7xl w-screen mx-auto pb-24 px-6">
+    <div className="mx-auto w-full max-w-7xl rounded-2xl border border-[#f8d06f]/20 bg-[linear-gradient(160deg,#060f1a_0%,#0a1f33_55%,#071322_100%)] px-4 pb-24 text-base leading-7 shadow-[0_18px_36px_rgba(0,0,0,0.3)] sm:px-6">
       <BackButtonWithRules />
       <TabSwitcher tabs={tabs} />
     </div>

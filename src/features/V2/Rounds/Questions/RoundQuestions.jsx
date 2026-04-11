@@ -84,7 +84,18 @@ function RoundQuestions() {
   }
 
   return (
-    <>
+    <section className="rounded-2xl border border-[#f8d06f]/20 bg-[linear-gradient(160deg,#071522_0%,#0b2338_60%,#091927_100%)] p-4 shadow-[0_14px_28px_rgba(0,0,0,0.25)] sm:p-5">
+      <div className="mb-4 rounded-xl border border-[#f8d06f]/15 bg-[#06111d]/80 px-4 py-3 text-left">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f8d06f]">
+          Round Questions
+        </p>
+        <p className="mt-1 text-sm text-[#cad4e4]">
+          Place your predictions carefully. Total bet limit:{" "}
+          <span className="font-bold text-[#f3db9e]">
+            {round?.round?.max_bet_amount ?? "--"}
+          </span>
+        </p>
+      </div>
       <AllQuestions
         questions={questions}
         formData={formData}
@@ -94,7 +105,7 @@ function RoundQuestions() {
         setShow={setShow}
         totalBetAllowed={round?.round?.max_bet_amount}
       />
-    </>
+    </section>
   );
 }
 

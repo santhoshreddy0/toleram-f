@@ -5,20 +5,20 @@ import { CheckCircleIcon } from "@heroicons/react/16/solid";
 
 const QuestionWithOptions = ({ id, question, options, onChange, formData }) => {
   return (
-    <div className="w-full px-2 border-b-2">
-      <div className="mx-auto w-full max-w-md rounded-2xl  p-2">
+    <div className="w-full border-b border-[#f8d06f]/15 px-1 py-1.5">
+      <div className="mx-auto w-full max-w-4xl rounded-2xl border border-[#f8d06f]/15 bg-[#071321]/85 p-2 shadow-[0_8px_20px_rgba(0,0,0,0.2)]">
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg  px-4 py-2 text-left text-sm font-medium   focus:outline-none focus-visible:ring ">
-                <span className="text-left text-lg">{question}</span>
+              <Disclosure.Button className="flex w-full justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#f4e8ca] transition-colors duration-200 hover:bg-[#0d2338]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f8d06f]/50">
+                <span className="text-left text-base sm:text-lg">{question}</span>
                 <ChevronUpIcon
                   className={`${
                     open ? "rotate-180 transform" : ""
-                  } h-5 w-5 text-green-500`}
+                  } h-5 w-5 text-[#f8d06f]`}
                 />
               </Disclosure.Button>
-              <Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+              <Disclosure.Panel className="px-3 pb-3 pt-3 text-sm text-gray-500">
                 <Options
                   questionId={id}
                   options={options}
@@ -38,8 +38,8 @@ const Options = ({ options, onChange, questionId, formData }) => {
   const selected = options.find((o) => o.id == formData?.[questionId]?.option);
 
   return (
-    <div className="w-full px-4">
-      <div className="mx-auto w-full max-w-md">
+    <div className="w-full px-2">
+      <div className="mx-auto w-full max-w-4xl">
         <RadioGroup
           value={selected}
           onChange={(i) => {
@@ -59,15 +59,15 @@ const Options = ({ options, onChange, questionId, formData }) => {
                 className={({ active, checked }) =>
                   `${
                     active
-                      ? "ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300"
+                      ? "ring-2 ring-[#f8d06f]/50 ring-offset-1 ring-offset-[#071321]"
                       : ""
                   }
                   ${
                     selected?.id == option?.id
-                      ? "bg-green-600/75 text-white"
-                      : "bg-gray-600 "
+                      ? "border border-[#f8d06f]/55 bg-[linear-gradient(120deg,rgba(248,208,111,0.3)_0%,rgba(227,170,57,0.2)_65%,rgba(81,205,255,0.18)_100%)] text-white"
+                      : "border border-[#f8d06f]/12 bg-[#0a1a2a] text-[#dce5f3] hover:border-[#f8d06f]/28 hover:bg-[#10253a]"
                   }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                    relative flex cursor-pointer rounded-xl px-5 py-4 shadow-md transition-all duration-200 focus:outline-none`
                 }
               >
                 {({ active, checked }) => (
@@ -79,17 +79,19 @@ const Options = ({ options, onChange, questionId, formData }) => {
                             as="p"
                             className={`font-medium text-lg ${
                               selected?.id == option?.id
-                                ? "text-white"
-                                : "text-green-600"
+                                ? "text-[#fff5d8]"
+                                : "text-[#d8e4f7]"
                             }`}
                           >
                             {option.option} <br />
-                            <span className="">odd - {" "}{option.odds}</span>
+                            <span className="text-sm text-[#f8d88a]">
+                              odd - {option.odds}
+                            </span>
                           </RadioGroup.Label>
                         </div>
                       </div>
                       {selected?.id == option?.id && (
-                        <div className="shrink-0 text-white">
+                        <div className="shrink-0 text-[#fff3d1]">
                           <CheckCircleIcon className="h-6 w-6 " />
                         </div>
                       )}

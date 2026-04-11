@@ -137,9 +137,9 @@ export default function CreateNewQuestionPopup({
   };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative">
+    <Dialog open={open} onClose={setOpen} className="relative z-[60]">
       <DialogBackdrop className="fixed inset-0 bg-gray-500/50" />
-      <div className="fixed inset-0 z-11 w-screen overflow-y-auto">
+      <div className="fixed inset-0 z-[60] w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel className="relative bg-gray-900 rounded-lg p-4 sm:p-6 w-full max-w-md mx-2">
             <DialogTitle className="text-lg sm:text-xl font-semibold text-gray-100 mb-4">
