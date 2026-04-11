@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { useGetMatchesQuery } from "../../../app/Services/matchesApi";
 import Loader from "../../../Components/Loader";
 import MenuTabs from "../../Layout/MenuTabs";
-import { FireIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowTrendingUpIcon,
+  FireIcon,
+  LockClosedIcon,
+} from "@heroicons/react/20/solid";
 import moment from "moment";
 import AddPopup from "../../../Components/PopUp/AddPopup";
 
@@ -31,16 +35,19 @@ function Matches() {
 
   const MatchCard = ({ match, isOpen }) => {
     const cardContent = (
-      <div className="group relative overflow-hidden rounded-2xl border border-[#f8d06f]/20 bg-[linear-gradient(150deg,#071521_0%,#0b2236_55%,#081826_100%)] shadow-[0_18px_36px_rgba(0,0,0,0.34)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f8d06f]/40 hover:shadow-[0_22px_42px_rgba(0,0,0,0.45)]">
+      <div className="group relative overflow-hidden rounded-3xl border border-[#f8d06f]/25 bg-[linear-gradient(145deg,#06101a_0%,#0b2135_52%,#08192b_100%)] shadow-[0_22px_44px_rgba(0,0,0,0.38)] transition-all duration-300 hover:-translate-y-1 hover:border-[#f8d06f]/55 hover:shadow-[0_26px_52px_rgba(0,0,0,0.5)]">
         <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(248,208,111,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(248,208,111,0.05)_1px,transparent_1px)] [background-size:30px_30px]" />
+        <div className="pointer-events-none absolute -left-16 top-10 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(248,208,111,0.2)_0%,rgba(248,208,111,0)_72%)] blur-2xl" />
+        <div className="pointer-events-none absolute -right-14 bottom-8 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(81,205,255,0.2)_0%,rgba(81,205,255,0)_72%)] blur-2xl" />
 
         {isOpen ? (
-          <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-300">
+          <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-emerald-400/45 bg-emerald-500/12 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-300">
             <FireIcon className="h-3.5 w-3.5 animate-pulse" />
             Live
           </div>
         ) : (
-          <div className="absolute right-3 top-3 inline-flex rounded-full border border-zinc-400/40 bg-zinc-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-zinc-300">
+          <div className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-zinc-400/45 bg-zinc-500/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-zinc-300">
+            <LockClosedIcon className="h-3.5 w-3.5" />
             Closed
           </div>
         )}
@@ -50,10 +57,10 @@ function Matches() {
             {match.match_title}
           </h3>
 
-          <div className="mt-5 grid grid-cols-3 items-center gap-2 rounded-xl border border-[#f8d06f]/15 bg-[#06111d]/75 px-3 py-4">
+          <div className="mt-5 grid grid-cols-3 items-center gap-2 rounded-2xl border border-[#f8d06f]/20 bg-[#06111d]/80 px-3 py-4">
             <div className="flex flex-col items-center">
               <img
-                className="h-20 w-16 rounded-lg object-contain"
+                className="h-20 w-16 rounded-lg object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.55)]"
                 src={match.team_one_logo}
                 alt={match.team_one_name}
               />
@@ -63,15 +70,15 @@ function Matches() {
             </div>
 
             <div className="flex flex-col items-center justify-center">
-              <img src="/vs.png" alt="VS" className="w-12 opacity-95" />
-              <p className="mt-2 text-center text-xs font-semibold text-[#5ed3b0]">
+              <img src="/vs.png" alt="VS" className="w-12 opacity-95 drop-shadow-[0_0_10px_rgba(248,208,111,0.24)]" />
+              <p className="mt-2 text-center text-xs font-semibold text-[#7adfbf]">
                 {formatDateTime(match.match_time)}
               </p>
             </div>
 
             <div className="flex flex-col items-center">
               <img
-                className="h-20 w-16 rounded-lg object-contain"
+                className="h-20 w-16 rounded-lg object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.55)]"
                 src={match.team_two_logo}
                 alt={match.team_two_name}
               />
@@ -83,13 +90,20 @@ function Matches() {
         </div>
 
         <div
-          className={`relative w-full rounded-b-2xl px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] ${
+          className={`relative flex w-full items-center justify-center gap-2 rounded-b-3xl px-4 py-3 text-center text-sm font-black uppercase tracking-[0.14em] transition-all duration-300 ${
             isOpen
-              ? "bg-gradient-to-r from-[#f8d06f] to-[#e2ad45] text-[#221601]"
+              ? "bg-gradient-to-r from-[#f8d06f] via-[#efbb58] to-[#e2ad45] text-[#221601] group-hover:brightness-105"
               : "bg-zinc-700/80 text-zinc-200"
           }`}
         >
-          {isOpen ? "Bet Now" : "Betting Closed"}
+          {isOpen ? (
+            <>
+              <span>Enter Match</span>
+              <ArrowTrendingUpIcon className="h-4 w-4" />
+            </>
+          ) : (
+            "Betting Closed"
+          )}
         </div>
       </div>
     );
@@ -105,6 +119,18 @@ function Matches() {
     <>
       <MenuTabs>
         <section className="mx-auto w-full max-w-7xl px-4 pb-24 pt-5 sm:px-6">
+          <div className="rounded-2xl border border-[#f8d06f]/18 bg-[linear-gradient(120deg,rgba(8,20,34,0.9)_0%,rgba(9,27,43,0.82)_55%,rgba(6,16,28,0.92)_100%)] px-5 py-4 text-left shadow-[0_16px_34px_rgba(0,0,0,0.28)]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f8d06f]">
+              Match Center
+            </p>
+            <h1 className="mt-1 text-2xl font-black uppercase tracking-[0.02em] text-[#fff1cf]">
+              Pick Your Battle
+            </h1>
+            <p className="mt-1 text-sm text-[#cad6e7]">
+              Enter live fixtures to place predictions with momentum on your
+              side.
+            </p>
+          </div>
 
           {filteredMatches?.length == 0 ? (
             <div className="mt-8 rounded-2xl border border-[#f8d06f]/20 bg-[#071523]/80 p-10 text-center">

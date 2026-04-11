@@ -32,22 +32,22 @@ function Header() {
       <header className="sticky inset-x-0 top-0 z-20 w-full border-b border-[#f9d274]/20 bg-[linear-gradient(110deg,rgba(9,22,36,0.92),rgba(9,18,30,0.8))] text-white shadow-[0_15px_40px_rgba(0,0,0,0.35)] backdrop-blur-lg">
         <div className="max-w-7xl mx-auto">
           <nav
-            className="flex items-center justify-between p-4 lg:px-8"
+            className="flex items-center justify-between px-3 py-2.5 sm:p-4 lg:px-8"
             aria-label="Global"
           >
             <div className="flex lg:flex-1 flex-row">
               <Link to="/" className="-m-1.5 p-1.5 flex">
                 <span className="sr-only">Your Company</span>
                 <img
-                  className="h-14 w-auto rounded border border-[#f9d274]/60 bg-white/95 shadow-[0_0_20px_rgba(249,210,116,0.24)]"
+                  className="h-10 w-auto rounded border border-[#f9d274]/60 bg-white/95 shadow-[0_0_20px_rgba(249,210,116,0.24)] sm:h-14"
                   src="/TplLogo.png"
                   alt=""
                 />
                 <div className="ml-3 text-left text-white">
-                  <p className="text-2xl font-black tracking-[0.06em]">
+                  <p className="text-lg font-black tracking-[0.04em] sm:text-2xl sm:tracking-[0.06em]">
                     TOLARAM
                   </p>
-                  <p className="text-xs uppercase tracking-[0.24em] text-[#f5dea0]">
+                  <p className="hidden text-xs uppercase tracking-[0.24em] text-[#f5dea0] sm:block">
                     Premier League
                   </p>
                 </div>
@@ -55,14 +55,14 @@ function Header() {
             </div>
             <div className="lg:flex lg:flex-1 lg:justify-end text-white">
               {token ? (
-                <div className="flex gap-1">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Wallet />
                   <CustomMenu />
                 </div>
               ) : (
                 <Link
                   to="/login"
-                  className="rounded-full border border-[#f9d274]/65 bg-[#f9d274] px-7 py-2 text-sm font-bold uppercase tracking-[0.15em] leading-6 text-[#1a1304] transition-all duration-300 hover:translate-y-[-1px] hover:bg-[#ffe39a] hover:shadow-[0_0_24px_rgba(249,210,116,0.45)]"
+                  className="rounded-full border border-[#f9d274]/65 bg-[#f9d274] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] leading-5 text-[#1a1304] transition-all duration-300 hover:translate-y-[-1px] hover:bg-[#ffe39a] hover:shadow-[0_0_24px_rgba(249,210,116,0.45)] sm:px-7 sm:text-sm sm:tracking-[0.15em] sm:leading-6"
                 >
                   Log in
                 </Link>
@@ -91,7 +91,7 @@ const CustomMenu = () => {
           <Menu.Button className="-m-2 flex items-center rounded-full border border-[#f9d274]/30 bg-[#0b1b2b]/70 p-2 text-gray-400 transition hover:border-[#f9d274]/75 hover:text-gray-600">
             <span className="sr-only">Open options</span>
             <EllipsisVerticalIcon
-              className="h-6 w-6 text-[#f8e4ae]"
+              className="h-5 w-5 text-[#f8e4ae] sm:h-6 sm:w-6"
               aria-hidden="true"
             />
           </Menu.Button>
@@ -189,8 +189,8 @@ const Wallet = () => {
     : 0;
 
   return (
-    <span className="inline-flex items-center gap-x-1.5 rounded-full border border-[#f9d274]/55 bg-[#081523]/90 px-3 py-1 text-sm font-medium shadow-[0_0_20px_rgba(249,210,116,0.14)]">
-      <CircleStackIcon className="h-5 w-5 text-yellow-500" />
+    <span className="inline-flex items-center gap-x-1.5 rounded-full border border-[#f9d274]/55 bg-[#081523]/90 px-2.5 py-1 text-xs font-medium shadow-[0_0_20px_rgba(249,210,116,0.14)] sm:px-3 sm:text-sm">
+      <CircleStackIcon className="h-4 w-4 text-yellow-500 sm:h-5 sm:w-5" />
       <span
         className={`font-bold ${
           parseFloat(rewards?.totalPoints) < 0

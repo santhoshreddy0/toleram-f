@@ -21,7 +21,7 @@ function App() {
   return (
     <Layout>
       <ToastContainer
-        position="bottom-right"
+        position="top-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -31,8 +31,11 @@ function App() {
         draggable
         pauseOnHover
         theme="dark"
-        transition:Bounce
-        style={{ zIndex: 9999 }}
+        style={{ zIndex: 12000 }}
+        className="tpl-toast-container"
+        toastClassName="tpl-toast"
+        bodyClassName="tpl-toast-body"
+        progressClassName="tpl-toast-progress"
       />
       {!!store_token || !!storage_token ? (
         <Protected>

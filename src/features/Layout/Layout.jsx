@@ -8,7 +8,7 @@ export default function Layout(props) {
       <div className="pointer-events-none absolute right-0 top-16 -z-0 h-[420px] w-[420px] animate-pulse rounded-full bg-[radial-gradient(circle,rgba(81,205,255,0.25)_0%,rgba(81,205,255,0.02)_72%)] blur-3xl" />
 
       <div className="top-banner relative z-30 border-b border-[#f9d274]/25 bg-[linear-gradient(110deg,#0a1522_0%,#122c45_40%,#0f1f31_100%)]">
-        <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-hidden px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f9e4a8] sm:text-xs">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-hidden px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#f9e4a8] sm:gap-3 sm:px-4 sm:text-xs sm:tracking-[0.2em]">
           <span className="h-2 w-2 shrink-0 rounded-full bg-[#ffca4f] shadow-[0_0_12px_rgba(255,202,79,0.9)]" />
           <div className="min-w-0 overflow-hidden">
             <div className="inline-flex min-w-max animate-banner-marquee whitespace-nowrap">
