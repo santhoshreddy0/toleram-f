@@ -20,7 +20,7 @@ import {
 import { format, formatFixed } from "indian-number-format";
 import numeral from "numeral";
 import { baseApi } from "../../app/Services/baseApi";
-import { isAdmin } from "../../Utils/Helpers";
+import { isAdmin, isManager } from "../../Utils/Helpers";
 import AdminBanner from "../../Components/Banner/AdminBanner";
 
 function Header() {
@@ -127,14 +127,14 @@ const CustomMenu = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <Link
-                      to={"/admin/dashboard"}
+                      to={isManager(token) ? "/admin/teams" : "/admin/dashboard"}
                       className={classNames(
                         active ? "bg-gray-800 text-gray-100" : "text-gray-200",
                         "flex px-4 py-2 text-sm"
                       )}
                     >
                       <UserIcon className="mr-3 h-5 w-5 text-gray-400" />
-                      <span>Admin</span>
+                      <span>{isManager(token) ? "Manager" : "Admin"}</span>
                     </Link>
                   )}
                 </Menu.Item>

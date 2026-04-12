@@ -21,7 +21,7 @@ export default function CreateNewMatch({ open, setOpen, matchId }) {
     data: match,
     isLoading: matchLoading,
     isError: matchError,
-  } = useGetMatchQuery(matchId);
+  } = useGetMatchQuery(matchId, { skip: !matchId });
   const [createMatch, { isLoading }] = useAddMatchMutation();
   const [updateMatchDetails, { isLoading: isUpdateMatchLoading }] =
     useUpdateMatchDetailsMutation();

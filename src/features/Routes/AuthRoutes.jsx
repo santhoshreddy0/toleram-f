@@ -30,6 +30,7 @@ import Discussions from "../Discussions";
 import Super12 from "../../Components/Admin/Super12";
 import TeamPlayers from "../Teams/Index";
 import ClearLeaderboard from "../../Components/Admin/Hidden";
+import AdminOnlyRoute from "./AdminOnlyRoute";
 
 
 function AuthRoutes() {
@@ -66,14 +67,14 @@ function AuthRoutes() {
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
         <Route path="tournament" Component={Tournamet} />
         <Route path="match/:matchId/score" Component={ScoreDashboard} />
-        <Route path="user" Component={User} />
-        <Route path="super12" Component={Super12} />
-        <Route path="clear" Component={ClearLeaderboard} />
+        <Route path="user" element={<AdminOnlyRoute><User /></AdminOnlyRoute>} />
+        <Route path="super12" element={<AdminOnlyRoute><Super12 /></AdminOnlyRoute>} />
+        <Route path="clear" element={<AdminOnlyRoute><ClearLeaderboard /></AdminOnlyRoute>} />
         <Route
           path="tournament/rounds/:roundId"
           Component={AdminRoundDetails}
         />
-        <Route path="dashboard" Component={AdminDashboard} />
+        <Route path="dashboard" element={<AdminOnlyRoute><AdminDashboard /></AdminOnlyRoute>} />
       </Route>
 
       <Route path="/players" Component={Players} />

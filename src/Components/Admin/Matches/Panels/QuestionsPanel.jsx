@@ -7,8 +7,13 @@ import { useUpdateCorrectAnswerMutation, useUpdateQuestionMutation } from "../..
 
 
 
+import { useSelector } from "react-redux";
+import { isManager } from "../../../../Utils/Helpers";
+
 export default function QuestionsPanel({ match, questions, setOpen, setQuestion, editingQuestionId, setEditingQuestionId }) {
    const {matchId} = useParams();
+   const token = useSelector((state) => state.auth.JWTtoken);
+   const managerRole = isManager(token);
     const [updateCorrectAnswer, { isLoading: isUpdating }] = useUpdateCorrectAnswerMutation();
     const [updateQuestion, { isLoading: isUpdateQuestionLoading }] =
     useUpdateQuestionMutation();
@@ -65,7 +70,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                             Questions
                         </p>
                     </div>
-                    <div className="flex flex-none items-center gap-x-5">
+                    {!managerRole && <div className="flex flex-none items-center gap-x-5">
                         <button
                             type="button"
                             onClick={() => { setOpen(true); setQuestion("") }}
@@ -73,7 +78,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                         >
                             Create question
                         </button>
-                    </div>
+                    </div>}
                 </div>
             </div>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -102,13 +107,13 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                                                     </svg>
                                                     <h3 className="mt-4 text-xl font-semibold text-gray-100">No questions yet</h3>
                                                     <p className="mt-2 text-gray-400">Get started by creating your first question.</p>
-                                                    <button
+                                                    {!managerRole && <button
                                                         type="button"
                                                         onClick={() => { setOpen(true); setQuestion("") }}
                                                         className="mt-6 rounded-md bg-green-600 px-4 py-2.5 text-sm font-semibold text-white shadow hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                                                     >
                                                         Create Question
-                                                    </button>
+                                                    </button>}
                                                 </div>
                                             ) : (
                                                 questions?.questions.map((faq) => (
@@ -201,7 +206,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                                                                             </div>
                                                                         ))}
                                                                     </div>
-                                                                    <div className="flex gap-x-4 mt-4">
+                                                                    {!managerRole && <div className="flex gap-x-4 mt-4">
                                                                         <button
                                                                             type="button"
                                                                             onClick={(e) => {
@@ -255,7 +260,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                                                                                 )}
                                                                             </button>
                                                                         )}
-                                                                    </div>
+                                                                    </div>}
                                                                 </Disclosure.Panel>
                                                             </>
                                                         )}

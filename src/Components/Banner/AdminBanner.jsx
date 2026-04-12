@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { isManager } from "../../Utils/Helpers";
 
 export default function AdminBanner() {
+  const token = useSelector((state) => state.auth.JWTtoken);
+  const managerRole = isManager(token);
+  const label = managerRole ? "Manager Zone" : "Admin Zone - Handle with Care";
+  const leaveText = managerRole ? "Leave Manager Space" : "Leave Admin Space";
+
   return (
     <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-900 px-6 py-2.5 sm:px-3.5 sm:before:flex-1 sm:mt-0 z-10">
       <div
@@ -31,14 +38,14 @@ export default function AdminBanner() {
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <p className="text-sm/6 text-white">
           <strong className="font-semibold">
-            ⚠️ Admin Zone - Handle with Care
+            {label}
           </strong>
         </p>
         <Link
           to={"/matches"}
           className="flex-none rounded-full bg-green-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900"
         >
-          Leave Admin Space<span aria-hidden="true">&rarr;</span>
+          {leaveText}<span aria-hidden="true">&rarr;</span>
         </Link>
       </div>
       <div className="flex flex-1 justify-end"></div>
