@@ -30,7 +30,6 @@ const nav = [
     name: "Dashboard",
     href: "/admin/dashboard",
     icon: HomeIcon,
-    adminOnly: true,
   },
   {
     name: "Teams",
@@ -51,7 +50,6 @@ const nav = [
     name: "User",
     href: "/admin/user",
     icon: UserIcon,
-    adminOnly: true,
   },
   {
     name: "Super12",

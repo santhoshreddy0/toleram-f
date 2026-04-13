@@ -67,14 +67,14 @@ function AuthRoutes() {
         <Route path="matches/:matchId" Component={AdminMatchDetails} />
         <Route path="tournament" Component={Tournamet} />
         <Route path="match/:matchId/score" Component={ScoreDashboard} />
-        <Route path="user" element={<AdminOnlyRoute><User /></AdminOnlyRoute>} />
+        <Route path="user" Component={User} />
         <Route path="super12" element={<AdminOnlyRoute><Super12 /></AdminOnlyRoute>} />
         <Route path="clear" element={<AdminOnlyRoute><ClearLeaderboard /></AdminOnlyRoute>} />
         <Route
           path="tournament/rounds/:roundId"
           Component={AdminRoundDetails}
         />
-        <Route path="dashboard" element={<AdminOnlyRoute><AdminDashboard /></AdminOnlyRoute>} />
+        <Route path="dashboard" Component={AdminDashboard} />
       </Route>
 
       <Route path="/players" Component={Players} />

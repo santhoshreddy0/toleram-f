@@ -7,97 +7,108 @@ const CaptainViceCaptainSelection = ({
   viceCaptain,
   selectCaptain,
   selectViceCaptain,
-  getRoleColorClass,
 }) => {
+  const captainName =
+    selectedPlayers.find((p) => p.id === captain)?.name || "Not selected";
+  const vcName =
+    selectedPlayers.find((p) => p.id === viceCaptain)?.name || "Not selected";
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-shrink-0">
-        <div className="bg-green-600 text-white text-sm font-medium shadow-sm hover:bg-green-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 p-2 rounded-lg mb-4">
-          <h2 className="text-md font-bold text-white mb-2">
-            Choose Captain & Vice Captain
+    <div className="max-w-3xl mx-auto">
+      {/* Summary banner */}
+      <div className="bg-[linear-gradient(110deg,#0a1522_0%,#122c45_60%,#0f1f31_100%)] rounded-xl p-4 mb-4 shadow-lg border border-[#f9d274]/25">
+        <div className="text-center mb-3">
+          <h2 className="text-[#f9d274] font-bold text-base">
+            Choose Captain & Vice-Captain
           </h2>
-          <p className="text-white text-sm mb-2">
-            C: 2x points & VC: 1.5x points
+          <p className="text-gray-300 text-[11px] mt-0.5">
+            Captain <b className="text-[#f9d274]">2×</b> points · Vice-Captain{" "}
+            <b className="text-[#f9d274]">1.5×</b> points
           </p>
-          <div className="bg-gray-900 bg-opacity-20 p-2 rounded-lg">
-            <div className="flex justify-between text-xs text-white">
-              <span>
-                Captain:{" "}
-                {captain
-                  ? selectedPlayers.find((p) => p.id === captain)?.name
-                  : "Not Selected"}
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex-1 bg-black/30 rounded-lg px-3 py-2 border border-orange-500/30 min-w-0">
+            <div className="text-[10px] uppercase tracking-wider text-orange-300 flex items-center gap-1">
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-orange-500 text-white text-[9px] font-bold">
+                C
               </span>
-              <span>
-                Vice Captain:{" "}
-                {viceCaptain
-                  ? selectedPlayers.find((p) => p.id === viceCaptain)?.name
-                  : "Not Selected"}
+              Captain
+            </div>
+            <div className="text-white text-sm font-semibold truncate mt-0.5">
+              {captainName}
+            </div>
+          </div>
+          <div className="flex-1 bg-black/30 rounded-lg px-3 py-2 border border-yellow-400/30 min-w-0">
+            <div className="text-[10px] uppercase tracking-wider text-yellow-300 flex items-center gap-1">
+              <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-yellow-400 text-gray-900 text-[9px] font-bold">
+                V
               </span>
+              Vice-Captain
+            </div>
+            <div className="text-white text-sm font-semibold truncate mt-0.5">
+              {vcName}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex-grow overflow-y-auto h-96">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-          {selectedPlayers.map((player) => {
-            const roleColor = getRoleColorClass(player.player_role);
-            const isCaptain = captain === player.id;
-            const isViceCaptain = viceCaptain === player.id;
-
-            return (
-              <div
-                key={player.id}
-                className="border border-green-600 rounded-lg overflow-hidden"
-              >
-                <div className="flex items-center p-3 bg-gray-800">
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-3 relative">
-                    <img
-                      src={player.player_logo || PLAYER_IMAGE}
-                      alt={player.name}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium text-xs text-left text-gray-100 ">
-                      {player.name}
-                    </h3>
-                    <div className="flex items-start text-xs mt-1">
-                      <span
-                        className={`${roleColor} text-white text-left px-2 pl-0 py-0.5 rounded-full mr-2`}
-                      >
-                        {player.player_role}
-                      </span>
-                      <span className="text-gray-300">{player.team_name}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => selectCaptain(player.id)}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center border text-sm ${
-                        isCaptain
-                          ? "bg-orange-600 text-white font-bold border-orange-600"
-                          : "border-gray-300 text-gray-100 hover:bg-gray-100 hover:text-gray-900"
-                      }`}
-                    >
-                      <span className="font-bold">C</span>
-                    </button>
-                    <button
-                      onClick={() => selectViceCaptain(player.id)}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center border text-sm ${
-                        isViceCaptain
-                          ? "bg-yellow-500 text-white font-bold border-yellow-500"
-                          : "border-gray-300 text-gray-100 hover:bg-gray-100 hover:text-gray-900"
-                      }`}
-                    >
-                      <span className="font-bold">VC</span>
-                    </button>
-                  </div>
+      {/* Player rows (flat list, matches selection page style) */}
+      <div className="space-y-2">
+        {selectedPlayers.map((player) => {
+          const isCaptain = captain === player.id;
+          const isVC = viceCaptain === player.id;
+          return (
+            <div
+              key={player.id}
+              className={`rounded-lg p-3 flex items-center gap-3 transition ${
+                isCaptain
+                  ? "bg-orange-500/10"
+                  : isVC
+                  ? "bg-yellow-500/10"
+                  : "bg-[#0b1b2b]"
+              }`}
+            >
+              <img
+                src={player.player_logo || PLAYER_IMAGE}
+                alt={player.name}
+                style={{ width: 44, height: 44 }}
+                className="rounded-full object-cover bg-[#04090f] flex-shrink-0"
+              />
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-semibold text-gray-100 truncate">
+                  {player.name}
+                </div>
+                <div className="text-[11px] text-gray-400 truncate">
+                  {player.team_name} · {player.player_role}
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <div className="flex gap-1.5 flex-shrink-0">
+                <button
+                  type="button"
+                  onClick={() => selectCaptain(player.id)}
+                  className={`h-9 w-9 rounded-full text-xs font-bold transition ${
+                    isCaptain
+                      ? "bg-orange-500 text-white shadow-[0_0_14px_rgba(249,115,22,0.5)]"
+                      : "bg-[#04090f] text-gray-300 hover:bg-[#122c45]"
+                  }`}
+                >
+                  C
+                </button>
+                <button
+                  type="button"
+                  onClick={() => selectViceCaptain(player.id)}
+                  className={`h-9 w-9 rounded-full text-xs font-bold transition ${
+                    isVC
+                      ? "bg-yellow-400 text-gray-900 shadow-[0_0_14px_rgba(250,204,21,0.5)]"
+                      : "bg-[#04090f] text-gray-300 hover:bg-[#122c45]"
+                  }`}
+                >
+                  VC
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

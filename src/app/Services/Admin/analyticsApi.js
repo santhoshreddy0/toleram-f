@@ -14,6 +14,13 @@ const analyticsApi = baseApi.injectEndpoints({
     getTournamenBetAnalytics: builder.query({
       query: (tournamentId) => `/admin/analytics/bets`,
     }),
+    getBetActivityLogs: builder.query({
+      query: ({ type, userId, refId }) => {
+        const params = new URLSearchParams({ type, user_id: userId });
+        if (refId != null) params.append("ref_id", refId);
+        return `/admin/analytics/bet-activity-logs?${params.toString()}`;
+      },
+    }),
     clearLeaderboard: builder.mutation({
       query: () => ({
           url: `/admin/analytics/bets/dream11/leaderboard`,
@@ -30,5 +37,6 @@ export const {
   useGetMatchBetAnalyticsQuery,
   useGetRoundBetAnalyticsQuery,
   useGetTournamenBetAnalyticsQuery,
+  useGetBetActivityLogsQuery,
   useClearLeaderboardMutation,
 } = analyticsApi;

@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useGetPlayersQuery } from "../../../app/Services/playersApi";
 import Loader from "../../../Components/Loader";
 import PlayerSelection from "./PlayersSelection";
 import CaptainViceCaptainSelection from "./CaptainViceCaptainSelection";
 import TeamPreview from "./TeamPreview";
-import NavigationBar from "./NavigationBar";
+import TopBar from "./NavigationBar";
 import {
   DEFAULT_MAX_PLAYERS,
   DEFAULT_TOTAL_CREDITS,
   DEFAULT_ROLE_LIMITS,
   DEFAULT_GENDER_LIMITS,
 } from "../../../constants/teamLimits";
-import Dream11Header from "./Dream11Header";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+
+const SUPER12_TOAST_ID = "super12-toast";
 import TeamNameInput from "./TeamNameSelector";
 
 const Dream11TeamSelector = ({
@@ -49,6 +51,15 @@ const Dream11TeamSelector = ({
     error: errorMesssage,
   } = useGetPlayersQuery();
 
+  // Lock body scroll while the selector is mounted
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
   useEffect(() => {
     if (isError) {
       setError(errorMesssage);
@@ -62,15 +73,13 @@ const Dream11TeamSelector = ({
         setSelectedPlayers(selectedPlayersData);
 
         setCaptain(
-          players.find((player) => player.player_role === "captain")
-            ?.player_id || null
+          players.find((p) => p.player_role === "captain")?.player_id || null
         );
         setViceCaptain(
-          players.find((player) => player.player_role === "vice-captain")
-            ?.player_id || null
+          players.find((p) => p.player_role === "vice-captain")?.player_id ||
+            null
         );
       }
-    } else {
     }
   }, [playersLoading, isError, playerData, error]);
 
@@ -85,40 +94,33 @@ const Dream11TeamSelector = ({
   const isGenderFull = (gender) =>
     countByGender(gender) >= genderLimits[gender]?.max;
 
-  const getFilteredPlayers = () => {
-    return allPlayers.filter((player) => {
+  const getFilteredPlayers = () =>
+    allPlayers.filter((player) => {
       const roleMatches = filter === "All" || player.player_role === filter;
-
       const teamMatches =
         teamFilter === "All Teams" || player.team_name === teamFilter;
-
       const genderMatches =
         genderFilter === "All" || player.gender === genderFilter;
-
       const searchMatches = player.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
-
       return roleMatches && teamMatches && genderMatches && searchMatches;
     });
-  };
 
   const filteredPlayers = getFilteredPlayers();
-
   const isPlayerSelected = (playerId) =>
     selectedPlayers.some((player) => player.id === playerId);
 
-  const usedCredits = selectedPlayers.reduce((sum, player) => {
-    const credit = player?.credits ?? 0;
-    return sum + credit;
-  }, 0);
+  const usedCredits = selectedPlayers.reduce(
+    (sum, p) => sum + (p?.credits ?? 0),
+    0
+  );
 
   const isTeamValid = () => {
     const rolesValid = Object.entries(roleLimits).every(([role, limits]) => {
       const count = countByRole(role);
       return count >= limits.min && count <= limits.max;
     });
-
     const gendersValid = Object.entries(genderLimits).every(
       ([gender, limits]) => {
         const count = countByGender(gender);
@@ -126,7 +128,6 @@ const Dream11TeamSelector = ({
       }
     );
     const creditsValid = usedCredits <= totalCredits;
-
     return (
       rolesValid &&
       gendersValid &&
@@ -136,7 +137,7 @@ const Dream11TeamSelector = ({
   };
 
   const getUniqueTeams = () => {
-    const teams = allPlayers.map((player) => player.team_name);
+    const teams = allPlayers.map((p) => p.team_name);
     return ["All Teams", ...new Set(teams)];
   };
 
@@ -152,71 +153,52 @@ const Dream11TeamSelector = ({
     const newTotalCredits = usedCredits + playerCredits;
 
     if (selectedPlayers.length >= maxPlayers) {
-      toast.error(`You can only select ${maxPlayers} players.`);
+      toast.error(`You can only select ${maxPlayers} players.`, { containerId: SUPER12_TOAST_ID });
       return;
     }
-
     if (isRoleFull(player.player_role)) {
-      toast.error(`No more spots for ${player.player_role}s.`);
+      toast.error(`No more spots for ${player.player_role}s.`, { containerId: SUPER12_TOAST_ID });
       return;
     }
-
     if (isGenderFull(player.gender)) {
-      toast.error(`Limit reached for ${player.gender} players.`);
+      toast.error(`Limit reached for ${player.gender} players.`, { containerId: SUPER12_TOAST_ID });
       return;
     }
-
     if (newTotalCredits > totalCredits) {
       toast.error(
         `You need ${playerCredits} credits, only ${
           totalCredits - usedCredits
-        } left.`
+        } left.`,
+        { containerId: SUPER12_TOAST_ID }
       );
       return;
     }
-
     setSelectedPlayers([...selectedPlayers, player]);
   };
 
   const selectCaptain = (playerId) => {
     setCaptain(playerId);
-    if (viceCaptain === playerId) {
-      setViceCaptain(null);
-    }
+    if (viceCaptain === playerId) setViceCaptain(null);
   };
-
   const selectViceCaptain = (playerId) => {
     setViceCaptain(playerId);
-    if (captain === playerId) {
-      setCaptain(null);
-    }
+    if (captain === playerId) setCaptain(null);
   };
 
   const goToNextStep = () => {
     const selectedIds = selectedPlayers.map((p) => p.id);
-
-    if (captain && !selectedIds.includes(captain)) {
-      setCaptain(null);
-    }
-    if (viceCaptain && !selectedIds.includes(viceCaptain)) {
+    if (captain && !selectedIds.includes(captain)) setCaptain(null);
+    if (viceCaptain && !selectedIds.includes(viceCaptain))
       setViceCaptain(null);
-    }
 
-    if (step === 1 && isTeamValid()) {
-      setStep(2);
-    } else if (step === 2 && captain && viceCaptain) {
-      setStep(3);
-    } else if (step === 3 && teamName) {
-      setStep(4);
-    }
+    if (step === 1 && isTeamValid()) setStep(2);
+    else if (step === 2 && captain && viceCaptain) setStep(3);
+    else if (step === 3 && teamName) setStep(4);
   };
 
   const goBack = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    } else {
-      onClose();
-    }
+    if (step > 1) setStep(step - 1);
+    else onClose();
   };
 
   const isNextDisabled =
@@ -255,119 +237,102 @@ const Dream11TeamSelector = ({
     }
   };
 
-  if (playersLoading) {
-    return <Loader />;
-  }
+  const content = (
+    <div className="fixed inset-0 z-[100] bg-[#04090f] text-white flex flex-col overflow-hidden">
+      <ToastContainer
+        containerId={SUPER12_TOAST_ID}
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        theme="dark"
+        style={{ zIndex: 200, top: 64 }}
+      />
+      <TopBar
+        step={step}
+        goBack={goBack}
+        goToNextStep={goToNextStep}
+        handleSubmit={handleSubmit}
+        buttonLoading={buttonLoading}
+        usedCredits={usedCredits}
+        totalCredits={totalCredits}
+        isNextDisabled={isNextDisabled}
+      />
 
-  if (!allPlayers || allPlayers.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-500">
-          🏏 No players yet. The pitch is empty! 🏟️
-        </h1>
-      </div>
-    );
-  }
-
-  return (
-    <div className="max-w-3xl mx-auto pb-2 text-black max-h-screen">
-      <Dream11Header />
-
-      <div className="bg-gray-900 rounded-b-lg shadow-lg flex flex-col h-screen max-h-screen">
-        <NavigationBar
-          step={step}
-          goBack={goBack}
-          goToNextStep={goToNextStep}
-          handleSubmit={handleSubmit}
-          buttonLoading={buttonLoading}
-          usedCredits={usedCredits}
-          totalCredits={totalCredits}
-          isNextDisabled={isNextDisabled}
-        />
-        {step === 1 && (
-          <div className="flex w-full border border-gray-700 rounded-md overflow-hidden mb-2">
-            {filter !== "All" ? (
-              <div
-                className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
-                  countByRole(filter) >= roleLimits[filter].min
-                    ? "bg-green-200 text-green-800"
-                    : "bg-red-200 text-red-800"
-                }`}
-              >
-                {filter.toLocaleUpperCase()} : {countByRole(filter)}/
-                {`${roleLimits[filter].min} - ${roleLimits[filter].max}`}
-              </div>
-            ) : (
-              <div
-                className={`flex-1 py-2 text-sm font-medium border-r border-gray-700 transition-colors duration-200 ${
-                  countByGender("female") >= genderLimits.female.min
-                    ? "bg-green-200 text-green-800"
-                    : "bg-red-200 text-red-800"
-                }`}
-              >
-                FEMALE: {countByGender("female")}/{genderLimits.female.min}
+      {playersLoading ? (
+        <div className="flex-1 flex items-center justify-center">
+          <Loader />
+        </div>
+      ) : !allPlayers || allPlayers.length === 0 ? (
+        <div className="flex-1 flex flex-col items-center justify-center p-6">
+          <h1 className="text-xl font-bold text-gray-400 text-center">
+            🏏 No players yet. The pitch is empty! 🏟️
+          </h1>
+        </div>
+      ) : (
+        <>
+          <div className="flex-1 min-h-0 relative w-full max-w-7xl mx-auto">
+            {step === 1 && (
+              <PlayerSelection
+                playersLoading={playersLoading}
+                error={error}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                teamFilter={teamFilter}
+                setTeamFilter={setTeamFilter}
+                filter={filter}
+                setFilter={setFilter}
+                genderFilter={genderFilter}
+                setGenderFilter={setGenderFilter}
+                getUniqueTeams={getUniqueTeams}
+                filteredPlayers={filteredPlayers}
+                isPlayerSelected={isPlayerSelected}
+                togglePlayerSelection={togglePlayerSelection}
+                getRoleColorClass={getRoleColorClass}
+                selectedPlayers={selectedPlayers}
+                usedCredits={usedCredits}
+                totalCredits={totalCredits}
+                maxPlayers={maxPlayers}
+              />
+            )}
+            {step === 2 && (
+              <div className="absolute inset-0 overflow-y-auto no-scrollbar p-4 sm:p-6">
+                <CaptainViceCaptainSelection
+                  selectedPlayers={selectedPlayers}
+                  captain={captain}
+                  viceCaptain={viceCaptain}
+                  selectCaptain={selectCaptain}
+                  selectViceCaptain={selectViceCaptain}
+                  getRoleColorClass={getRoleColorClass}
+                />
               </div>
             )}
-            <div
-              className={`flex-1 py-2 text-sm font-medium transition-colors duration-200 ${
-                selectedPlayers.length >= maxPlayers
-                  ? "bg-green-200 text-green-800"
-                  : "bg-red-200 text-red-800"
-              }`}
-            >
-              Total: {selectedPlayers.length}/{maxPlayers}
-            </div>
+            {step === 3 && (
+              <div className="absolute inset-0 overflow-y-auto no-scrollbar p-4 sm:p-6">
+                <TeamNameInput
+                  teamName={teamName}
+                  onChange={handleTeamNameChange}
+                />
+              </div>
+            )}
+            {step === 4 && (
+              <div className="absolute inset-0 overflow-y-auto no-scrollbar p-4 sm:p-6">
+                <TeamPreview
+                  selectedPlayers={selectedPlayers}
+                  captain={captain}
+                  viceCaptain={viceCaptain}
+                  getRoleColorClass={getRoleColorClass}
+                  teamName={teamName}
+                />
+              </div>
+            )}
           </div>
-        )}
-
-        <div className="flex-grow overflow-hidden flex flex-col">
-          {step === 1 && (
-            <PlayerSelection
-              playersLoading={playersLoading}
-              error={error}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              teamFilter={teamFilter}
-              setTeamFilter={setTeamFilter}
-              filter={filter}
-              setFilter={setFilter}
-              genderFilter={genderFilter}
-              setGenderFilter={setGenderFilter}
-              getUniqueTeams={getUniqueTeams}
-              filteredPlayers={filteredPlayers}
-              isPlayerSelected={isPlayerSelected}
-              togglePlayerSelection={togglePlayerSelection}
-              getRoleColorClass={getRoleColorClass}
-            />
-          )}
-          {step === 2 && (
-            <CaptainViceCaptainSelection
-              selectedPlayers={selectedPlayers}
-              captain={captain}
-              viceCaptain={viceCaptain}
-              selectCaptain={selectCaptain}
-              selectViceCaptain={selectViceCaptain}
-              getRoleColorClass={getRoleColorClass}
-            />
-          )}
-          {step === 3 && (
-            <TeamNameInput
-              teamName={teamName}
-              onChange={handleTeamNameChange}
-            />
-          )}
-          {step === 4 && (
-            <TeamPreview
-              selectedPlayers={selectedPlayers}
-              captain={captain}
-              viceCaptain={viceCaptain}
-              getRoleColorClass={getRoleColorClass}
-              teamName={teamName}
-            />
-          )}
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
+
+  return createPortal(content, document.body);
 };
+
 export default Dream11TeamSelector;
