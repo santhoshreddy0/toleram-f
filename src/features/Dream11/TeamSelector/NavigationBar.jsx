@@ -1,7 +1,32 @@
-import React from "react";
-import CustomButton from "../../../Components/CustomButton";
+import React, { useState } from "react";
+import {
+  ArrowLeftIcon,
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 
-const NavigationBar = ({
+const STEP_LABELS = {
+  1: "Select Players",
+  2: "Captain & VC",
+  3: "Team Name",
+  4: "Preview",
+};
+
+const NEXT_LABELS = {
+  1: "Continue",
+  2: "Team Name",
+  3: "Preview",
+};
+
+const RULES = [
+  "Select 10 male players + 2 female players (total 12) within 100 credits.",
+  "Min 3 / max 5 batsmen, min 3 / max 5 bowlers, min 2 / max 4 all-rounders.",
+  "Pick exactly 2 female players.",
+  "Captain gets 2x points, Vice-Captain gets 1.5x points.",
+  "Entry window closes as per tournament schedule. Bets once finalised cannot be cancelled.",
+];
+
+const TopBar = ({
   step,
   goBack,
   goToNextStep,
@@ -9,60 +34,109 @@ const NavigationBar = ({
   buttonLoading,
   usedCredits,
   totalCredits,
-  isNextDisabled
+  isNextDisabled,
 }) => {
-
+  const [showRules, setShowRules] = useState(false);
+  const creditsLeft = totalCredits - usedCredits;
 
   return (
-    <div className="flex justify-between items-center py-2 px-3 border-t bg-gray-900">
-      <button
-        onClick={goBack}
-        className="px-2 py-2 rounded-md bg-gray-800 border border-gray-100 text-xs font-semibold text-gray-100 shadow-sm ring-1 ring-inset ring-gray-900 hover:bg-gray-50 hover:text-gray-900"
-      >
-        {step > 1 ? "Back" : "Cancel"}
-      </button>
-      <div className="text-sm font-semibold text-gray-100">
-        Credits: <span className="text-green-400"> {usedCredits}</span> /{" "}
-        {totalCredits}
+    <div className="relative bg-[linear-gradient(110deg,#0a1522_0%,#122c45_40%,#0f1f31_100%)] border-b border-[#f9d274]/25 text-white shadow-lg flex-shrink-0">
+      <div className="flex items-center justify-between gap-3 px-3 sm:px-5 py-3">
+        {/* Left: back / cancel */}
+        <button
+          onClick={goBack}
+          className="flex items-center gap-1 text-sm font-semibold hover:bg-white/10 rounded-md px-2 py-1.5 transition"
+        >
+          <ArrowLeftIcon className="h-4 w-4" />
+          <span className="hidden sm:inline">
+            {step > 1 ? "Back" : "Cancel"}
+          </span>
+        </button>
+
+        {/* Center: title + info (fixed position, no step shift) */}
+        <div className="flex items-center justify-center gap-1.5 flex-1 min-w-0">
+          <h1 className="text-sm sm:text-base font-bold tracking-tight truncate text-[#f9d274]">
+            Super 12
+          </h1>
+          <button
+            onClick={() => setShowRules((s) => !s)}
+            className="text-white/80 hover:text-white flex-shrink-0"
+            aria-label="Rules"
+          >
+            <InformationCircleIcon className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Right: next */}
+        <div className="flex items-center gap-2">
+          {step < 4 ? (
+            <button
+              onClick={goToNextStep}
+              disabled={isNextDisabled}
+              className={`flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
+                isNextDisabled
+                  ? "bg-[#1a1a1f] text-gray-500 cursor-not-allowed border border-gray-700"
+                  : "bg-[#f9d274] text-[#1a1304] hover:bg-[#ffe39a] shadow-[0_0_18px_rgba(249,210,116,0.45)] border border-[#f9d274]"
+              }`}
+            >
+              {NEXT_LABELS[step]}
+              <ChevronRightIcon className="h-3.5 w-3.5" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={buttonLoading}
+              className="flex items-center justify-center gap-1 px-4 py-1.5 min-w-[84px] bg-[#f9d274] text-[#1a1304] text-xs font-bold rounded-full uppercase tracking-wider hover:bg-[#ffe39a] shadow-[0_0_18px_rgba(249,210,116,0.45)] border border-[#f9d274] disabled:opacity-70 disabled:cursor-wait"
+            >
+              {buttonLoading ? (
+                <svg
+                  className="h-3.5 w-3.5 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    className="opacity-25"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    className="opacity-75"
+                  />
+                </svg>
+              ) : (
+                "Submit"
+              )}
+            </button>
+          )}
+        </div>
       </div>
 
-      {step < 4 ? (
-        <button
-          onClick={goToNextStep}
-          disabled={isNextDisabled}
-          className={`px-3 py-2 rounded-lg text-xs flex items-center ${
-            isNextDisabled
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-green-600 text-white font-medium shadow-sm hover:bg-green-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-          }`}
-        >
-          {step === 1 ? "Next" : step === 2 ? "Choose Team Name" : "Preview Team"}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-3 h-3 ml-1"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
-            />
-          </svg>
-        </button>
-      ) : (
-        <CustomButton
-          isLoading={buttonLoading}
-          onClick={handleSubmit}
-          className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
-        >
-          Submit Team
-        </CustomButton>
+      {showRules && (
+        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[92vw] sm:w-96 bg-gray-900 text-white rounded-lg shadow-2xl z-30 p-4 border border-gray-700">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="font-bold text-sm">Super 12 Rules</h3>
+            <button
+              onClick={() => setShowRules(false)}
+              className="text-gray-400 hover:text-white text-sm"
+            >
+              ✕
+            </button>
+          </div>
+          <ul className="list-decimal pl-5 space-y-1.5 text-xs text-gray-200">
+            {RULES.map((r, i) => (
+              <li key={i}>{r}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
 };
 
-export default NavigationBar;
+export default TopBar;

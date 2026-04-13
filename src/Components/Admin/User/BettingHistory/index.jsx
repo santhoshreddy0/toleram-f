@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BettingHistoryRow from "./Row";
 
-const BettingHistory = ({ matchBets = [], roundBets = [] }) => {
+const BettingHistory = ({ matchBets = [], roundBets = [], userId }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const combinedBets = [
@@ -45,6 +45,7 @@ const BettingHistory = ({ matchBets = [], roundBets = [] }) => {
                 isExpanded={expandedIndex === entry.key}
                 toggleExpand={toggleExpand}
                 index={index}
+                userId={userId}
               />
             ))}
           </tbody>

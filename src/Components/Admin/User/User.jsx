@@ -52,6 +52,7 @@ export default function User() {
             <BettingHistory
               matchBets={analyticsData?.matchBets}
               roundBets={analyticsData?.roundBets}
+              userId={analyticsData?.user?.id}
             />
             <Dream11Team dream11={analyticsData?.dream11} />
           </div>
