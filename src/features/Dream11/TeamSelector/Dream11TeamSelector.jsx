@@ -271,7 +271,7 @@ const Dream11TeamSelector = ({
         </div>
       ) : (
         <>
-          <div className="flex-1 min-h-0 relative">
+          <div className="flex-1 min-h-0 relative w-full max-w-7xl mx-auto">
             {step === 1 && (
               <PlayerSelection
                 playersLoading={playersLoading}

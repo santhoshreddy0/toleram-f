@@ -41,7 +41,7 @@ const TopBar = ({
 
   return (
     <div className="relative bg-[linear-gradient(110deg,#0a1522_0%,#122c45_40%,#0f1f31_100%)] border-b border-[#f9d274]/25 text-white shadow-lg flex-shrink-0">
-      <div className="flex items-center justify-between gap-3 px-3 sm:px-5 py-3">
+      <div className="flex items-center justify-between gap-3 px-3 sm:px-5 py-3 max-w-7xl mx-auto w-full">
         {/* Left: back / cancel */}
         <button
           onClick={goBack}
