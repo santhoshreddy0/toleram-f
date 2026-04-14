@@ -5,10 +5,12 @@ import BettingHistory from "./BettingHistory";
 import Dream11Team from "./Dream11Team";
 import Analytics from "./Analytics";
 import Loader from "../../../Components/Loader";
+import { useSearchParams } from "react-router-dom";
+import { set } from "react-hook-form";
+import { useQueryState } from "../../../hook/useQueryState";
 
 export default function User() {
-  const searchInputRef = useRef(null);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useQueryState("email", "");
   const {
     data: analyticsData,
     isError,
@@ -17,21 +19,18 @@ export default function User() {
     isFetching,
     isSuccess,
   } = useGetUserAnalyticsQuery(email, {
-    skip: !email,
+    skip: !email
   });
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    const inputValue = searchInputRef.current.value.trim();
-    if (inputValue) {
-      setEmail(inputValue);
-    }
+    e.preventDefault();    
   };
 
   return (
     <>
       <SearchUser
-        searchInputRef={searchInputRef}
+        email={email}
+        setEmail={setEmail}
         handleSearch={handleSearch}
         isSearchDisabled={isLoading}
       />
@@ -95,7 +94,7 @@ const ErrorMessage = ({ message }) => {
 };
 
 const SearchUser = (props) => {
-  const { searchInputRef, handleSearch, isSearchDisabled } = props;
+  const { email, setEmail, handleSearch, isSearchDisabled } = props;
   return (
     <div className="max-w-7xl mx-auto py-6 px-6">
       <div className="bg-gray-800 rounded-lg p-6 shadow">
@@ -110,18 +109,11 @@ const SearchUser = (props) => {
             <input
               type="text"
               placeholder="Search user by email..."
-              ref={searchInputRef}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="block w-full rounded-md px-3 py-1.5 text-base bg-gray-800 text-white outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-sm/6"
             />
           </div>
-          <button
-            type="submit"
-            onClick={handleSearch}
-            className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-6 py-2.5 text-white text-sm font-medium shadow-sm hover:bg-green-500 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-            disabled={isSearchDisabled}
-          >
-            Search
-          </button>
         </form>
       </div>
     </div>

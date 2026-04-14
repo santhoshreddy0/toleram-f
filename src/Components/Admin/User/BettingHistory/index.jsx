@@ -15,6 +15,7 @@ const BettingHistory = ({ matchBets = [], roundBets = [], userId }) => {
     { label: "Bet Amount", className: "px-6 py-3" },
     { label: "Points", className: "px-6 py-3" },
     { label: "Action", className: "px-6 py-3 rounded-tr-lg text-right" },
+    { label: "Bet Logs", className: "px-6 py-3 rounded-tr-lg text-right" },
   ];
 
   const toggleExpand = (key) => {

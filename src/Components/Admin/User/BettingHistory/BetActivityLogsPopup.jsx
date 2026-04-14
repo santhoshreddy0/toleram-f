@@ -10,9 +10,9 @@ import { useGetBetActivityLogsQuery } from "../../../../app/Services/Admin/analy
 import Loader from "../../../Loader";
 
 const ACTION_STYLES = {
-  create: "bg-green-900 text-green-300",
-  update: "bg-blue-900 text-blue-300",
-  delete: "bg-red-900 text-red-300",
+  create: "border border-emerald-400/35 bg-emerald-500/12 text-emerald-300",
+  update: "border border-sky-400/35 bg-sky-500/12 text-sky-300",
+  delete: "border border-rose-400/35 bg-rose-500/12 text-rose-300",
 };
 
 const dash = (v) =>
@@ -35,7 +35,12 @@ const fmtDevice = (log) => {
   return log.device_type || "—";
 };
 
-const Cell = ({ children, title, mono = false, max = "max-w-[180px]" }) => (
+const Cell = ({
+  children,
+  title,
+  mono = false,
+  max = "max-w-[180px]",
+}) => (
   <td
     className={`px-3 py-2 align-top ${mono ? "font-mono text-xs" : ""}`}
     title={title}
@@ -60,24 +65,28 @@ export default function BetActivityLogsPopup({
     );
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-[60]">
-      <DialogBackdrop className="fixed inset-0 bg-gray-500/50" />
+    <Dialog open={open} onClose={setOpen} className="relative z-[70]">
+      <DialogBackdrop className="fixed inset-0 bg-[#03070e]/80 backdrop-blur-[2px]" />
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-2 sm:p-4">
-          <DialogPanel className="relative bg-gray-900 rounded-lg p-4 sm:p-5 w-full max-w-6xl mx-2">
+          <DialogPanel className="relative mx-2 w-full max-w-6xl overflow-hidden rounded-2xl border border-[#f8d06f]/25 bg-[linear-gradient(140deg,#071321_0%,#0a2238_56%,#081828_100%)] p-4 text-[#f6efdd] shadow-[0_26px_52px_rgba(0,0,0,0.5)] sm:p-5">
+            <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(248,208,111,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(248,208,111,0.045)_1px,transparent_1px)] [background-size:28px_28px]" />
+            <div className="pointer-events-none absolute -left-16 top-12 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(248,208,111,0.2)_0%,rgba(248,208,111,0)_72%)] blur-2xl" />
+            <div className="pointer-events-none absolute -right-14 bottom-10 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(81,205,255,0.2)_0%,rgba(81,205,255,0)_72%)] blur-2xl" />
+
             <div className="flex items-start justify-between mb-3">
               <div>
-                <DialogTitle className="text-gray-100 text-lg">
+                <DialogTitle className="text-[#fff2cf] text-lg font-black uppercase tracking-[0.03em]">
                   Betting Activity — {title || `${type} #${refId}`}
                 </DialogTitle>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="mt-0.5 text-xs text-[#c9d5e8]">
                   {logs?.length ? `${logs.length} event(s) · hover a cell to see full value` : null}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="text-gray-400 hover:text-gray-200"
+                className="inline-flex items-center gap-1 rounded-full border border-[#f8d06f]/45 bg-[#081523]/85 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.08em] text-[#f8d88a] transition-colors hover:bg-[#102840]"
               >
                 <XMarkIcon className="h-5 w-5" />
               </button>
@@ -88,17 +97,17 @@ export default function BetActivityLogsPopup({
                 <Loader />
               </div>
             ) : isError ? (
-              <div className="text-red-400 text-sm py-4 text-center">
+              <div className="py-4 text-center text-sm text-rose-300">
                 {error?.data?.message || "Failed to load logs"}
               </div>
             ) : !logs || logs.length === 0 ? (
-              <div className="text-gray-400 text-sm py-6 text-center">
+              <div className="py-6 text-center text-sm text-[#c8d5e8]">
                 No activity logs found for this {type?.toLowerCase()}.
               </div>
             ) : (
-              <div className="overflow-auto max-h-[70vh]">
-                <table className="min-w-full text-left text-xs">
-                  <thead className="bg-gray-800 uppercase text-gray-400 sticky top-0">
+              <div className="relative z-10 max-h-[70vh] overflow-x-auto overflow-y-auto rounded-xl border border-[#f8d06f]/16 bg-[#06111d]/82">
+                <table className="min-w-[1180px] text-left text-xs">
+                  <thead className="sticky top-0 bg-[#0d2135] uppercase text-[#f8d88a]">
                     <tr>
                       <th className="px-3 py-2">Time</th>
                       <th className="px-3 py-2">Action</th>
@@ -111,25 +120,30 @@ export default function BetActivityLogsPopup({
                       <th className="px-3 py-2">User Agent</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-700 text-gray-200">
+                  <tbody className="divide-y divide-[#f8d06f]/12 text-[#e5edf8]">
                     {logs.map((log, i) => {
                       const actionKey = (log.action || "").toLowerCase();
                       const badgeClass =
-                        ACTION_STYLES[actionKey] || "bg-gray-700 text-gray-200";
+                        ACTION_STYLES[actionKey] ||
+                        "border border-zinc-400/35 bg-zinc-500/12 text-zinc-200";
                       const timeStr = log.time
                         ? new Date(log.time).toLocaleString()
                         : "—";
                       return (
                         <tr
                           key={log.id ?? i}
-                          className={i % 2 === 0 ? "bg-gray-800" : "bg-gray-900"}
+                          className={
+                            i % 2 === 0
+                              ? "bg-[#0a1b2d]/82"
+                              : "bg-[#071321]/84"
+                          }
                         >
                           <Cell title={timeStr} max="max-w-[160px]">
                             {timeStr}
                           </Cell>
                           <td className="px-3 py-2">
                             <span
-                              className={`px-2 py-0.5 rounded capitalize ${badgeClass}`}
+                              className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.08em] ${badgeClass}`}
                             >
                               {log.action || "-"}
                             </span>
@@ -146,7 +160,11 @@ export default function BetActivityLogsPopup({
                           <Cell title={log.timezone} max="max-w-[120px]">
                             {dash(log.timezone)}
                           </Cell>
-                          <Cell title={log.user_agent} mono max="max-w-[120px]">
+                          <Cell title={log.user_agent} mono max="max-w-[180px]" onHover={(e) => {
+                            // show full user agent in tooltip on hover
+                            const ua = log.user_agent || "—";
+                            e.currentTarget.setAttribute("title", ua);
+                          }}>
                             {dash(log.user_agent)}
                           </Cell>
                         </tr>
