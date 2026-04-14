@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import {
+  useDeletePlayerMutation,
   useGetTeamPlayersListQuery,
   useGetTeamQuery,
 } from "../../../app/Services/Admin/adminTeams";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import AddTeamPlayerPopup from "./AddTeamPlayerPopup";
 import CreateTeamPopup from "./CreateOrEditTeamPopup";
 import Loader from "../../Loader";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import PlayerList from "../../Team/PlayerList";
+import { toast } from "react-toastify";
 
 export default function AdminTeamDetails() {
   const { teamId } = useParams();
@@ -25,6 +27,27 @@ export default function AdminTeamDetails() {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [player, setPlayer] = useState(null);
+
+  const [searchParams] = useSearchParams()
+  const isSuperAdmin = searchParams.get("isSuperAdmin") == "true";
+  const [deletePlayer, {isLoading: isDeleting, isError: deletePlayerError, isSuccess: deletePlayerSuccess}] = useDeletePlayerMutation();
+
+  const handleDeletePlayer = async (player) => {
+    console.log("player id", player.id);
+    
+    if (!isSuperAdmin) {
+      toast.error("You don't have permission to delete players.");
+      return;
+    }
+    try {
+      await deletePlayer({ playerId: player.id }).unwrap();
+      toast.success("Player deleted successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete player");
+    }
+  };
+
 
   if (isLoading) return <Loader />;
   if (isError) return <div>Error loading players</div>;
@@ -62,6 +85,9 @@ export default function AdminTeamDetails() {
           setPlayer(playerData);
           setOpen(true);
         }}
+        deleteHandler={handleDeletePlayer}
+        isDeleting={isDeleting}
+        isSuperAdmin={isSuperAdmin}
       />
       <AddTeamPlayerPopup
         open={open}
