@@ -146,7 +146,7 @@ export default function CreateNewQuestionPopup({
   };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative">
+    <Dialog open={open} onClose={setOpen} className="relative z-[70]">
       <DialogBackdrop className="fixed inset-0 bg-gray-500/50" />
       <div className="fixed inset-0 z-11 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
@@ -230,8 +230,15 @@ export default function CreateNewQuestionPopup({
                     ? "Updating..."
                     : "Creating..."
                   : question
-                  ? "Update Question"
-                  : "Create Question"}
+                    ? "Update Question"
+                    : "Create Question"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="w-full bg-red-600 text-white rounded-md py-2 hover:bg-red-500 text-sm sm:text-base"
+              >
+                Cancel
               </button>
             </div>
           </DialogPanel>

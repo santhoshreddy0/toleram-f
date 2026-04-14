@@ -28,16 +28,18 @@ const BettingHistoryRow = ({ entry, isExpanded, toggleExpand, index, userId }) =
             >
               {isExpanded ? "Hide" : "View"} Details
             </button>
-            <button
-              type="button"
-              onClick={() => setLogsOpen(true)}
-              disabled={!userId || !refId}
-              title="View betting activity logs"
-              className="text-gray-300 hover:text-green-400 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              <InformationCircleIcon className="h-5 w-5" />
-            </button>
           </div>
+        </td>
+        <td className="px-6 py-4 text-right">
+          <button
+            type="button"
+            onClick={() => setLogsOpen(true)}
+            disabled={!userId || !refId}
+            title="View betting activity logs"
+            className="text-green-400 hover:underline text-xs"
+          >
+            Bet Tracking
+          </button>
         </td>
       </tr>
       {isExpanded && (

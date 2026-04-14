@@ -217,7 +217,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                                                                             }}
                                                                             className="text-green-400 text-sm hover:text-green-300"
                                                                         >
-                                                                            + Edit Option
+                                                                            + Edit
                                                                         </button>
                                                                         {editingQuestionId === faq.id ? (
                                                                             <button

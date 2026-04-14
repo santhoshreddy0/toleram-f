@@ -27,7 +27,7 @@ function Index() {
           <p className="inline-flex animate-fade-in-up items-center rounded-full border border-[#f8d06f]/60 bg-[#081726]/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f8d06f] opacity-0 [animation-delay:120ms] sm:px-4 sm:text-xs sm:tracking-[0.28em]">
             Tolaram Premier League
           </p>
-          <div className="relative mt-5 h-32 w-full max-w-4xl animate-fade-in-up overflow-visible rounded-2xl border border-[#8ec7ff]/25 bg-[#061322]/70 opacity-0 [animation-delay:220ms] sm:mt-6 sm:h-40">
+          {/* <div className="relative mt-5 h-32 w-full max-w-4xl animate-fade-in-up overflow-visible rounded-2xl border border-[#8ec7ff]/25 bg-[#061322]/70 opacity-0 [animation-delay:220ms] sm:mt-6 sm:h-40">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_55%,rgba(76,149,255,0.24)_0%,rgba(6,19,34,0)_52%),radial-gradient(circle_at_18%_82%,rgba(248,208,111,0.12)_0%,rgba(6,19,34,0)_58%)]" />
             <div className="absolute inset-0 [background-image:linear-gradient(rgba(165,207,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(165,207,255,0.06)_1px,transparent_1px)] [background-size:24px_24px]" />
             <div className="absolute left-[4%] top-[72%] h-[2px] w-[73%] rounded-full bg-[linear-gradient(90deg,rgba(248,208,111,0)_0%,rgba(248,208,111,0.52)_40%,rgba(248,208,111,0)_100%)]" />
@@ -89,7 +89,7 @@ function Index() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           <h1 className="mt-5 max-w-4xl animate-fade-in-up text-[clamp(2rem,9vw,6.5rem)] font-black uppercase leading-[0.95] tracking-[0.02em] text-[#fff5d6] opacity-0 [animation-delay:320ms] sm:mt-6">
             Back Your Team
             <span className="block text-[#f8d06f]">Own The Roar</span>
