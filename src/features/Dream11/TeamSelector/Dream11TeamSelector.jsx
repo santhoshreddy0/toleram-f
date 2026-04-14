@@ -206,6 +206,48 @@ const Dream11TeamSelector = ({
     (step === 2 && (!captain || !viceCaptain)) ||
     (step === 3 && !teamName);
 
+  const getNextDisabledReason = () => {
+    if (!isNextDisabled) return "";
+    if (step === 1) {
+      if (selectedPlayers.length !== maxPlayers) {
+        return `Select ${maxPlayers} players (currently ${selectedPlayers.length}).`;
+      }
+      if (usedCredits > totalCredits) {
+        return `Over credits by ${usedCredits - totalCredits}. Max is ${totalCredits}.`;
+      }
+      for (const [role, limits] of Object.entries(roleLimits)) {
+        const c = countByRole(role);
+        if (c < limits.min)
+          return `Need at least ${limits.min} ${role}${limits.min > 1 ? "s" : ""} (have ${c}).`;
+        if (c > limits.max)
+          return `Too many ${role}s — max ${limits.max} (have ${c}).`;
+      }
+      for (const [gender, limits] of Object.entries(genderLimits)) {
+        const c = countByGender(gender);
+        if (c < limits.min)
+          return `Need at least ${limits.min} ${gender} player${limits.min > 1 ? "s" : ""} (have ${c}).`;
+        if (c > limits.max)
+          return `Too many ${gender} players — max ${limits.max} (have ${c}).`;
+      }
+      return "Team selection is invalid.";
+    }
+    if (step === 2) {
+      if (!captain && !viceCaptain) return "Pick a Captain and a Vice-Captain.";
+      if (!captain) return "Pick a Captain.";
+      if (!viceCaptain) return "Pick a Vice-Captain.";
+    }
+    if (step === 3) return "Enter a team name to continue.";
+    return "";
+  };
+
+  const nextDisabledReason = getNextDisabledReason();
+
+  const handleBlockedNext = () => {
+    if (nextDisabledReason) {
+      toast.error(nextDisabledReason, { containerId: SUPER12_TOAST_ID });
+    }
+  };
+
   const getRoleColorClass = (role) => {
     switch (role) {
       case "batsman":
@@ -238,7 +280,7 @@ const Dream11TeamSelector = ({
   };
 
   const content = (
-    <div className="fixed inset-0 z-[100] bg-[#04090f] text-white flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-[10000] bg-[#04090f] text-white flex flex-col overflow-hidden">
       <ToastContainer
         containerId={SUPER12_TOAST_ID}
         position="top-center"
@@ -257,6 +299,8 @@ const Dream11TeamSelector = ({
         usedCredits={usedCredits}
         totalCredits={totalCredits}
         isNextDisabled={isNextDisabled}
+        nextDisabledReason={nextDisabledReason}
+        onBlockedNext={handleBlockedNext}
       />
 
       {playersLoading ? (

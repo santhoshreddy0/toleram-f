@@ -35,6 +35,8 @@ const TopBar = ({
   usedCredits,
   totalCredits,
   isNextDisabled,
+  nextDisabledReason = "",
+  onBlockedNext,
 }) => {
   const [showRules, setShowRules] = useState(false);
   const creditsLeft = totalCredits - usedCredits;
@@ -71,8 +73,9 @@ const TopBar = ({
         <div className="flex items-center gap-2">
           {step < 4 ? (
             <button
-              onClick={goToNextStep}
-              disabled={isNextDisabled}
+              onClick={isNextDisabled ? onBlockedNext : goToNextStep}
+              aria-disabled={isNextDisabled}
+              title={isNextDisabled ? nextDisabledReason : undefined}
               className={`flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
                 isNextDisabled
                   ? "bg-[#1a1a1f] text-gray-500 cursor-not-allowed border border-gray-700"

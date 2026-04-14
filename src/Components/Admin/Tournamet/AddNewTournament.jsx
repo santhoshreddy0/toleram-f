@@ -66,7 +66,7 @@ export default function AddNewTournament({ open, setOpen, round }) {
   };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-[45]">
+    <Dialog open={open} onClose={setOpen} className="relative z-[70]">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"

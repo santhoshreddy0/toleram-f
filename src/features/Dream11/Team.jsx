@@ -32,13 +32,13 @@ const Dream11Team = () => {
 
   return (
     
-    <div className="team-container rounded-lg shadow-sm">
+    <div className="flex h-full flex-col">
       {hasTeam ? (
         <ViewTeam teamData={teamData} />
       ) : teamData?.canCreate ? (
         <CreateTeam />
       ) : (
-        <div className="p-4 text-2xl font-bold text-gray-500">
+        <div className="p-4 text-2xl font-bold text-[#c8d6ea]">
           <p>Tournament already started. You cannot create a team now.</p>
         </div>
       )}
