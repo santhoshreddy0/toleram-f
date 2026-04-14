@@ -60,6 +60,13 @@ const betsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => ["Question"],
     }),
+    deleteQuestion: builder.mutation({
+      query: (id) => ({
+        url: `/admin/match-questions/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, arg) => ["Question"],
+    }),
     updateCorrectAnswer: builder.mutation({
       query: (questionsData) => ({
         url: `/admin/match-questions/${questionsData.questionId}/correctOption`,
@@ -111,6 +118,7 @@ export const {
   useGetAdminQuestionsQuery,
   useAddQuestionMutation,
   useUpdateQuestionMutation,
+  useDeleteQuestionMutation,
   useUpdateCorrectAnswerMutation,
   useUpdateMatchStatusMutation,
   useUpdateBetStatusMutation,

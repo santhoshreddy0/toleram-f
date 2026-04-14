@@ -65,6 +65,13 @@ const betsApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['Player'],
     }),
+    deletePlayer: builder.mutation({
+        query: ({  playerId }) => ({
+            url: `/admin/players/${playerId}`,
+            method: 'DELETE',
+        }),
+        invalidatesTags: ['Player'],
+    }),
   }),
   overrideExisting: false,
 });
@@ -78,4 +85,5 @@ export const {
   useUpdateTeamsDetailsMutation,
   useAddImageUrlMutation,
   useUpdatePlayerDetailsMutation,
+  useDeletePlayerMutation,
 } = betsApi;

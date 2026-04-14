@@ -1,7 +1,7 @@
 import React from "react";
 import { PLAYER_IMAGE } from "../../constants/teamLimits";
 
-function PlayerList({ players, canShowEdit = false, editHandler = () => {} }) {
+function PlayerList({ players, canShowEdit = false, editHandler = () => {} , deleteHandler = () => {}, isDeleting = false, isSuperAdmin = false}) {
   return (
     <div className="px-4 max-w-7xl mx-auto">
       {players?.length === 0 ? (
@@ -36,6 +36,17 @@ function PlayerList({ players, canShowEdit = false, editHandler = () => {} }) {
                     Edit Player
                   </button>
                 )}
+                {
+                  isSuperAdmin && (
+                    <button
+                      onClick={() => deleteHandler(player)}
+                      disabled={isDeleting}
+                      className="mt-2 w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isDeleting ? "Deleting..." : "Delete Player"}
+                    </button>
+                  ) 
+                }
               </li>
             ))}
           </ul>

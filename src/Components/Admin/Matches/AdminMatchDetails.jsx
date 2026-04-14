@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../../Loader";
-import { Disclosure, DisclosureButton, Tab } from '@headlessui/react'
-import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 import CreateNewQuestionPopup from "./CreateNewQuestionPopup";
 import CreateNewMatch from "./AddNewmatchPopup";
-import { useGetAdminQuestionsQuery, useGetMatchQuery, useUpdateCorrectAnswerMutation } from "../../../app/Services/Admin/adminMatches";
+import { useDeleteQuestionMutation, useGetAdminQuestionsQuery, useGetMatchQuery } from "../../../app/Services/Admin/adminMatches";
 import { toast } from "react-hot-toast";
 import ScoreDashboard from "./MatchScore/ScoreDashboard";
 import QuestionsPanel from "./Panels/QuestionsPanel";
+import { Tab } from "@headlessui/react";
 
 
 export default function AdminMatches() {
@@ -23,6 +22,7 @@ export default function AdminMatches() {
         isError: matchError,
     } = useGetMatchQuery(matchId);
     const { data: questions, isLoading, isError } = useGetAdminQuestionsQuery(matchId);
+    
 
     if (isLoading) return <Loader />
 
