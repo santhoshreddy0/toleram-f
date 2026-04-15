@@ -79,7 +79,7 @@ function Dream11Leaderboard() {
     }
 
     const endIndex = Math.min(originalLeaderboard.length - 1, userIndex + 1);
-    const userContext = originalLeaderboard.slice(10, endIndex + 1);
+    const userContext = originalLeaderboard.slice(userIndex, endIndex + 1);
 
     const result = [
       ...topTenPlayers,
@@ -93,26 +93,18 @@ function Dream11Leaderboard() {
   const displayLeaderboard = getDisplayLeaderboard();
 
   const renderEmptyState = () => (
-    <div className="bg-gray-900 min-h-screen p-3 md:p-6">
-      <div className="max-w-lg mx-auto">
-        <div className="divide-y divide-gray-700">
-          {[1, 2, 3, 4, 5].map((_, index) => (
-            <div key={index} className="animate-pulse">
-              <div className="p-4 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full shadow-md bg-gray-700"></div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-gray-700 mr-3"></div>
-                    <div className="h-4 w-24 bg-gray-700 rounded"></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="h-4 w-16 bg-gray-700 rounded"></div>
-                </div>
-              </div>
+    <div className="mx-auto max-w-2xl">
+      <div className="divide-y divide-[#f8d06f]/10 rounded-2xl border border-[#f8d06f]/22 bg-[linear-gradient(120deg,rgba(9,22,36,0.92)_0%,rgba(11,29,46,0.9)_55%,rgba(9,20,34,0.92)_100%)]">
+        {[1, 2, 3, 4, 5].map((_, i) => (
+          <div key={i} className="flex animate-pulse items-center justify-between p-4">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-[#1a2a3e]" />
+              <div className="h-10 w-10 rounded-full bg-[#1a2a3e]" />
+              <div className="h-4 w-24 rounded bg-[#1a2a3e]" />
             </div>
-          ))}
-        </div>
+            <div className="h-4 w-16 rounded bg-[#1a2a3e]" />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -122,8 +114,8 @@ function Dream11Leaderboard() {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-3 md:p-6">
-      <div className="max-w-lg mx-auto">
+    <div className="pb-6">
+      <div className="mx-auto max-w-2xl">
         {leaderboard && leaderboard?.leaderboard.length === 0 ? (
           <div className="p-4 text-2xl font-bold text-gray-500">
             <p>🏆 No players yet. </p>
@@ -131,49 +123,43 @@ function Dream11Leaderboard() {
         ) : (
           <>
             {leaderboard?.isInTop && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg">
+              <div className="mb-4 rounded-2xl border border-[#f8d06f]/45 bg-[linear-gradient(120deg,rgba(248,208,111,0.28)_0%,rgba(227,170,57,0.2)_60%,rgba(81,205,255,0.18)_100%)] p-4 shadow-[0_12px_28px_rgba(248,208,111,0.25)]">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <TrophyIcon className="w-8 h-8 text-yellow-300 mr-3" />
+                    <TrophyIcon className="mr-3 h-8 w-8 text-[#ffe39a]" />
                     <div>
-                      <h3 className="text-white font-bold text-lg">
-                        Congratulations!
-                      </h3>
-                      <p className="text-green-100">You're in the top 10!</p>
+                      <h3 className="text-lg font-black text-[#fff3d1]">Congratulations!</h3>
+                      <p className="text-sm text-[#fde6b4]">You're in the top 10!</p>
                     </div>
                   </div>
                   <div className="flex">
-                    <StarIcon className="w-6 h-6 text-yellow-300" />
-                    <FireIcon className="w-6 h-6 text-orange-400 ml-1" />
+                    <StarIcon className="h-6 w-6 text-[#ffe39a]" />
+                    <FireIcon className="ml-1 h-6 w-6 text-[#ff9a4d]" />
                   </div>
                 </div>
               </div>
             )}
 
             <div className="mb-2 flex items-center justify-between">
-              <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center">
+              <h2 className="text-xl font-black uppercase tracking-[0.12em] text-[#fff3d1] sm:text-2xl">
                 Leaderboard
-              </h1>
+              </h2>
               {userRank && (
-                <div className="flex items-center bg-gray-800 rounded-full px-3 py-1 shadow-md">
-                  <span className="text-gray-400 text-sm mr-2">Your Rank:</span>
-                  <span className="text-white font-bold flex items-center">
+                <div className="flex items-center gap-2 rounded-full border border-[#f8d06f]/40 bg-[rgba(248,208,111,0.1)] px-3 py-1 shadow-md">
+                  <span className="text-xs text-[#c8d6ea]">Your Rank:</span>
+                  <span className="flex items-center font-black">
                     {userRank < 4 ? (
-                      <span className="text-3xl">
-                        {getMedalDisplay(userRank)}
-                      </span>
+                      <span className="text-2xl">{getMedalDisplay(userRank)}</span>
                     ) : (
-                      <span className="text-yellow-400 flex items-center">
-                        <span className="font-bold">{userRank}</span>
-                      </span>
+                      <span className="text-[#ffe39a]">{userRank}</span>
                     )}
                   </span>
                 </div>
               )}
             </div>
-            <div className="text-white text-sm flex items-center gap-2 mb-4">
-              <span className="text-gray-400">updated at:</span>
-              <span>
+            <div className="mb-3 flex items-center gap-2 text-xs text-[#c8d6ea]">
+              <span>updated at:</span>
+              <span className="text-[#fff3d1]">
                 {leaderboard?.lastUpdated
                   ? `${new Date(
                       leaderboard.lastUpdated
@@ -183,95 +169,73 @@ function Dream11Leaderboard() {
                   : "--/--/---- | --:--:-- --"}
               </span>
             </div>
-            <div className="divide-y divide-gray-700 text-yellow-500 font-medium">
-              <div className="grid">
-                <div className="flex items-center justify-between p-4 bg-gray-800 rounded-t-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="">Rank</div>
-                    <div className="flex items-center"></div>
-                    <div className="">Team</div>
-                  </div>
-                  <div className="">Points</div>
+            <div className="overflow-hidden rounded-2xl border border-[#f8d06f]/22 bg-[linear-gradient(120deg,rgba(9,22,36,0.92)_0%,rgba(11,29,46,0.9)_55%,rgba(9,20,34,0.92)_100%)] shadow-[0_12px_26px_rgba(0,0,0,0.35)]">
+              <div className="flex items-center justify-between border-b border-[#f8d06f]/20 bg-[rgba(248,208,111,0.08)] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-[#ffe39a]">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 text-left">Rank</div>
+                  <div>Team</div>
                 </div>
+                <div>Points</div>
               </div>
+              <div className="divide-y divide-[#f8d06f]/10">
               {displayLeaderboard.map((item, index) => {
                 if (item.isSeparator) {
                   return (
-                    <div
-                      key={item.id}
-                      className="py-3 flex justify-center items-center text-gray-500"
-                    >
+                    <div key={item.id} className="flex items-center justify-center py-3 text-[#6b7e95]">
                       <div className="flex items-center">
-                        <div className="h-px w-16 bg-gray-700"></div>
-                        <EllipsisHorizontalIcon className="w-6 h-6 mx-2" />
-                        <div className="h-px w-16 bg-gray-700"></div>
+                        <div className="h-px w-16 bg-[#f8d06f]/20" />
+                        <EllipsisHorizontalIcon className="mx-2 h-6 w-6" />
+                        <div className="h-px w-16 bg-[#f8d06f]/20" />
                       </div>
                     </div>
                   );
                 }
 
+                const isMe = item.userId === userDetails.id;
                 return (
                   <div
                     key={item.userId}
-                    className={`cursor-pointer transition-all duration-200 hover:bg-gray-700  ${
-                      item.userId === userDetails.id
-                        ? "bg-gray-800 border-yellow-500"
+                    className={`transition-all duration-200 hover:bg-[rgba(248,208,111,0.06)] ${
+                      isMe
+                        ? "bg-[linear-gradient(120deg,rgba(248,208,111,0.18)_0%,rgba(227,170,57,0.12)_60%,rgba(81,205,255,0.1)_100%)]"
                         : ""
                     }`}
                   >
-                    <div className="p-4 flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div
-                          className={`flex items-center justify-center w-8 h-8 rounded-full shadow-md`}
-                        >
-                          <span
-                            className={`${
-                              item.rank < 4 ? "text-3xl" : "text-md"
-                            } font-bold`}
-                          >
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex w-10 items-center justify-start">
+                          <span className={`${item.rank < 4 ? "text-2xl" : "text-sm"} font-black text-[#ffe39a]`}>
                             {getMedalDisplay(item.rank)}
                           </span>
                         </div>
-                        <div className="flex items-center">
-                          <div
-                            className={`w-10 h-10 rounded-full ${getInitialBgColor(
-                              index
-                            )} text-white shadow-md flex items-center justify-center mr-3 text-sm font-medium`}
+                        <div
+                          className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-black text-white shadow-md ${getInitialBgColor(index)}`}
+                        >
+                          {(item.teamName || item.name || item.email)?.charAt(0)?.toUpperCase()}
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span
+                            className={`text-sm font-bold ${
+                              isMe
+                                ? "bg-gradient-to-r from-[#f8d06f] via-[#ffe39a] to-[#f8d06f] bg-clip-text text-transparent"
+                                : "text-[#fff3d1]"
+                            }`}
                           >
-                            {(item.teamName || item.name || item.email)
-                              ?.charAt(0)
-                              ?.toUpperCase()}
-                          </div>
-                          <div className=" text-white flex flex-col">
-                            <div className="inline-flex items-center gap-1 font-medium">
-                              <span
-                                className={`${
-                                  item.userId == userDetails.id
-                                    ? "bg-gradient-to-r from-yellow-500 to-amber-600 text-transparent bg-clip-text font-bold"
-                                    : " text-left"
-                                }`}
-                              >
-                                {item.teamName}
-                              </span>
-                            </div>
-
-                            <div className="text-gray-400 text-xs text-left">
-                              {item.userId == userDetails.id
-                                ? ` by You`
-                                : `${item.email}`}
-                            </div>
-                          </div>
+                            {item.teamName}
+                          </span>
+                          <span className="text-[11px] text-[#8ba0b9]">
+                            {isMe ? "by You" : item.email}
+                          </span>
                         </div>
                       </div>
-                      <div>
-                        <div className="font-bold text-gray-200">
-                          {item.totalPoints.toLocaleString()}
-                        </div>
+                      <div className="font-black text-[#ffe39a]">
+                        {item.totalPoints.toLocaleString()}
                       </div>
                     </div>
                   </div>
                 );
               })}
+              </div>
             </div>
           </>
         )}

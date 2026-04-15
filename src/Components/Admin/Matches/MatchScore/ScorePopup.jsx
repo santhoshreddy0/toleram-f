@@ -50,7 +50,7 @@ export default function ScorePopup({ open, setOpen, player, matchId }) {
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-      className="relative z-[45]"
+      className="relative z-[70]"
     >
       <DialogBackdrop className="fixed inset-0 bg-gray-500/50" />
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">

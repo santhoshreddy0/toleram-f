@@ -98,7 +98,7 @@ export default function AddTeamPlayerPopup({ open, setOpen, player }) {
         resetForm();
         setOpen(false);
       }}
-      className="relative z-[45]"
+      className="relative z-[70]"
     >
       <DialogBackdrop
         transition
