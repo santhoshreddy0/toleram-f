@@ -143,6 +143,7 @@ export default function Dream11ScoringRules() {
             <li>Select 10 male + 2 female players within 100 credits.</li>
             <li>Bets are frozen before the first match starts.</li>
             <li>Do not share credentials. Finalized bets cannot be changed.</li>
+            <li>For female players, wickets is not considered in calculation</li>
           </ul>
 
           <h2 className="text-md font-bold text-gray-100 pt-2">
