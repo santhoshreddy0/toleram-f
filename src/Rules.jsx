@@ -21,23 +21,31 @@ export default function Rules() {
           sanctity of your bets. Bets once finalized will not be cancelled.
         </div>,
         <div>
-          <span className="font-bold">Winning Calculation:</span> For example,
-          if you bet 10,000 on the odds of 1.9, your total winnings on a
-          favorable outcome would be 10,000 * 1.9 (bet amount * odds) = 19,000,
-          resulting in a profit of 9,000.
+          <span className="font-bold">Winning Calculation:</span>For example, if
+          you bet 10,000 on the odds of 1.9, your total winnings on a favorable
+          outcome would be 10,000 * 1.9 (bet amount * odds) = 19,000, resulting
+          in a profit of 9,000.
         </div>,
         <div>
           <span className="font-bold">Female Player Runs:</span> For calculation
           of female player runs, negative runs scored will also be included in
-          the final tally of runs for the match / tournament.{" "}
+          the final tally of runs for the match / tournament. In case of a tie
+          in the runs for the female player, the player with the best economy
+          rates will be chosen a winner{" "}
+        </div>,
+        <div>
+          <span className="font-bold">• Super Over:</span> In case of a super
+          over, the winner of the super over will be declared as the winner of
+          the match. All previous bets for the match winner would be active and
+          processed based on the result of the super over{" "}
         </div>,
         <div>
           <span className="font-bold">Player Odds:</span> There are player odds
           next to a few named players for different events. In case you want to
           bet on a player that is not named on the odds list, the player will
-          fall under the Other category and will have respective odds next to it
-          (All players not showing up in the list have been clubbed together as
-          Other).
+          fall under the <span className="font-bold">Others category</span> and
+          will have respective odds next to it (All players not showing up in
+          the list have been clubbed together as Other).
         </div>,
         <div>
           <span className="font-bold">1st Innings Runs:</span> In case you bet
@@ -53,7 +61,7 @@ export default function Rules() {
     {
       title: "Match Rules:",
       points: [
-        <div>The maximum bet amount allowed per match is 750k NGN.</div>,
+        <div>The maximum bet amount allowed per match is 600,000.</div>,
         <div>
           The link to bet on a match will close 5 minutes before the toss of
           that match.
@@ -79,14 +87,14 @@ export default function Rules() {
         <div>
           1st Innings Runs: In case you bet on a team scoring X runs in 1st
           innings, and that team bats 2nd, then the bet will be considered void,
-          i.e. no profit no loss.
+          i.e. no profit no loss
         </div>,
       ],
     },
     {
       title: "Tournament: Winners Rules",
       points: [
-        <div>The maximum bet amount allowed per round is 200k NGN.</div>,
+        <div>The maximum bet amount allowed per round is 300,000.</div>,
         <div>
           A maximum of 2 bets will be allowed per individual for the outcome of
           the winners of the tournament. There will be a fresh set of odds
@@ -94,20 +102,26 @@ export default function Rules() {
         </div>,
         <div>
           The bets for each round will be frozen before the 1st match of that
-          round begins.
+          round begins
         </div>,
       ],
     },
     {
       title: "Tournament: Top Players Rules",
       points: [
-        <div>The maximum bet amount allowed for this section is 200k NGN.</div>,
+        <div>The maximum bet amount allowed for this section is 300,000.</div>,
         <div>The bets will be frozen before the start of the tournament.</div>,
         <div>
-          Player Odds: There are player odds next to a few named players for
+          • Player Odds: There are player odds next to a few named players for
           different events. In case you want to bet on a player that is not
           named on the odds list, the player will fall under the Other category
           and will have respective odds next to it.
+        </div>,
+        <div>
+          • Female Player Runs: For calculation of female player runs, negative
+          runs scored will also be included in the final tally of runs for the
+          match / tournament. In case of a tie in the runs for the female
+          player, the player with the best economy rates will be chosen a winner
         </div>,
       ],
     },

@@ -24,7 +24,7 @@ export default function Dream11ScoringRules() {
         id: 1,
         name: "Batting Points",
         points: [
-          { id: 1, action: "Run Scored", value: "+1" },
+          { id: 1, action: "Run Scored", value: "+2" },
           { id: 2, action: "Six (6)", value: "+2" },
         ],
       },
@@ -51,7 +51,7 @@ export default function Dream11ScoringRules() {
           <ul className="list-disc pl-4 space-y-1 text-sm">
             <li>
               Missed the chance to become an owner? No problem, we’ve got you
-              covered.
+              covered
             </li>
             <li>
               You can now create your own team of superheroes from the player
@@ -72,7 +72,7 @@ export default function Dream11ScoringRules() {
             </li>
             <li>
               <strong>Hurry up!</strong> Team entry window will close by{" "}
-              <strong>8th May, 8 am</strong>.
+              <strong>23rd April, 8 am</strong>.
             </li>
           </ul>
         </div>
@@ -160,9 +160,9 @@ export default function Dream11ScoringRules() {
           </h2>
           <ul className="list-disc list-inside space-y-1 text-sm">
             <li>Rank 1: 1 Million NGN</li>
-            <li>Rank 2: 500k NGN</li>
-            <li>Rank 3: 250k NGN</li>
-            <li>Ranks 4–8: 50k NGN each</li>
+            <li>Rank 2: 750k NGN</li>
+            <li>Rank 3: 500k NGN</li>
+            <li>Ranks 4–12: 100k NGN each</li>
           </ul>
         </div>
       </div>

@@ -97,7 +97,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                 Questions
               </p>
             </div>
-            {!managerRole && (
+            { (
               <div className="flex flex-none items-center gap-x-5">
                 <button
                   type="button"
@@ -283,7 +283,7 @@ export default function QuestionsPanel({ match, questions, setOpen, setQuestion,
                                         </div>
                                       ))}
                                     </div>
-                                    {!managerRole && (
+                                    { (
                                       <div className="flex gap-x-4 mt-4">
                                         <button
                                           type="button"
