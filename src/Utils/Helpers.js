@@ -1,19 +1,30 @@
+import jwtDecode from "jwt-decode";
 import numeral from "numeral";
 
+const decodeToken = (token) => {
+  if (!token) return null;
+  try {
+    return jwtDecode(token);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
 export const isAdmin = (token) => {
   if (!token) return false;
-  const role = JSON.parse(token)?.role;
+  const role = getRole(token);
   return role === "admin" || role === "manager";
 };
 
 export const getRole = (token) => {
   if (!token) return null;
-  return JSON.parse(token)?.role;
+  const decodedToken = decodeToken(token);
+  return decodedToken?.role;
 };
 
 export const isManager = (token) => {
   if (!token) return false;
-  const role = JSON.parse(token)?.role;
+  const role = getRole(token);
   return role === "manager";
 };
 

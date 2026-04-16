@@ -16,7 +16,7 @@ import PublicRoutes from "./features/Routes/PublicRoutes";
 function App() {
   moment.tz.setDefault();
   const store_token = useSelector((state) => state.auth.JWTtoken);
-  const storage_token = localStorage.getItem("token");
+  const storage_token = localStorage.getItem("encodedToken");
 
   return (
     <Layout>

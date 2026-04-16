@@ -31,8 +31,6 @@ export default function Login({ setUserToken }) {
     try {
       const res = await login(data).unwrap();
       dispatch(setCredentials(res));
-      navigate("/");
-      toast.success("Logged in successfully!");
     } catch (error) {
       if (error.status == 401 || error.status == 422) {
         setError("password", { type: "custom", message: error?.data?.message });

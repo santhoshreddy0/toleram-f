@@ -6,14 +6,13 @@ import { useVerifyTokenMutation } from "../../app/Services/authApi";
 function Protected(props) {
     const dispatch = useDispatch();
     const store_token = useSelector((state) => state.auth.JWTtoken);
-    const storage_token = localStorage.getItem("token");
+    const storage_token = localStorage.getItem("encodedToken");
     const [verifyToken] = useVerifyTokenMutation();
 
     const verifyUser = async (token) => {
         try {
-            await verifyToken(token).unwrap();
+            const resp = await verifyToken(token).unwrap();
         } catch (error) {
-            localStorage.clear();
             dispatch(unsetCredentials());
         }
     }
@@ -21,12 +20,9 @@ function Protected(props) {
     if(!store_token) {
         if(storage_token) {
             verifyUser(storage_token);
-        
+
             const user = {
-                name : localStorage.getItem('name'),
-                email : JSON.parse(storage_token).email,
                 token : localStorage.getItem('encodedToken'),
-                id : JSON.parse(storage_token).id
                 }
             dispatch(setCredentials(user));
 

@@ -5,16 +5,14 @@ const slice = createSlice({
   name: "auth",
   initialState: { user: null, JWTtoken: null, error: null },
   reducers: {
-    setCredentials: (state, { payload: user }) => {
+    setCredentials: (state, { payload: data }) => {
       try {
         // Save the JWT in session storage
-        const token = jwt_decode(user.token);
-        localStorage.setItem("token", JSON.stringify(token));
-        localStorage.setItem("encodedToken", user.token);
-        localStorage.setItem("name", user.name);
+        const token = jwt_decode(data.token);
+        localStorage.setItem("encodedToken", data.token);
+        localStorage.setItem("name", token.name);
 
-        state.user = user;
-        state.JWTtoken = JSON.stringify(token);
+        state.JWTtoken = data.token;
       } catch (e) {
         console.log(e);
         // What to do here?
@@ -23,7 +21,6 @@ const slice = createSlice({
     unsetCredentials: (state) => {
       try {
         // log the user out by unsetting everything
-        localStorage.removeItem("token");
         localStorage.removeItem("encodedToken");
         localStorage.removeItem("name");
         localStorage.removeItem("addPopup");
