@@ -13,6 +13,10 @@ const slice = createSlice({
         localStorage.setItem("name", token.name);
 
         state.JWTtoken = data.token;
+        state.user = {
+          name: token.name,
+          email: token.email,
+        };
       } catch (e) {
         console.log(e);
         // What to do here?
