@@ -9,12 +9,8 @@ const authApi = baseApi.injectEndpoints({
                 body: credentials,
             }),
         }),
-        verifyToken: builder.mutation({
-            query: (token) => ({
-                url: '/auth/verify',
-                method: 'POST',
-                body: { token },
-            }),
+        verifyToken: builder.query({
+            query: () => '/auth/verify',
         }),
     }),
     overrideExisting: false,
@@ -22,5 +18,5 @@ const authApi = baseApi.injectEndpoints({
 
 export const {
     useLoginMutation,
-    useVerifyTokenMutation,
+    useVerifyTokenQuery,
 } = authApi;

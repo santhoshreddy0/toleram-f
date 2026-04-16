@@ -20,7 +20,7 @@ const TeamDetails = ({ teamData, handleEdit }) => {
 
   return (
     <div
-      className="relative h-full w-full overflow-hidden"
+      className="relative h-full w-full overflow-hidden rounded-2xl border border-[#f9d274]/25 shadow-[0_18px_44px_rgba(0,0,0,0.45)]"
       style={{
         background:
           "radial-gradient(ellipse at center, #2a8c3c 0%, #1b6c2a 40%, #0e4018 75%, #08280e 100%)",
