@@ -5,11 +5,13 @@ import { setCredentials } from "../../Utils/AuthSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ setUserToken }) {
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     email: "",
@@ -29,6 +31,8 @@ export default function Login({ setUserToken }) {
     try {
       const res = await login(data).unwrap();
       dispatch(setCredentials(res));
+      navigate("/");
+      toast.success("Logged in successfully!");
     } catch (error) {
       if (error.status == 401 || error.status == 422) {
         setError("password", { type: "custom", message: error?.data?.message });

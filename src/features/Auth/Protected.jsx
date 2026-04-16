@@ -1,20 +1,36 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../../Utils/AuthSlice";
+import { setCredentials, unsetCredentials } from "../../Utils/AuthSlice";
+import { useVerifyTokenMutation } from "../../app/Services/authApi";
 
 function Protected(props) {
     const dispatch = useDispatch();
     const store_token = useSelector((state) => state.auth.JWTtoken);
     const storage_token = localStorage.getItem("token");
+    const [verifyToken] = useVerifyTokenMutation();
+
+    const verifyUser = async (token) => {
+        try {
+            await verifyToken(token).unwrap();
+        } catch (error) {
+            localStorage.clear();
+            dispatch(unsetCredentials());
+        }
+    }
 
     if(!store_token) {
-        const user = {
-            name : localStorage.getItem('name'),
-            email : JSON.parse(storage_token).email,
-            token : localStorage.getItem('encodedToken'),
-            id : JSON.parse(storage_token).id
+        if(storage_token) {
+            verifyUser(storage_token);
+        
+            const user = {
+                name : localStorage.getItem('name'),
+                email : JSON.parse(storage_token).email,
+                token : localStorage.getItem('encodedToken'),
+                id : JSON.parse(storage_token).id
+                }
+            dispatch(setCredentials(user));
+
         }
-        dispatch(setCredentials(user));
     }
 
     return (

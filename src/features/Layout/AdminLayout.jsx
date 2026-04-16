@@ -18,7 +18,7 @@ import {
 } from "@heroicons/react/24/outline";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
 import { isAdmin, isManager } from "../../Utils/Helpers";
 
 function classNames(...classes) {
@@ -62,10 +62,9 @@ const nav = [
 export default function AdminLayout() {
   const token = useSelector((state) => state.auth.JWTtoken);
   const location = useLocation();
-  const navigate = useNavigate();
 
   if (!isAdmin(token)) {
-    navigate("/matches");
+    return <Navigate to="/matches" replace />;
   }
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
