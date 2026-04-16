@@ -9,9 +9,9 @@ function Protected(props) {
     const storage_token = localStorage.getItem("token");
     const [verifyToken] = useVerifyTokenMutation();
 
-    const verifyUser = async (token) => {
+    const verifyUser = async () => {
         try {
-            await verifyToken(token).unwrap();
+            await verifyToken().unwrap();
         } catch (error) {
             localStorage.clear();
             dispatch(unsetCredentials());
@@ -20,7 +20,7 @@ function Protected(props) {
 
     if(!store_token) {
         if(storage_token) {
-            verifyUser(storage_token);
+            verifyUser();
         
             const user = {
                 name : localStorage.getItem('name'),

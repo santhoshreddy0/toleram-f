@@ -10,10 +10,9 @@ const authApi = baseApi.injectEndpoints({
             }),
         }),
         verifyToken: builder.mutation({
-            query: (token) => ({
+            query: () => ({
                 url: '/auth/verify',
                 method: 'POST',
-                body: { token },
             }),
         }),
     }),
