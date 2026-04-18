@@ -6,8 +6,6 @@ import {
 } from "../../app/Services/commentsApi";
 import { useGetRoomQuery } from "../../app/Services/roomsApi";
 import moment from "moment";
-import BackButton from "../BackButton";
-import { getUsernameFromEmail } from "../../Utils/Helpers";
 
 const getRandomColor = (name) => {
   const colors = [
@@ -30,11 +28,18 @@ const getInitials = (name) => {
   return name.charAt(0).toUpperCase();
 };
 
+const getDisplayName = (user) =>
+  user?.name || (user?.email ? user.email : "You");
+
+const getCommentAuthor = (comment) =>
+  comment.name || (comment.email ? comment.email : "unanimous fan");
+
 const CommentsSection = ({ title = "", description = "", roomName }) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [postComment, { isLoading: postLoading }] = usePostCommentMutation();
   const userDetails = useSelector((state) => state.auth.user);
+  const currentUserName = getDisplayName(userDetails);
 
   const { data: room, isLoading: roomLoading } = useGetRoomQuery(roomName, {
     skip: !roomName,
@@ -44,7 +49,6 @@ const CommentsSection = ({ title = "", description = "", roomName }) => {
   const {
     data: commentsData,
     isLoading: commentsLoading,
-    refetch: refetchComments,
   } = useGetCommentsQuery({ roomId: room?.id }, { skip: !room?.id });
 
   const { refetch: fetchMore } = useGetCommentsQuery(
@@ -83,15 +87,13 @@ const CommentsSection = ({ title = "", description = "", roomName }) => {
 
     const newComment = {
       id: tempId,
-      name:
-        userDetails.name ||
-        (userDetails.email ? (userDetails.email) : "You"),
+      name: currentUserName,
       comment,
       created_at: "Sending...",
       pending: true,
     };
 
-    setComments([newComment, ...comments]);
+    setComments((prevComments) => [newComment, ...prevComments]);
     setComment("");
 
     try {
@@ -123,133 +125,157 @@ const CommentsSection = ({ title = "", description = "", roomName }) => {
   };
 
   return (
-    <>
-      <div className="overflow-hidden h-screen bg-gray-900 shadow-lg">
-        <div className="rounded-lg shadow-md">
+    <section className="mx-auto w-full max-w-5xl px-3 pb-8 pt-3 text-[#f4efe3] sm:px-4 sm:pb-10">
+      <div className="relative overflow-hidden rounded-[28px] border border-[#f8d06f]/20 bg-[linear-gradient(145deg,#06101a_0%,#0b2135_52%,#08192b_100%)] shadow-[0_24px_60px_rgba(0,0,0,0.42)]">
+        <div className="pointer-events-none absolute -left-20 top-10 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(248,208,111,0.18)_0%,rgba(248,208,111,0)_72%)] blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 bottom-16 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(81,205,255,0.18)_0%,rgba(81,205,255,0)_72%)] blur-3xl" />
+
+        <div className="relative border-b border-[#f8d06f]/14 px-4 pb-5 pt-5 sm:px-6 sm:pb-6 sm:pt-6">
+          <div className="inline-flex items-center rounded-full border border-[#f8d06f]/30 bg-[#081523]/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-[#f8d06f] sm:text-[11px]">
+            Fan Room
+          </div>
           {title && (
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-100">
+            <h2 className="mt-4 text-left text-2xl font-black tracking-[0.04em] text-[#fff3d1] sm:text-3xl">
               {title}
             </h2>
           )}
-          {description && <p className="text-gray-300">{description}</p>}
+          {description && (
+            <p className="mt-2 max-w-2xl text-left text-sm leading-6 text-[#c9d6e6] sm:text-base">
+              {description}
+            </p>
+          )}
+          <div className="mt-5 h-px w-full bg-[linear-gradient(90deg,rgba(248,208,111,0)_0%,rgba(248,208,111,0.6)_20%,rgba(81,205,255,0.3)_80%,rgba(81,205,255,0)_100%)]" />
         </div>
-        <div className="bg-gray-900 mt-4 mx-1 flex items-start space-x-4 px-1 sticky top-0 z-10 max-w-6xl mx-auto">
-          <div className="shrink-0">
-            <div
-              className={`flex items-center justify-center size-10 rounded-full text-white font-semibold ${getRandomColor(
-                userDetails.name ||
-                  (userDetails.email
-                    ? (userDetails.email)
-                    : "You")
-              )}`}
-            >
-              {getInitials(
-                userDetails.name ||
-                  (userDetails.email
-                    ? (userDetails.email)
-                    : "You")
-              )}
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <form
-              action="#"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSendMessage();
-              }}
-            >
-              <div className="pb-px">
-                <label htmlFor="comment" className="sr-only">
-                  Add your comment
-                </label>
-                <textarea
-                  id="comment"
-                  name="comment"
-                  rows={3}
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Add your comment..."
-                  className="bg-gray-900 block w-full resize-none text-base text-gray-100 rounded-md placeholder:text-gray-400 sm:text-sm/6"
-                />
-              </div>
-              <div className="flex justify-end pt-2">
-                <div className="shrink-0">
-                  <button
-                    type="submit"
-                    disabled={!room?.id || postLoading}
-                    className="inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:bg-green-300"
-                  >
-                    {postLoading ? "Posting..." : "Post comment"}
-                  </button>
+
+        <div className="sticky top-[5.25rem] z-10 px-3 pt-3 sm:px-4">
+          <div className="rounded-2xl border border-[#f8d06f]/18 bg-[linear-gradient(160deg,rgba(7,19,33,0.96)_0%,rgba(10,30,47,0.92)_55%,rgba(7,18,30,0.95)_100%)] p-3 shadow-[0_18px_36px_rgba(0,0,0,0.32)] backdrop-blur-md sm:p-4">
+            <div className="flex items-start gap-3">
+              <div className="shrink-0">
+                <div
+                  className={`flex size-11 items-center justify-center rounded-full text-sm font-black text-white ring-2 ring-white/10 ${getRandomColor(
+                    currentUserName
+                  )}`}
+                >
+                  {getInitials(currentUserName)}
                 </div>
               </div>
-            </form>
+
+              <div className="min-w-0 flex-1 text-left">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#f8d06f]">
+                  Share your take with the room
+                </p>
+                <p className="mt-1 text-xs text-[#9fb1c9] sm:text-sm">
+                  Keep it sharp, readable, and worth the scroll.
+                </p>
+
+                <form
+                  className="mt-3"
+                  action="#"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }}
+                >
+                  <div className="rounded-2xl border border-[#f8d06f]/16 bg-[#06111d]/88 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] transition-colors focus-within:border-[#f8d06f]/40">
+                    <label htmlFor="comment" className="sr-only">
+                      Add your comment
+                    </label>
+                    <textarea
+                      id="comment"
+                      name="comment"
+                      rows={4}
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      placeholder="Drop your read on the action..."
+                      className="block w-full resize-none border-0 bg-transparent p-0 text-sm leading-6 text-[#eef4ff] placeholder:text-[#6f849f] focus:outline-none focus:ring-0"
+                    />
+                  </div>
+
+                  <div className="mt-3 flex justify-end">
+                    <button
+                      type="submit"
+                      disabled={!room?.id || postLoading}
+                      className="inline-flex items-center justify-center rounded-full border border-[#f8d06f]/60 bg-gradient-to-r from-[#f8d06f] via-[#efbb58] to-[#e2ad45] px-5 py-2.5 text-xs font-black uppercase tracking-[0.16em] text-[#1f1402] shadow-[0_14px_34px_rgba(248,208,111,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:translate-y-0"
+                    >
+                      {postLoading ? "Posting..." : "Post Comment"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="overflow-y-auto h-full overflow-hidden scrollbar-hide max-w-5xl mx-auto sm:px-0">
+
+        <div className="px-3 pb-4 pt-4 sm:px-4 sm:pb-5">
           {roomLoading || commentsLoading ? (
-            <div className="flex justify-center py-4">
-              <p className="text-gray-400">Loading comments...</p>
+            <div className="rounded-2xl border border-[#f8d06f]/14 bg-[#071321]/78 px-6 py-10 text-center text-sm text-[#a8b8cc]">
+              Loading the conversation...
             </div>
           ) : comments.length === 0 ? (
-            <div className="flex justify-center py-4">
-              <p className="text-gray-400">No discussions yet. Start one!</p>
+            <div className="rounded-2xl border border-[#f8d06f]/14 bg-[linear-gradient(160deg,rgba(7,19,33,0.92)_0%,rgba(8,24,38,0.85)_100%)] px-6 py-12 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#f8d06f]">
+                First voice in the room
+              </p>
+              <p className="mt-3 text-sm leading-6 text-[#cad7e7]">
+                No discussions yet. Start the thread with a take worth
+                backing.
+              </p>
             </div>
           ) : (
             <>
-              <ul role="list">
-                {comments.map((comment) => (
-                  <li key={comment.id} className="flex gap-x-4 py-2">
-                    <div
-                      className={`flex items-center justify-center size-8 flex-none rounded-full text-white font-semibold ${getRandomColor(
-                        comment.name ||
-                          (comment.email
-                            ? (comment.email)
-                            : "unanonymous")
-                      )}`}
-                    >
-                      {getInitials(
-                        comment.name ||
-                          (comment.email
-                            ? (comment.email)
-                            : "unanonymous")
-                      )}
-                    </div>
-                    <div className="flex-auto">
-                      <div className="flex items-baseline justify-between gap-x-4">
-                        <p className="text-sm/6 font-semibold text-white-900">
-                          {comment.name ||
-                            (comment.email
-                              ? (comment.email)
-                              : "unanonymous")}
-                        </p>
-                        <p className="flex-none text-xs text-gray-300">
-                          <time dateTime={comment.created_at}>
-                            {comment.pending
-                              ? "Sending..."
-                              : formatTime(comment.created_at)}
-                          </time>
-                        </p>
-                      </div>
-                      <p
-                        className={`mt-1 line-clamp-2 text-sm/6 break-words text-left ${
-                          comment.pending ? "text-gray-500" : "text-gray-300"
-                        }`}
-                      >
-                        {comment.comment}
-                      </p>
-                    </div>
-                  </li>
-                ))}
+              <ul role="list" className="space-y-3">
+                {comments.map((commentItem) => {
+                  const authorName = getCommentAuthor(commentItem);
+
+                  return (
+                    <li key={commentItem.id} className="list-none">
+                      <article className="rounded-2xl border border-[#f8d06f]/12 bg-[linear-gradient(145deg,rgba(7,17,30,0.94)_0%,rgba(10,27,43,0.88)_55%,rgba(8,18,31,0.94)_100%)] p-4 text-left shadow-[0_14px_30px_rgba(0,0,0,0.24)] transition-colors duration-300 hover:border-[#f8d06f]/28 sm:p-5">
+                        <div className="flex gap-3">
+                          <div
+                            className={`flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-black text-white ring-2 ring-white/10 ${getRandomColor(
+                              authorName
+                            )}`}
+                          >
+                            {getInitials(authorName)}
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                              <p className="text-sm font-bold tracking-[0.02em] text-[#fff1c7]">
+                                {authorName}
+                              </p>
+                              <p className="text-xs text-[#8fa4bf]">
+                                <time dateTime={commentItem.created_at}>
+                                  {commentItem.pending
+                                    ? "Sending..."
+                                    : formatTime(commentItem.created_at)}
+                                </time>
+                              </p>
+                            </div>
+
+                            <p
+                              className={`mt-3 whitespace-pre-wrap break-words text-sm leading-6 ${
+                                commentItem.pending
+                                  ? "text-[#8c9aae]"
+                                  : "text-[#dbe6f4]"
+                              }`}
+                            >
+                              {commentItem.comment}
+                            </p>
+                          </div>
+                        </div>
+                      </article>
+                    </li>
+                  );
+                })}
               </ul>
               {nextToken && (
-                <div className="flex justify-center mt-4">
+                <div className="mt-5 flex justify-center">
                   <button
-                    className="inline-flex items-center px-3 py-1.5 text-sm font-semibold text-green-600 hover:text-green-500"
+                    className="inline-flex items-center rounded-full border border-[#f8d06f]/32 bg-[#081523]/88 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#f6df9f] transition-all duration-300 hover:border-[#f8d06f]/60 hover:bg-[#0d2237]"
                     onClick={loadMoreComments}
                   >
-                    Load more
+                    Load More
                   </button>
                 </div>
               )}
@@ -257,7 +283,7 @@ const CommentsSection = ({ title = "", description = "", roomName }) => {
           )}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

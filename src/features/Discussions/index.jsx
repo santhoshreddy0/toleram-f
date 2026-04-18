@@ -2,7 +2,6 @@ import React from "react";
 import CommentsSection from "../../Components/comments/CommentsSection";
 
 function Discussions() {
-    console.log("Discussions");
   return (
     <div className="px-4 sm:px-8 mt-2">
       <CommentsSection

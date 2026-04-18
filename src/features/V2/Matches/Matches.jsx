@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/20/solid";
 import moment from "moment";
 import AddPopup from "../../../Components/PopUp/AddPopup";
+import Discussions from "../../Discussions";
 
 function Matches() {
   const { data: matches, isLoading, isError } = useGetMatchesQuery();
@@ -118,7 +119,7 @@ function Matches() {
   return (
     <>
       <MenuTabs>
-        <section className="mx-auto w-full max-w-7xl px-4 pb-24 pt-5 sm:px-6">
+        <section className="mx-auto w-full max-w-7xl px-4  pt-5 sm:px-6">
           <div className="rounded-2xl border border-[#f8d06f]/18 bg-[linear-gradient(120deg,rgba(8,20,34,0.9)_0%,rgba(9,27,43,0.82)_55%,rgba(6,16,28,0.92)_100%)] px-5 py-4 text-left shadow-[0_16px_34px_rgba(0,0,0,0.28)]">
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f8d06f]">
               Match Center
@@ -173,6 +174,7 @@ function Matches() {
           )}
         </section>
       </MenuTabs>
+      <Discussions/>
       <AddPopup />
     </>
   );
