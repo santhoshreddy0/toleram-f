@@ -327,7 +327,7 @@ const PlayerSelection = ({
             No players match your filters
           </div>
         ) : (
-          filteredPlayers.map((player) => (
+          filteredPlayers.sort((a, b) => a.name.localeCompare(b.name)).map((player) => (
             <PlayerRow
               key={player.id}
               player={player}
