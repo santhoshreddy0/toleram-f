@@ -26,9 +26,12 @@ const dream11Api = baseApi.injectEndpoints({
     }),
     getDream11Leaderboard: builder.query({
       query: () => `/dream11/leaderboard`,
-    })
+    }),
+    queryAlldream11Teams: builder.query({
+      query: () => `dream11/super12-teams`,
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useCreateDream11TeamMutation, useGetDream11TeamQuery, useUpdateDream11TeamMutation, useGetDream11LeaderboardQuery } = dream11Api;
+export const { useCreateDream11TeamMutation, useGetDream11TeamQuery, useUpdateDream11TeamMutation, useGetDream11LeaderboardQuery, useQueryAlldream11TeamsQuery } = dream11Api;

@@ -48,6 +48,7 @@ function AuthRoutes() {
       <Route path="/super12">
         <Route index Component={Dream11} />
       </Route>
+      <Route path="leaderboard" Component={Dream11Leaderboard} />
 
       <Route path="/discussions">
         <Route index Component={Discussions} />
@@ -68,8 +69,22 @@ function AuthRoutes() {
         <Route path="tournament" Component={Tournamet} />
         <Route path="match/:matchId/score" Component={ScoreDashboard} />
         <Route path="user" Component={User} />
-        <Route path="super12" element={<AdminOnlyRoute><Super12 /></AdminOnlyRoute>} />
-        <Route path="clear" element={<AdminOnlyRoute><ClearLeaderboard /></AdminOnlyRoute>} />
+        <Route
+          path="super12"
+          element={
+            <AdminOnlyRoute>
+              <Super12 />
+            </AdminOnlyRoute>
+          }
+        />
+        <Route
+          path="clear"
+          element={
+            <AdminOnlyRoute>
+              <ClearLeaderboard />
+            </AdminOnlyRoute>
+          }
+        />
         <Route
           path="tournament/rounds/:roundId"
           Component={AdminRoundDetails}
