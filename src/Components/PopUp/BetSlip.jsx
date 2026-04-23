@@ -23,7 +23,7 @@ function BetSlip({
     clearErrors,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm();  
 
   const onAmountChange = (e, questionId) => {
     let val = e.target.value
@@ -105,7 +105,9 @@ function BetSlip({
                 const question = questions?.questions?.find((i) => i.id == key);
                 const option = questions?.questions
                   ?.find((i) => i.id == key)
-                  .options.find((i) => i.id == formData[key].option);
+                  ?.options.find((i) => i.id == formData[key].option);
+           
+                  
 
                 return (
                   <li
@@ -120,7 +122,10 @@ function BetSlip({
                       <div className="min-w-0 flex-auto text-xl">
                         <p className="font-semibold leading-6 text-[#fff3d2]">
                           <CogIcon className="mr-1 inline-block h-5 w-5 text-[#f8d06f]" />
-                          {question?.question}
+                          <span className={`${!question ? "text-red-500" : ""}`}>
+                            {question?.question ||
+                              "Question not found , Please remove this bet"}
+                          </span>
                         </p>
                         <p className="mt-1 truncate text-base leading-5 text-[#8de8ba]">
                           {option?.option + " X " + option?.odds}
