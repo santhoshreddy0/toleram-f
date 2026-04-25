@@ -12,6 +12,8 @@ import { Menu } from "@headlessui/react";
 import MenuTabs from "../Layout/MenuTabs";
 
 function Dream11Leaderboard() {
+  const TOP_RANK_LIMIT = 15;
+
   const userDetails = useSelector((state) => state.auth.user);
   const { data: leaderboard, isLoading } = useGetDream11LeaderboardQuery();
   const {data: allTeams, isLoading: isAllTeamsLoading , isError: isAllTeamsError} = useQueryAlldream11TeamsQuery();  
@@ -45,12 +47,13 @@ function Dream11Leaderboard() {
     return colors[index % colors.length];
   };
 
+  const isCurrentUser = (user) =>
+    user.email === userDetails.email || user.userId === userDetails.id;
+
   const getUserRank = () => {
     if (!leaderboard || !leaderboard.leaderboard) return null;
 
-    const userEntry = leaderboard.leaderboard.find(
-      (user) => user.userId === userDetails.id
-    );
+    const userEntry = leaderboard.leaderboard.find(isCurrentUser);
     return userEntry ? userEntry.rank : null;
   };
 
@@ -67,30 +70,43 @@ function Dream11Leaderboard() {
 
     const originalLeaderboard = [...leaderboard.leaderboard];
 
-    if (leaderboard.isInTop || (userRank && userRank <= 10)) {
+    if (userRank && userRank <= TOP_RANK_LIMIT) {
       return originalLeaderboard;
     }
 
-    const topTenPlayers = originalLeaderboard.filter((user) => user.rank <= 10);
-
-    const userIndex = originalLeaderboard.findIndex(
-      (user) => user.userId === userDetails.id
+    const topRankedPlayers = originalLeaderboard.filter(
+      (user) => user.rank <= TOP_RANK_LIMIT
     );
+
+    const userIndex = originalLeaderboard.findIndex(isCurrentUser);
 
     if (userIndex === -1) {
       return originalLeaderboard;
     }
 
+    const startIndex = Math.max(0, userIndex - 1);
     const endIndex = Math.min(originalLeaderboard.length - 1, userIndex + 1);
-    const userContext = originalLeaderboard.slice(userIndex, endIndex + 1);
+    const userContext = originalLeaderboard
+      .slice(startIndex, endIndex + 1)
+      .filter((user) => user.rank > TOP_RANK_LIMIT);
 
-    const result = [
-      ...topTenPlayers,
-      ...(userRank > 12 ? [{ isSeparator: true, id: "separator-1" }] : []),
+    const firstContextRank = userContext[0]?.rank;
+
+    if (!firstContextRank) {
+      return topRankedPlayers;
+    }
+
+    return [
+      ...topRankedPlayers,
+      {
+        isSeparator: true,
+        id: `separator-${TOP_RANK_LIMIT}-${firstContextRank}`,
+        skippedRankCount: firstContextRank - TOP_RANK_LIMIT - 1,
+        fromRank: TOP_RANK_LIMIT + 1,
+        toRank: firstContextRank - 1,
+      },
       ...userContext,
     ];
-
-    return result;
   };
 
   const displayLeaderboard = getDisplayLeaderboard();
@@ -191,7 +207,7 @@ function Dream11Leaderboard() {
 
   return (
     <MenuTabs>
-      <div className="pb-6">
+      <div className="pb-20">
         <div className="mx-auto max-w-2xl">
           {leaderboard && leaderboard?.leaderboard.length === 0 ? (
             allTeams && allTeams.length > 0 ? (
@@ -211,7 +227,7 @@ function Dream11Leaderboard() {
                           Congratulations!
                         </h3>
                         <p className="text-sm text-[#fde6b4]">
-                          You're in the top 10!
+                          You're in the top 15!
                         </p>
                       </div>
                     </div>
@@ -268,18 +284,30 @@ function Dream11Leaderboard() {
                       return (
                         <div
                           key={item.id}
-                          className="flex items-center justify-center py-3 text-[#6b7e95]"
+                          className="my-2 border-y border-dashed border-[#f8d06f]/30 bg-[#061320] px-4 py-5 text-[#8ba0b9] shadow-[inset_0_1px_0_rgba(248,208,111,0.08),inset_0_-1px_0_rgba(248,208,111,0.08)]"
                         >
-                          <div className="flex items-center">
-                            <div className="h-px w-16 bg-[#f8d06f]/20" />
-                            <EllipsisHorizontalIcon className="mx-2 h-6 w-6" />
-                            <div className="h-px w-16 bg-[#f8d06f]/20" />
+                          <div className="flex items-center gap-3 text-center">
+                            <div className="h-px flex-1 bg-[#f8d06f]/20" />
+                            <div className="flex shrink-0 flex-col items-center gap-1 rounded-xl border border-[#f8d06f]/30 bg-[rgba(248,208,111,0.08)] px-4 py-2">
+                              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#ffe39a]">
+                                <EllipsisHorizontalIcon className="h-5 w-5 text-[#f8d06f]" />
+                                <span>Jump to your rank</span>
+                              </div>
+                              <span className="text-[11px] font-semibold normal-case tracking-normal text-[#b9c9dd]">
+                                {item.skippedRankCount > 1
+                                  ? `Ranks ${item.fromRank}-${item.toRank} are hidden`
+                                  : item.skippedRankCount === 1
+                                    ? `Rank ${item.fromRank} is hidden`
+                                    : `Ranks continue after top ${TOP_RANK_LIMIT}`}
+                              </span>
+                            </div>
+                            <div className="h-px flex-1 bg-[#f8d06f]/20" />
                           </div>
                         </div>
                       );
                     }
 
-                    const isMe = item.userId === userDetails.id;
+                    const isMe = isCurrentUser(item);
                     return (
                       <div
                         key={item.userId}
